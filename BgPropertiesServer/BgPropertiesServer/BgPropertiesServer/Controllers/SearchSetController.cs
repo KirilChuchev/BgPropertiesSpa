@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace BgPropertiesServer.Controllers
 {
-    
+
     [Route("[controller]/[action]")]
     //[Route("[controller]")]
     [ApiController]
@@ -34,9 +34,14 @@ namespace BgPropertiesServer.Controllers
         [HttpGet("{searchSetId}"), ActionName("one")]
         //[Route("[controller]/{searchSetId}")]
         //[Route("/{searchSetId}")]
-        public IEnumerable<string> GetOneById(string searchSetId)
+        public async Task<IActionResult> GetOneById(string searchSetId)
         {
-            return new string[] { "value1", "value2" };
+
+            var entity = await this.db.SearchSets.FirstOrDefaultAsync(x => x.Id == searchSetId);
+
+            return Ok(entity);
+            //return new string[] { "value1", "value2" };
+
         }
 
         // GET api/<SearchSetController>/5
@@ -50,7 +55,7 @@ namespace BgPropertiesServer.Controllers
         // GET api/<SearchSetController>/5
         //[HttpGet("/all/{userId}")]
         [HttpGet("{userId}"), ActionName("all")]
-        
+
         public async Task<IActionResult> GetAllByUserId(string userId)
         {
             var user = await this.db.AspNetUsers.FirstOrDefaultAsync(x => x.Id == userId);
@@ -66,7 +71,7 @@ namespace BgPropertiesServer.Controllers
         {
             //try
             //{
-                
+
             //}
             //catch (Exception е)
             //{

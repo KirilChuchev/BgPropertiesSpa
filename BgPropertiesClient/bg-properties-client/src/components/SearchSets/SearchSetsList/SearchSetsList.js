@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useState } from "react";
 import SearchSetShortDetails from "../SearchSetShortDetails";
-import SearchSet from "../SearchSet";
+// import SearchSet from "../SearchSet";
 
 const SearchSetsList = ({ searchSets, userId }) => {
   const [isClicked, setIsClicked] = useState(false);
@@ -9,11 +9,12 @@ const SearchSetsList = ({ searchSets, userId }) => {
 
   function onSearchSetClick(id) {
     setIsClicked(true);
-    setSearchSetIdClicked(id)
+    setSearchSetIdClicked(id);
   }
 
   if (isClicked) {
-    return <SearchSet searchSet={searchSets.find(x => x.id === searchSetIdClicked)}/>;
+    // return <SearchSet searchSet={searchSets.find(x => x.id === searchSetIdClicked)}/>;
+    return <Redirect to={`/searchsets/one/${searchSetIdClicked}`} />;
   }
 
   return (
