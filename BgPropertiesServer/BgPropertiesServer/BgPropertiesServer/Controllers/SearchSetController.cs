@@ -36,8 +36,8 @@ namespace BgPropertiesServer.Controllers
         //[Route("/{searchSetId}")]
         public async Task<IActionResult> GetOneById(string searchSetId)
         {
-
-            var entity = await this.db.SearchSets.FirstOrDefaultAsync(x => x.Id == searchSetId);
+            var user = await this.db.AspNetUsers.FirstOrDefaultAsync(x => x.Id == "kickz23b-5930-418e-90ad-03c749554101");
+            var entity = await this.searchSetService.GetOneAsViewModel(user, searchSetId);
 
             return Ok(entity);
             //return new string[] { "value1", "value2" };
