@@ -1,7 +1,30 @@
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import searchSetService from "../../../services/searchSetService";
 
-const SearchSet = ({ searchSet }) => {
+const SearchSet = () => {
   // TODO: да махна празните критерии още при crate-a
+
+  let { searchSetId } = useParams();
+  const [searchSet, setSearchSet] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    searchSetService.fetchOne(searchSetId).then((data) => {
+      setSearchSet(data);
+      setIsLoading(false);
+    });
+  }, [searchSetId]);
+
+  if (isLoading) {
+    return "Loading...";
+  }
+
+  if (!searchSet) {
+    return "No data fetched.";
+  }
+
   return (
     <>
       <p>SearchSet FULL details:</p>

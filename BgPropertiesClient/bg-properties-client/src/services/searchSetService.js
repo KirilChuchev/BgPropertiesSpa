@@ -13,7 +13,7 @@ function create(obj) {
 }
 
 function fetchOne(id) {
-  fetch(`/searchset/${id}`)
+  return fetch(`/searchset/one/${id}`)
     .then((res) => res.json())
     .catch((err) => console.log(err));
 }
