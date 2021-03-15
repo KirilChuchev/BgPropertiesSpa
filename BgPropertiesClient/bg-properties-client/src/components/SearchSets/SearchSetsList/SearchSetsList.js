@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import SearchSetShortDetails from "../../SearchSet/SearchSetShortDetails";
-import SearchSet from "../../SearchSet";
+import SearchSetShortDetails from "../SearchSetShortDetails";
+import SearchSet from "../SearchSet";
 
 const SearchSetsList = ({ searchSets, userId }) => {
   const [isClicked, setIsClicked] = useState(false);

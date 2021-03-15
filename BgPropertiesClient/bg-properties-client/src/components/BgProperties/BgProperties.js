@@ -7,8 +7,6 @@ import { useParams } from "react-router";
 const BgProperties = () => {
   let { searchSetId } = useParams();
 
-  console.log("id: " + searchSetId);
-
   const [bgPropertiesModel, setBgPropertiesModel] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isBgPropertyClicked, setIsBgPropertyClicked] = useState(false);
@@ -21,8 +19,6 @@ const BgProperties = () => {
       setIsLoading(false);
     });
   }, [searchSetId]);
-
-  console.log(bgPropertiesModel);
 
   function onBgPropertyClick(id) {
     setIsBgPropertyClicked(true);

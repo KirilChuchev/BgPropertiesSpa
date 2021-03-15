@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const SearchSet = ({ searchSet }) => {
-  console.log(searchSet);
   // TODO: да махна празните критерии още при crate-a
   return (
     <>
@@ -26,7 +25,6 @@ const SearchSet = ({ searchSet }) => {
             </li>
           ))}
       </ol>
-      <button href="">BgProperties</button>
       <Link to={`/bg-properties/all/${searchSet.id}`} >Bg Properties</Link>
     </>
   );
