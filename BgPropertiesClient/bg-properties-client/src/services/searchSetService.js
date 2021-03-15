@@ -6,7 +6,6 @@ function create(obj) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(obj),
-    // body: obj,
   })
     .then((res) => res.json())
     .then((res) => console.log(res))
@@ -20,8 +19,6 @@ function fetchOne(id) {
 }
 
 function fetchAll(userId) {
-  console.log("fetchAll");
-  // fetch(`/searchset/all/${userId}`)
   return fetch(`/searchset/all/${userId}`)
     .then((res) => res.json())
     .catch((err) => console.log(err));

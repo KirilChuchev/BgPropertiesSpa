@@ -2,11 +2,11 @@ import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import BgProperties from "./components/BgProperties";
 import Home from "./components/Home";
-import SearchSet from "./components/SearchSet/SearchSet";
+// import SearchSet from "./components/SearchSets/SearchSet";
 import SearchSets from "./components/SearchSets";
 // import logo from './logo.svg';
 
-const searchSetId = "4e80ee26-4ec6-408f-9e64-b7cd4f3b3404";
+// const searchSetId = "4e80ee26-4ec6-408f-9e64-b7cd4f3b3404";
 const userId = "kickz23b-5930-418e-90ad-03c749554101";
 
 const App = () => (
@@ -14,7 +14,7 @@ const App = () => (
     <Switch>
       <Route path="/Home" exact component={Home} />
       <Route path="/" exact component={Home} />
-      <Route path="/searchset/all" exact component={() => (<SearchSets userId={userId} />)} />
+      <Route path="/searchsets/all" exact component={() => (<SearchSets userId={userId} />)} />
       {/* <Route path={`/searchset/:id`} exact component={() => (<SearchSet />)} /> */}
       <Route path="/bg-properties/all/:searchSetId" exact component={() => (<BgProperties />)} />
       {/* <Route></Route>
