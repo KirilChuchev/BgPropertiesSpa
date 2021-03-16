@@ -12,7 +12,7 @@ const SearchSetsList = ({ searchSets, userId }) => {
   }
 
   if (isClicked) {
-    return <Redirect to={`/searchsets/one/${searchSetIdClicked}`} />;
+    return <Redirect to={`/searchsets/${searchSetIdClicked}`} />;
   }
 
   return (
@@ -20,7 +20,7 @@ const SearchSetsList = ({ searchSets, userId }) => {
       <Link to="/">Go Home.</Link>
       <h2>Your SearchSets - short information:</h2>
       <h3>SearchSets for user: {userId}</h3>
-      <Link to="/searchsets/create/">Create new SearchSet</Link>
+      <Link to="/searchsets/create">Create new SearchSet</Link>
 
       <ol>
         {searchSets.map((x) => (

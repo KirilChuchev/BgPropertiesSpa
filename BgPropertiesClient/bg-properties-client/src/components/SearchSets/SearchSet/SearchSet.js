@@ -48,7 +48,7 @@ const SearchSet = () => {
             </li>
           ))}
       </ol>
-      <Link to={`/bg-properties/all/${searchSet.id}`} >Bg Properties</Link>
+      <Link to={`/searchsets/${searchSetId}/bg-properties`} >Bg Properties</Link>
     </>
   );
 };

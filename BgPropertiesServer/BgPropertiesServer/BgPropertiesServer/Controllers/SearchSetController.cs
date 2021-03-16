@@ -66,7 +66,7 @@ namespace BgPropertiesServer.Controllers
         }
 
         // POST <SearchSetController>
-        [HttpPost, ActionName("")]
+        [HttpPost, ActionName("create")]
         public async Task<IActionResult> Create([FromBody] SearchSetInputViewModel model)
         {
             //try
