@@ -8,7 +8,7 @@ const Home = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/searchsets/all">All your searchSets</Link>
+          <Link to="/searchsets">All your searchSets</Link>
         </li>
         <li>
           <Link to="/about">About</Link>

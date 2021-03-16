@@ -1,5 +1,5 @@
 function create(obj) {
-  return fetch(`/searchsets/`, {
+  return fetch(`/searchsets/create`, {
     method: "POST",
     headers: {
       Accept: "application/json, text/plain, */*",

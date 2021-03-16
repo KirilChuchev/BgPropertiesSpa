@@ -1,6 +1,7 @@
 ﻿namespace BgPropertiesServer.ViewModels.BgProperty
 {
     using BgPropertiesServer.ViewModels.SearchSet;
+    using System;
     using System.Collections.Generic;
 
 
@@ -9,6 +10,8 @@
         public string Id { get; set; }
 
         public string Url { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public double? Area { get; set; }
 

@@ -28,11 +28,13 @@ namespace BgPropertiesServer.Controllers
         }
 
         // GET /BgProperty/5
-        [HttpGet("{id}"), ActionName("one")]
+        [HttpGet("{bgPropertyId}"), ActionName("one")]
+        [HttpGet]
+        [Route("{bgPropertyId}/{searchSetId}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Produces("application/json")]
+        //[Produces("application/json")]
         //[Produces("text/css")]
         public async Task<IActionResult> GetOne(string bgPropertyId, string searchSetId)
         {
@@ -42,7 +44,7 @@ namespace BgPropertiesServer.Controllers
             {
                 return NotFound();
             }
-            return new JsonResult(entity);
+            return Ok(entity);
         }
 
         // GET /BgProperty/onlyId/5

@@ -53,7 +53,8 @@ const SearchSetCreate = () => {
     alert("Моля потвърдете, че желаете създаването на нов SearchSet!");
     event.preventDefault();
     await searchSetService.create({ ...searchSet });
-    history.push("/searchsets/all");
+    history.push("/searchsets");
+    return null;
   }
 
   return (
