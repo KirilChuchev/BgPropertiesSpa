@@ -46,7 +46,8 @@ namespace BgPropertiesServer.Controllers
             //})
             //.ToArray();
 
-            return this.db.BgProperties.Where(x => x.BuildingYear == 2000).ToArray();
+            return this.db.BgProperties.Where(x => x.BuildingYear == 2010).ToArray();
+            //return null;
         }
 
         [HttpGet("{id}")]

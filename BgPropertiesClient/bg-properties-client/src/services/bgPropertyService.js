@@ -1,6 +1,6 @@
 function fetchOne(id) {
   return fetch(
-    `/BgProperty/onlyId/${id}`,
+    `/bgProperties/onlyId/${id}`,
     //   { mode: "no-cors" }
     //   , {
     //     credentials: 'include',
@@ -19,7 +19,11 @@ function fetchOne(id) {
 }
 
 function fetchAll(searchSetId) {
-  return fetch(`/bg-property/all/${searchSetId}`)
+  return fetch(`/bg-properties/all/${searchSetId}`, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  })
     .then((res) => res.json())
     .catch((error) => console.log(error));
 }
