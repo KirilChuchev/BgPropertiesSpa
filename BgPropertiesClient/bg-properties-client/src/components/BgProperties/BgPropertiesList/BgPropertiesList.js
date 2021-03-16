@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import BgPropertyShortDetails from "../BgPropertyShortDetails";
 
-const BgPropertiesList = ({ bgProperties, searchSetName, onClick }) => {
+const BgPropertiesList = ({ bgProperties, searchSetName, onBgPropertyClick }) => {
   return (
     <>
       <Link to="/">Go Home.</Link>
@@ -12,7 +12,7 @@ const BgPropertiesList = ({ bgProperties, searchSetName, onClick }) => {
       </h2>
       <ol>
         {bgProperties.map((x) => (
-          <li key={x.id} onClick={() => onClick(x.id)}>
+          <li key={x.id} onClick={() => onBgPropertyClick(x.id)}>
             {<BgPropertyShortDetails bgProperty={x} />}
           </li>
         ))}

@@ -1,7 +1,31 @@
-const BgProperty = ({ bgProperty }) => {
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import bgPropertyService from "../../../services/bgPropertyService";
+
+const BgProperty = () => {
+  let { bgPropertyId, searchSetId } = useParams();
+
+  const [bgProperty, setBgProperty] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    bgPropertyService.fetchOne(bgPropertyId, searchSetId).then((data) => {
+      setBgProperty(data.bgProperty);
+      setIsLoading(false);
+    });
+  }, [bgPropertyId, searchSetId]);
+
+  if (isLoading) {
+    return "Loading...";
+  }
+
+  if (!bgProperty) {
+    return "No data fetched.";
+  }
+
   return (
     <>
-    <p>
+      <p>
         <strong>URL: </strong>
         {bgProperty.url || "n/a"}
       </p>
@@ -58,7 +82,7 @@ const BgProperty = ({ bgProperty }) => {
         {bgProperty.isNewly || "n/a"}
       </p>
     </>
-  );
+  )
 };
 
 export default BgProperty;

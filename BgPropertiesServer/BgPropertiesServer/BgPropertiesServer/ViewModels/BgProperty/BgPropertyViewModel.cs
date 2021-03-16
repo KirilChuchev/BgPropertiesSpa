@@ -28,6 +28,8 @@
 
         public string Description { get; set; }
 
+        public int? CourtyardArea { get; set; }
+
         public int? Price { get; set; }
 
         public int? PriceInEUR { get; set; }

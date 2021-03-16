@@ -1,7 +1,5 @@
 const BgPropertyShortDetails = ({ bgProperty }) => {
 
-
-
     return (
     <>
     <p>Type: {bgProperty.propertyType}</p>
