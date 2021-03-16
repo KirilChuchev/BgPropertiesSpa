@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace BgPropertiesServer.Controllers
 {
-    [Route("bg-property/[action]")]
+    [Route("bg-properties/[action]")]
     [ApiController]
     public class BgPropertyController : ControllerBase
     {

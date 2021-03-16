@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace BgPropertiesServer.Controllers
 {
 
-    [Route("[controller]/[action]")]
+    [Route("searchsets/[action]")]
     //[Route("[controller]")]
     [ApiController]
     public class SearchSetController : ControllerBase
@@ -66,7 +66,7 @@ namespace BgPropertiesServer.Controllers
         }
 
         // POST <SearchSetController>
-        [HttpPost]
+        [HttpPost, ActionName("")]
         public async Task<IActionResult> Create([FromBody] SearchSetInputViewModel model)
         {
             //try
@@ -89,6 +89,7 @@ namespace BgPropertiesServer.Controllers
 
             Response.StatusCode = StatusCodes.Status201Created;
             return new JsonResult(createdSearchSetId);
+            //return Ok();
 
         }
 

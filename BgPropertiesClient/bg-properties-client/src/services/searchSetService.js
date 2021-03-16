@@ -1,9 +1,10 @@
 function create(obj) {
-  return fetch(`/searchset/`, {
+  return fetch(`/searchsets/`, {
     method: "POST",
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
     body: JSON.stringify(obj),
   })
@@ -13,13 +14,21 @@ function create(obj) {
 }
 
 function fetchOne(id) {
-  return fetch(`/searchset/one/${id}`)
+  return fetch(`/searchsets/one/${id}`, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  })
     .then((res) => res.json())
     .catch((err) => console.log(err));
 }
 
 function fetchAll(userId) {
-  return fetch(`/searchset/all/${userId}`)
+  return fetch(`/searchsets/all/${userId}`, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  })
     .then((res) => res.json())
     .catch((err) => console.log(err));
 }

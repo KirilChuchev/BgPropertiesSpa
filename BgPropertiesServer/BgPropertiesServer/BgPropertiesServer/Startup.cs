@@ -1,6 +1,7 @@
 ﻿using BgPropertiesServer.Data;
 using BgPropertiesServer.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,17 @@ namespace BgPropertiesServer
 
         public IConfiguration Configuration { get; }
 
+        //public CorsPolicy GenerateCorsPolicy()
+        //{
+        //    var corsBuilder = new CorsPolicyBuilder();
+        //    corsBuilder.AllowAnyHeader();
+        //    corsBuilder.AllowAnyMethod();
+        //    //corsBuilder.AllowAnyOrigin(); // For anyone access.
+        //    corsBuilder.WithOrigins("http://localhost:44364"); // for a specific url. Don't add a forward slash on the end!
+        //    corsBuilder.AllowCredentials();
+        //    return corsBuilder.Build();
+        //}
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -38,7 +50,12 @@ namespace BgPropertiesServer
 
             services.AddControllers();
 
-            services.AddCors();
+            services.AddCors(
+            //    options =>
+            //{
+            //    options.AddPolicy("AllowAllOrigins", GenerateCorsPolicy());
+            //}
+            );
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0); // TODO: от мен
             services.AddTransient<IBgPropertiesService, BgPropertiesService>();
             services.AddTransient<ISearchSetService, SearchSetService>();
@@ -54,7 +71,7 @@ namespace BgPropertiesServer
 
             // Make sure you call this before calling app.UseMvc()
             app.UseCors(
-                options => options.WithOrigins("http://example.com").AllowAnyMethod()
+                options => options.WithOrigins("https://localhost:44364/").AllowAnyMethod()//.AllowAnyHeader()
             );
 
             //app.UseMvc();
