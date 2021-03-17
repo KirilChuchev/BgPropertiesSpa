@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BgProperties.Data.Models.Common;
 using BgPropertiesServer.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -14,7 +15,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BgPropertiesServer.Data
 {
-    public partial class ApplicationDbContext : DbContext
+    public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
         {
@@ -52,6 +53,8 @@ namespace BgPropertiesServer.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // Set global query filter for not deleted entities only
             var entityTypes = modelBuilder.Model.GetEntityTypes().ToList();
             var deletableEntityTypes = entityTypes

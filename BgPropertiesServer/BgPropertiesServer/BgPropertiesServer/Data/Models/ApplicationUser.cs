@@ -1,4 +1,5 @@
 ﻿using BgProperties.Data.Models.Common;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BgPropertiesServer.Data.Models
 {
-    public partial class ApplicationUser : IAuditInfo, IDeletableEntity
+    public partial class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
         public ApplicationUser()
         {
