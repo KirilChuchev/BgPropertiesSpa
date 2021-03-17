@@ -2,6 +2,7 @@
 using BgPropertiesServer.Data.Models;
 using BgPropertiesServer.Services;
 using BgPropertiesServer.ViewModels.SearchSet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace BgPropertiesServer.Controllers
     [Route("searchsets/[action]")]
     //[Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class SearchSetController : ControllerBase
     {
         private readonly ApplicationDbContext db;
