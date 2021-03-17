@@ -1,6 +1,7 @@
 ﻿using BgPropertiesServer.Data;
 using BgPropertiesServer.Data.Models;
 using BgPropertiesServer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace BgPropertiesServer.Controllers
 {
     [Route("bg-properties/[action]")]
     [ApiController]
+    [Authorize]
     public class BgPropertyController : ControllerBase
     {
         private readonly ApplicationDbContext db;
