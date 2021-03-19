@@ -36,7 +36,7 @@
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByEmailAsync(model.Email);
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
                 //var userRoles = await userManager.GetRolesAsync(user);
@@ -64,34 +64,36 @@
 
                 return Ok(new
                 {
+                    username = user.UserName,
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
                 });
             }
-            return Unauthorized();
+            //return Unauthorized();
+            return StatusCode(StatusCodes.Status401Unauthorized, new Response { Status = "Error", Message = "User login failed! Please check user details and try again." });
         }
 
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+            //var userExists = await userManager.FindByEmailAsync(model.Email);
+            //if (userExists != null)
+            //    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-            ApplicationUser user = new ApplicationUser()
-            {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
-            };
-            var result = await userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-            {
-                var message = String.Join(Environment.NewLine, result.Errors.Select(x => x.Description).ToArray());
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new Response { Status = "Error", Message = message }); // "User creation failed! Please check user details and try again."
-            }
+            //ApplicationUser user = new ApplicationUser()
+            //{
+            //    Email = model.Email,
+            //    SecurityStamp = Guid.NewGuid().ToString(),
+            //    UserName = model.Username
+            //};
+            //var result = await userManager.CreateAsync(user, model.Password);
+            //if (!result.Succeeded)
+            //{
+            //    var message = String.Join(Environment.NewLine, result.Errors.Select(x => x.Description).ToArray());
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //        new Response { Status = "Error", Message = message }); // "User creation failed! Please check user details and try again."
+            //}
 
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
@@ -101,7 +103,7 @@
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
         {
-            var userExists = await userManager.FindByNameAsync(model.Username);
+            var userExists = await userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
