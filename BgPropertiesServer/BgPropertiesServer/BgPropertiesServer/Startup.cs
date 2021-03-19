@@ -101,6 +101,7 @@ namespace BgPropertiesServer
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0); // TODO: от мен
             services.AddTransient<IBgPropertiesService, BgPropertiesService>();
             services.AddTransient<ISearchSetService, SearchSetService>();
+            services.AddTransient<IAuthService, AuthService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
