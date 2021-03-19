@@ -2,7 +2,7 @@ function create(obj) {
   return fetch(`/searchsets/create`, {
     method: "POST",
     headers: {
-      Accept: "application/json, text/plain, */*",
+      'Accept': "application/json, text/plain, */*",
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },

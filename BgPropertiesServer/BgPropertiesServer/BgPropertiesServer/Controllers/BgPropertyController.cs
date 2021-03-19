@@ -17,7 +17,7 @@ namespace BgPropertiesServer.Controllers
 {
     [Route("bg-properties/[action]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BgPropertyController : ControllerBase
     {
         private readonly ApplicationDbContext db;

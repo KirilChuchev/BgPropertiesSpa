@@ -19,7 +19,7 @@ namespace BgPropertiesServer.Controllers
     [Route("searchsets/[action]")]
     //[Route("[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class SearchSetController : ControllerBase
     {
         private readonly ApplicationDbContext db;
