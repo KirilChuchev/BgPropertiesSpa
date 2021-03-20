@@ -1,4 +1,5 @@
-﻿using BgPropertiesServer.Data;
+﻿using BgProperties.Services.Data;
+using BgPropertiesServer.Data;
 using BgPropertiesServer.Data.Models;
 using BgPropertiesServer.Services;
 using BgPropertiesServer.Settings;
@@ -102,6 +103,7 @@ namespace BgPropertiesServer
             services.AddTransient<IBgPropertiesService, BgPropertiesService>();
             services.AddTransient<ISearchSetService, SearchSetService>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IStatisticService, StatisticService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
