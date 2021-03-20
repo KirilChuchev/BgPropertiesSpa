@@ -1,107 +1,109 @@
-﻿using BgPropertiesServer.Data;
-using BgPropertiesServer.Data.Models;
-using BgPropertiesServer.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace BgPropertiesServer.Controllers
+﻿namespace BgPropertiesServer.Controllers
 {
+    using BgPropertiesServer.Helpers;
+    using BgPropertiesServer.Services;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Net.Mime;
+    using System.Threading.Tasks;
+
     [Route("bg-properties/[action]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BgPropertyController : ControllerBase
     {
-        private readonly ApplicationDbContext db;
+        private readonly IAuthService authService;
         private readonly IBgPropertiesService bgPropertiesService;
 
-        public BgPropertyController(ApplicationDbContext db, IBgPropertiesService bgPropertiesService)
+        public BgPropertyController(
+            IAuthService authService,
+            IBgPropertiesService bgPropertiesService)
         {
-            this.db = db;
+            this.authService = authService;
             this.bgPropertiesService = bgPropertiesService;
         }
 
-        // GET /BgProperty/5
-        [HttpGet("{bgPropertyId}"), ActionName("one")]
-        [HttpGet]
+        // GET: /bg-properties/one/[bgPropertyId:]002f51fc-20cb-4fc2-a1d1-d4097d5b9337/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
+        [HttpGet, ActionName("one")]
+        //[HttpGet("{bgPropertyId}"), ActionName("one")]
         [Route("{bgPropertyId}/{searchSetId}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Produces("application/json")]
-        //[Produces("text/css")]
-        public async Task<IActionResult> GetOne(string bgPropertyId, string searchSetId)
+        public async Task<IActionResult> GetOne([FromHeader] string authorization, string bgPropertyId, string searchSetId)
         {
-            var entity = await this.bgPropertiesService.GetBgPropertyByIdAsync(bgPropertyId, searchSetId);
-
-            if (entity == null)
+            try
             {
-                return NotFound();
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
+
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
+
+                var entity = await this.bgPropertiesService.GetBgPropertyByIdAsync(bgPropertyId, searchSetId, user.Id);
+
+                if (entity == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(entity);
             }
-            return Ok(entity);
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
+
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
         }
 
-        // GET /BgProperty/onlyId/5
-        [HttpGet("{id}"), ActionName("onlyId")]
-        [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetOneOnlyById(string id)
-        {
-            var entity = await this.bgPropertiesService.GetBgPropertyOnlyByIdAsync(id);
-
-            //if (entity == null)
-            //{
-            //    return NotFound();
-            //}
-
-            return Ok(entity);
-        }
-
-        // GET /BgProperty/get-all-by-searchSet/5
+        // GET: /bg-properties/all/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
         [HttpGet("{searchSetId}"), ActionName("all")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Produces("application/json")]
-        //[Produces("text/css")]
-        public async Task<IActionResult> GetAllBySearchSet(string searchSetId)
+        public async Task<IActionResult> GetAllBySearchSet([FromHeader] string authorization, string searchSetId)
         {
-            //var user = await this.db.AspNetUsers
-            //    .FirstOrDefaultAsync(x => x.UserName == "kickz@abv.bg"
-            //                              && x.PasswordHash == "AQAAAAEAACcQAAAAEGV6NZAUVI81kv5wu0Uc91l3+ssJ6Y5QjU2qK/F0+jwWDd6ynpuZRkRhtbdXgMu1oQ==");
+            try
+            {
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
 
-            var user = await this.db.AspNetUsers.FirstOrDefaultAsync(x => x.Id == "kickz23b-5930-418e-90ad-03c749554101");
+                var entities = await this.bgPropertiesService.GetAllBgPropertiesBySearchSetAsync(user.Id, searchSetId);
 
-            var entities = await this.bgPropertiesService.GetAllBgPropertiesBySearchSetAsync(user.Id, searchSetId);
+                return Ok(entities);
+            }
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
 
-            return Ok(entities);
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
         }
 
-        // POST api/<BgProperty>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        //// POST api/<BgProperty>
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
 
-        // PUT api/<BgProperty>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// PUT api/<BgProperty>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/<BgProperty>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<BgProperty>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

@@ -1,4 +1,6 @@
-function fetchOne(bgPropertyId, searchSetId) {
+import queryService from "./queryService";
+
+function fetchOne(token, bgPropertyId, searchSetId) {
   return fetch(
     `/bg-properties/one/${bgPropertyId}/${searchSetId}`,
     //   { mode: "no-cors" }
@@ -10,21 +12,27 @@ function fetchOne(bgPropertyId, searchSetId) {
     //   }
     {
       headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${token}`,
       },
     }
   )
-    .then((res) => res.json())
+    .then(queryService.handleResponse)
     .catch((error) => console.log(error));
 }
 
-function fetchAll(searchSetId) {
+function fetchAll(token, searchSetId) {
   return fetch(`/bg-properties/all/${searchSetId}`, {
     headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
     },
   })
-    .then((res) => res.json())
+    .then(queryService.handleResponse)
     .catch((error) => console.log(error));
 }
 

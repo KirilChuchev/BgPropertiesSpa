@@ -1,9 +1,15 @@
 import { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
+
+import authService from '../../../services/authService';
 import searchSetService from "../../../services/searchSetService";
 
 const SearchSetCreate = () => {
+
+  const token = authService.getLocalStorageUserClaims().token;
+
   const history = useHistory();
+
   const [searchSet, setSearchSet] = useState({
     searchSetName: "",
     description: "",
@@ -39,7 +45,6 @@ const SearchSetCreate = () => {
   });
 
   function handleChange(event) {
-    // console.log(event.target.name);
     var obj = {};
     if (event.target.name.endsWith("PropType")) {
       obj[`${event.target.name}`] = event.target.checked ? "on" : "";
@@ -52,7 +57,7 @@ const SearchSetCreate = () => {
   async function handleSubmit(event) {
     alert("Моля потвърдете, че желаете създаването на нов SearchSet!");
     event.preventDefault();
-    await searchSetService.create({ ...searchSet });
+    await searchSetService.create(token, { ...searchSet });
     history.push("/searchsets");
     return null;
   }

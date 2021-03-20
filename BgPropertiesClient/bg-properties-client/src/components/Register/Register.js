@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+
 import userService from "../../services/userService";
 
 const Register = () => {
+
   let history = useHistory();
 
   const [email, setEmail] = useState("");
@@ -19,12 +21,11 @@ const Register = () => {
     );
   }
 
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     userService
       .register({ email, username, password })
       .then((res) => {
-        console.log(res);
         let message = "";
         let path = "";
         if (

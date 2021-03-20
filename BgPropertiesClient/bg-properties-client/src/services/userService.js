@@ -1,4 +1,5 @@
 import authService from "./authService";
+import queryService from "./queryService";
 
 function register(userCredentials) {
   return fetch("/user/register", {
@@ -10,10 +11,9 @@ function register(userCredentials) {
     },
     body: JSON.stringify(userCredentials),
   })
-  .then(authService.validateAuthResponse)
+  .then(queryService.handleResponse)
   .then((userClaims) => {
     authService.setLocalStorageUserClaims(userClaims);
-    // currentUserSubject.next(user);
     return userClaims;
   });
 }
@@ -32,10 +32,9 @@ function login(userCredentials) {
     },
     body: JSON.stringify(userCredentials),
   })
-    .then(authService.validateAuthResponse)
+    .then(queryService.handleResponse)
     .then((userClaims) => {
       authService.setLocalStorageUserClaims(userClaims);
-      // currentUserSubject.next(user);
       return userClaims;
     });
 }
@@ -44,7 +43,6 @@ function logout() {
   // remove user from local storage to log user out
   localStorage.removeItem("currentUser");
   console.log("Successfully logout.");
-  //   currentUserSubject.next(null);
 }
 
 const userService = {

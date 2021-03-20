@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
-import searchSetService from "../../services/searchSetService";
+
 import SearchSetsList from "./SearchSetsList";
 
-const SearchSets = ({ userId }) => {
+import authService from "../../services/authService";
+import searchSetService from "../../services/searchSetService";
+
+const SearchSets = () => {
+
+  const userClaims = authService.getLocalStorageUserClaims();
+  var token = userClaims.token;
+
   const [searchSets, setSearchSets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    searchSetService.fetchAll(userId).then((data) => {
+    searchSetService.fetchAll(token).then((data) => {
       setSearchSets(data);
       setIsLoading(false);
     });
-  }, [userId]);
+  }, [token]);
 
   if (isLoading) {
     return "Loading...";
   }
 
-  if (!searchSets) {
-    return "No data fetched.";
-  }
-
   return (
     <>
-      <SearchSetsList userId={userId} searchSets={searchSets} />
+      <SearchSetsList username={userClaims.username} searchSets={searchSets} />
     </>
   );
 };

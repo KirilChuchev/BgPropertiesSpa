@@ -1,11 +1,16 @@
-﻿using BgPropertiesServer.Data.Models;
+﻿using BgPropertiesServer.Data;
+using BgPropertiesServer.Data.Models;
 using BgPropertiesServer.ViewModels.ApplicationUser;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +22,19 @@ namespace BgPropertiesServer.Services
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration configuration;
+        private readonly ApplicationDbContext db;
 
         public AuthService(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration
+            IConfiguration configuration,
+            ApplicationDbContext db
             )
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.configuration = configuration;
+            this.db = db;
         }
         public async Task<IdentityResult> ServeRegister(RegisterModel model)
         {
@@ -67,6 +75,53 @@ namespace BgPropertiesServer.Services
                 );
 
             return token;
+        }
+
+        public ClaimsPrincipal ValidateToken(string jwtToken)
+        {
+            IdentityModelEventSource.ShowPII = true;
+
+            SecurityToken validatedToken;
+            TokenValidationParameters validationParameters = new TokenValidationParameters();
+
+            validationParameters.ValidateLifetime = true;
+
+            validationParameters.ValidAudience = configuration["JwtSettings:ValidIssuer"].ToLower();
+            validationParameters.ValidIssuer = configuration["JwtSettings:ValidAudience"].ToLower();
+            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Secret"]));
+
+            ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
+
+
+            return principal;
+        }
+
+        public async Task<ApplicationUser> IdentifyUserByAuthorizationHeader(string headerValue)
+        {
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            //if (identity != null)
+            //{
+            //    //IEnumerable<Claim> claims = identity.Claims;
+            //    // or
+            //    var userEmail = identity.FindFirst("Email").Value;
+
+            //}
+
+            if (!AuthenticationHeaderValue.TryParse(headerValue, out var authorizationHeader))
+            {
+                return null;
+            }
+
+            var jwt = authorizationHeader.Parameter;
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(jwt);
+
+            var userEmail = token.Payload.FirstOrDefault(x => x.Key == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value.ToString();
+            //var userEmail = this.authService.ValidateToken(headerValue.Parameter)?.FindFirst("Email")?.Value;
+
+            var user = await this.db.AspNetUsers.FirstOrDefaultAsync(x => x.Email == userEmail);
+
+            return user;
         }
 
     }

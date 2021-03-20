@@ -1,35 +1,43 @@
-function create(obj) {
+import queryService from "./queryService";
+
+function create(token, obj) {
   return fetch(`/searchsets/create`, {
     method: "POST",
     headers: {
-      'Accept': "application/json, text/plain, */*",
+      Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(obj),
   })
-    .then((res) => res.json())
-    .then((res) => console.log(res))
+    .then(queryService.handleResponse)
     .catch((err) => console.log(err));
 }
 
-function fetchOne(id) {
+function fetchOne(token, id) {
   return fetch(`/searchsets/one/${id}`, {
     headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
     },
   })
-    .then((res) => res.json())
+    .then(queryService.handleResponse)
     .catch((err) => console.log(err));
 }
 
-function fetchAll(userId) {
-  return fetch(`/searchsets/all/${userId}`, {
+function fetchAll(token) {
+  return fetch(`/searchsets/all/`, {
     headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
     },
   })
-    .then((res) => res.json())
+    .then(queryService.handleResponse)
     .catch((err) => console.log(err));
 }
 

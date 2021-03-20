@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+
 import userService from "../../services/userService";
 import authService from "../../services/authService";
 
 const Login = () => {
+
   let history = useHistory();
 
   const [email, setEmail] = useState("");
@@ -13,7 +15,7 @@ const Login = () => {
     return email.length > 0 && password.length > 0;
   }
 
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     userService
       .login({ email, password })
@@ -40,7 +42,7 @@ const Login = () => {
           <label>Email</label>
           <input
             autoFocus
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
