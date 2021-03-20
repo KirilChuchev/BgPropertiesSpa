@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using BgPropertiesServer.Data.Models;
+    using BgPropertiesServer.Services;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,7 @@
             //    BgPropertiesCount = model.BgProperties.Count,
             //};
             //return this.View("~/Views/BgPropertySearching/ViewAllProperties.cshtml", model);
+            return null;
         }
 
         public async Task<IActionResult> AllNewBgPropertiesAsync()
@@ -58,13 +60,15 @@
             this.TempData["callingActionViewAllProperties"] = "AllNewBgProperties";
             var currentUser = await this.userManager.GetUserAsync(this.User);
             var model = await this.statisticService.GetAllNewBgPropertiesAsync(currentUser);
-            model.PartialModel = new BgPropertiesTitlePartialViewModel()
-            {
-                Text = $"All NEW Bg Properties by",
-                ForWhat = "Date",
-                BgPropertiesCount = model.BgProperties.Count,
-            };
-            return this.View("~/Views/BgPropertySearching/ViewAllProperties.cshtml", model);
+            //model.PartialModel = new BgPropertiesTitlePartialViewModel()
+            //{
+            //    Text = $"All NEW Bg Properties by",
+            //    ForWhat = "Date",
+            //    BgPropertiesCount = model.BgProperties.Count,
+            //};
+            //return this.View("~/Views/BgPropertySearching/ViewAllProperties.cshtml", model);
+
+            return null;
         }
 
         [HttpPost]
