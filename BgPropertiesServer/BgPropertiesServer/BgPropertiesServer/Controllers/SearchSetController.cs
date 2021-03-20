@@ -1,98 +1,118 @@
-﻿using BgPropertiesServer.Data;
-using BgPropertiesServer.Data.Models;
-using BgPropertiesServer.Services;
-using BgPropertiesServer.ViewModels.SearchSet;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace BgPropertiesServer.Controllers
+﻿namespace BgPropertiesServer.Controllers
 {
+    using BgPropertiesServer.Data;
+    using BgPropertiesServer.Helpers;
+    using BgPropertiesServer.Services;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
+    using BgPropertiesServer.ViewModels.SearchSet;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Net.Http.Headers;
+    using System.Threading.Tasks;
 
     [Route("searchsets/[action]")]
-    //[Route("[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class SearchSetController : ControllerBase
     {
         private readonly ApplicationDbContext db;
+        private readonly IAuthService authService;
         private readonly ISearchSetService searchSetService;
 
-        public SearchSetController(ApplicationDbContext db, ISearchSetService searchSetService)
+        public SearchSetController(
+            ApplicationDbContext db,
+            IAuthService authService,
+            ISearchSetService searchSetService)
         {
             this.db = db;
+            this.authService = authService;
             this.searchSetService = searchSetService;
         }
 
-
-        // GET: api/<SearchSetController>
+        // GET: /searchsets/one/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
         [HttpGet("{searchSetId}"), ActionName("one")]
-        //[Route("[controller]/{searchSetId}")]
-        //[Route("/{searchSetId}")]
-        public async Task<IActionResult> GetOneById(string searchSetId)
+        public async Task<IActionResult> GetOneById([FromHeader] string authorization, string searchSetId)
         {
-            var user = await this.db.AspNetUsers.FirstOrDefaultAsync(x => x.Id == "kickz23b-5930-418e-90ad-03c749554101");
-            var entity = await this.searchSetService.GetOneAsViewModel(user, searchSetId);
+            try
+            {
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
 
-            return Ok(entity);
-            //return new string[] { "value1", "value2" };
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
 
+                var entity = await this.searchSetService.GetOneAsViewModel(user, searchSetId);
+
+                return Ok(entity);
+            }
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
+
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
         }
 
-        // GET api/<SearchSetController>/5
-        //[HttpGet("{id}")]
-        [HttpGet]
-        public string Get(int id)
+        // GET: /searchsets/all
+        [HttpGet, ActionName("all")]
+        public async Task<IActionResult> GetAllByUserId([FromHeader] string authorization)
         {
-            return "value";
-        }
+            try
+            {
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
 
-        // GET api/<SearchSetController>/5
-        //[HttpGet("/all/{userId}")]
-        [HttpGet("{userId}"), ActionName("all")]
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
 
-        public async Task<IActionResult> GetAllByUserId(string userId)
-        {
-            var user = await this.db.AspNetUsers.FirstOrDefaultAsync(x => x.Id == userId);
+                var entities = await this.searchSetService.GetAllAsViewModel(user);
 
-            var entities = await this.searchSetService.GetAllAsViewModel(user);
+                return Ok(entities);
+            }
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
 
-            return Ok(entities);
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
         }
 
         // POST <SearchSetController>
         [HttpPost, ActionName("create")]
-        public async Task<IActionResult> Create([FromBody] SearchSetInputViewModel model)
+        public async Task<IActionResult> Create([FromHeader] string authorization, [FromBody] SearchSetInputViewModel model)
         {
-            //try
-            //{
+            try
+            {
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
 
-            //}
-            //catch (Exception е)
-            //{
-            //    return е;
-            //}
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
 
-            //var user = await this.db.AspNetUsers
-            //    .FirstOrDefaultAsync(x => x.UserName == "kickz@abv.bg"
-            //                              && x.PasswordHash == "AQAAAAEAACcQAAAAEGV6NZAUVI81kv5wu0Uc91l3+ssJ6Y5QjU2qK/F0+jwWDd6ynpuZRkRhtbdXgMu1oQ==");
+                var createdSearchSetId = await this.searchSetService.CreateAsync(model, user);
 
-            var user = await this.db.AspNetUsers.FirstOrDefaultAsync(x => x.Id == "kickz23b-5930-418e-90ad-03c749554101");
+                return Ok(new { searchSetId = createdSearchSetId });
+            }
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
 
-            var createdSearchSetId = await this.searchSetService.CreateAsync(model, user);
-
-
-            Response.StatusCode = StatusCodes.Status201Created;
-            return new JsonResult(createdSearchSetId);
-            //return Ok();
-
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
         }
 
         //// PUT api/<SearchSetController>/5

@@ -1,14 +1,3 @@
-function validateAuthResponse(response) {
-  return response.text().then((text) => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-    return data;
-  });
-}
-
 function getLocalStorageUserClaims() {
   return JSON.parse(localStorage.getItem("currentUser"));
 }
@@ -19,7 +8,6 @@ function setLocalStorageUserClaims(userData) {
 }
 
 const authService = {
-  validateAuthResponse,
   getLocalStorageUserClaims,
   setLocalStorageUserClaims,
 };

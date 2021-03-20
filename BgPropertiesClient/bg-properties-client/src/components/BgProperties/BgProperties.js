@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
-import BgPropertiesList from "./BgPropertiesList";
-import bgPropertyService from "../../services/bgPropertyService";
+import React, { useState, useEffect, Fragment } from "react";
 import { useParams } from "react-router";
 
+import BgPropertiesList from "./BgPropertiesList";
+import bgPropertyService from "../../services/bgPropertyService";
+
+import authService from "../../services/authService";
+
 const BgProperties = () => {
+  
+  const userClaims = authService.getLocalStorageUserClaims();
+  var token = userClaims.token;
+
   let { searchSetId } = useParams();
 
   const [bgPropertiesModel, setBgPropertiesModel] = useState([]);
@@ -11,11 +18,11 @@ const BgProperties = () => {
 
   useEffect(() => {
     // TODO: дали е правилно да дърпам от базата само колекцията или модела с колекцията
-    bgPropertyService.fetchAll(searchSetId).then((data) => {
+    bgPropertyService.fetchAll(token, searchSetId).then((data) => {
       setBgPropertiesModel(data);
       setIsLoading(false);
     });
-  }, [searchSetId]);
+  }, [token, searchSetId]);
 
   if (isLoading) {
     return "Loading...";
@@ -23,11 +30,13 @@ const BgProperties = () => {
 
   return (
     <>
-      <BgPropertiesList
-        bgProperties={bgPropertiesModel.bgProperties}
-        searchSetName={bgPropertiesModel.searchSetName}
-        searchSetId={searchSetId}
-      />
+      {bgPropertiesModel && (
+        <BgPropertiesList
+          bgProperties={bgPropertiesModel.bgProperties}
+          searchSetName={bgPropertiesModel.searchSetName}
+          searchSetId={searchSetId}
+        />
+      )}
     </>
   );
 };
