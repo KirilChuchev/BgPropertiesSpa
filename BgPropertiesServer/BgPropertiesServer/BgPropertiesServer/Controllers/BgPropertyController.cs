@@ -16,14 +16,14 @@
     public class BgPropertyController : ControllerBase
     {
         private readonly IAuthService authService;
-        private readonly IBgPropertiesService bgPropertiesService;
+        private readonly IBgPropertyService bgPropertyService;
 
         public BgPropertyController(
             IAuthService authService,
-            IBgPropertiesService bgPropertiesService)
+            IBgPropertyService bgPropertiesService)
         {
             this.authService = authService;
-            this.bgPropertiesService = bgPropertiesService;
+            this.bgPropertyService = bgPropertiesService;
         }
 
         // GET: /bg-properties/one/[bgPropertyId:]002f51fc-20cb-4fc2-a1d1-d4097d5b9337/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
@@ -44,7 +44,7 @@
                     return Unauthorized();
                 }
 
-                var entity = await this.bgPropertiesService.GetBgPropertyByIdAsync(bgPropertyId, searchSetId, user.Id);
+                var entity = await this.bgPropertyService.GetBgPropertyByIdAsync(bgPropertyId, searchSetId, user.Id);
 
                 if (entity == null)
                 {
@@ -74,7 +74,7 @@
             {
                 var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
 
-                var entities = await this.bgPropertiesService.GetAllBgPropertiesBySearchSetAsync(user.Id, searchSetId);
+                var entities = await this.bgPropertyService.GetAllBgPropertiesBySearchSetAsync(user.Id, searchSetId);
 
                 return Ok(entities);
             }

@@ -6,7 +6,7 @@ function handleResponse(response) {
         console.log(error);
         return Promise.reject(error);
       }
-      console.log(data);
+    //   console.log(data);
       return data;
     });
   }

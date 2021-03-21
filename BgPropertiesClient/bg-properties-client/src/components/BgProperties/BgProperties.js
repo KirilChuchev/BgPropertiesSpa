@@ -1,13 +1,13 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { useParams } from "react-router";
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router";
 
 import BgPropertiesList from "./BgPropertiesList";
 import bgPropertyService from "../../services/bgPropertyService";
 
 import authService from "../../services/authService";
+import statisticService from "../../services/statisticService";
 
 const BgProperties = () => {
-  
   const userClaims = authService.getLocalStorageUserClaims();
   var token = userClaims.token;
 
@@ -16,13 +16,34 @@ const BgProperties = () => {
   const [bgPropertiesModel, setBgPropertiesModel] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  let location = useLocation();
+  let service = pathDecider(location.pathname);
+
+  function pathDecider(path) {
+    if (path.includes("/statistics/top-profitable/")) {
+      return "top-profitable";
+    } else if (
+      path.includes("/searchsets/") &&
+      path.includes("/bg-properties")
+    ) {
+      return "bg-properties";
+    }
+  }
+
   useEffect(() => {
     // TODO: дали е правилно да дърпам от базата само колекцията или модела с колекцията
-    bgPropertyService.fetchAll(token, searchSetId).then((data) => {
+    const bgPropertyServiceMap = {
+      "bg-properties": (token, searchSetId) =>
+        bgPropertyService.fetchAll(token, searchSetId),
+      "top-profitable": (token, searchSetId) =>
+        statisticService.fetchTopProfitable(token, searchSetId),
+    };
+
+    bgPropertyServiceMap[service](token, searchSetId).then((data) => {
       setBgPropertiesModel(data);
       setIsLoading(false);
     });
-  }, [token, searchSetId]);
+  }, [token, searchSetId, service]);
 
   if (isLoading) {
     return "Loading...";

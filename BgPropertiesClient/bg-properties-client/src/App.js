@@ -33,6 +33,9 @@ const App = () => {
       <Route
         path="/searchsets/:searchSetId/bg-properties/:bgPropertyId" exact component={() => <BgProperty />}
       />
+      <Route
+        path="/statistics/top-profitable/:searchSetId" exact component={() => <BgProperties />}
+      />
     </Switch>
   );
 };

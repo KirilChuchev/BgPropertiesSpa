@@ -40,6 +40,7 @@ const Register = () => {
         }
         console.log(message);
         history.push(path);
+        return null;
       })
       .catch((err) => {
         if (err.includes("Unauthorized") || err.includes("Forbidden")) {
@@ -47,6 +48,7 @@ const Register = () => {
         }
         console.log(err);
         history.push("/register");
+        return null;
       });
   }
   return (
