@@ -9,6 +9,7 @@ const BgPropertyShortDetails = ({ bgProperty }) => {
     <p>Building Type: {bgProperty.buildingType}</p>
     <p>Building Year: {bgProperty.buildingYear}</p>
     <p>Price: {bgProperty.price}</p>
+    <p>IsTracked: {bgProperty.isTracked ? "Tracked" : "No"}</p>
     <hr />
     </>
     )

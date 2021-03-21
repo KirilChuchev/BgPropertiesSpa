@@ -50,7 +50,8 @@ namespace BgPropertiesServer.Services
                             Price = x.Price,
                             PriceInEUR = x.PriceInEUR,
                             SearchSetId = searchSetId,
-                            IsTracked = x.IsTracked,
+                            //IsTracked = this.db.ApplicationUsersBgProperties.Any(y => y.ApplicationUserId == currentUserId && y.BgPropertyId == bgPropertyId),
+                            IsTracked = x.TrackingUsers.Any(y => y.ApplicationUserId == currentUserId && y.BgPropertyId == x.Id),
                             PricePerSquareMeter = x.PricePerSquareMeter,
                             PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
                             IsNewlyFetched = this.db.NewlySearchSetsBgProperties.Any(x => x.SearchSetId == searchSetId && x.BgPropertyId == bgPropertyId),
@@ -94,12 +95,6 @@ namespace BgPropertiesServer.Services
             {
                 BgProperty = property,
             };
-        }
-
-        // Only for Testing (including the Action associated)
-        public async Task<BgProperty> GetBgPropertyOnlyByIdAsync(string bgPropertyId) 
-        {
-            return await this.db.BgProperties.FirstOrDefaultAsync(x => x.Id == bgPropertyId);
         }
 
         public async Task<AllBgPropertiesViewModel> GetAllBgPropertiesBySearchSetAsync(string currentUserId, string searchSetId)
@@ -183,7 +178,7 @@ namespace BgPropertiesServer.Services
                 PriceInEUR = x.PriceInEUR,
                 PricePerSquareMeter = x.PricePerSquareMeter,
                 PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
-                IsTracked = x.TrackingUsers.Any(x => x.ApplicationUserId == currentUserId),
+                IsTracked = this.db.ApplicationUsersBgProperties.Any(y => y.ApplicationUserId == currentUserId && y.BgPropertyId == x.Id),
                 SearchSetId = searchSetId,
                 IsNewly = this.db.NewlySearchSetsBgProperties.Any(y => y.SearchSetId == searchSetId && y.BgPropertyId == x.Id),
                 Currency = x.Currency,
@@ -191,6 +186,8 @@ namespace BgPropertiesServer.Services
             .OrderByDescending(x => x.IsTracked)
             .ThenByDescending(x => x.IsNewly)
             .ToList();
+
+
 
             return new AllBgPropertiesViewModel()
             {
@@ -202,12 +199,120 @@ namespace BgPropertiesServer.Services
             //return bgProperties;
         }
 
+        public async Task TrackBgPropertyAsync(ApplicationUser currentUser, string bgPropertyId)
+        {
+            var applicationUserBgProperty =
+                    await this.db.ApplicationUsersBgProperties
+                                .FirstOrDefaultAsync(x => x.ApplicationUserId == currentUser.Id && x.BgPropertyId == bgPropertyId);
 
+            var bgProperty = await this.db.BgProperties.FirstOrDefaultAsync(x => x.Id == bgPropertyId);
+            
+            if (applicationUserBgProperty != null)
+            {
+                this.db.ApplicationUsersBgProperties.Remove(applicationUserBgProperty);
+            }
+            else
+            {
+                await this.db.ApplicationUsersBgProperties.AddAsync(new ApplicationUserBgProperty()
+                {
+                    ApplicationUser = currentUser,
+                    BgPropertyId = bgPropertyId,
+                });
+            }
 
+            await this.db.SaveChangesAsync();
+        }
 
+        public async Task<AllBgPropertiesViewModel> GetAllTrackedBgPropertiesBySearchSetAsync(ApplicationUser currentUser, string searchSetId)
+        {
+            if (searchSetId == null)
+            {
+                throw new ArgumentException("There is no searchSetId.");
+            }
 
+            var userAllTrackedBgPropertyIds =
+                        await this.db.ApplicationUsersBgProperties
+                            .Where(x => x.ApplicationUserId == currentUser.Id)
+                            .Select(x => x.BgPropertyId)
+                            .ToArrayAsync();
 
+            //// Separated usage of LINQ needed here tests to work corrctly.
+            var userAllTrackedBgProperiesFiltered =
+                        await this.db.BgProperties
+                            .Where(x => userAllTrackedBgPropertyIds.Any(y => y == x.Id))
+                            .Where(x => x.SearchSets.Any(y => y.SearchSetId == searchSetId))
+                            .ToArrayAsync();
+            var userAllTrackedBgProperies = userAllTrackedBgProperiesFiltered.Select(x => new BgPropertyViewModel()
+            {
+                Id = x.Id,
+                Url = x.Url,
+                Area = x.Area.ToString(),
+                Floor = x.Floor.ToString(),
+                PropertyType = x.PropertyType.ToString(),
+                Location = x.Location.ToString(),
+                TotalBuildingFloors = x.TotalBuildingFloors.ToString(),
+                Description = x.Desctiption.ToString(),
+                Price = x.Price,
+                PriceInEUR = x.PriceInEUR,
+                PricePerSquareMeter = x.PricePerSquareMeter,
+                PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
+                IsTracked = x.TrackingUsers.Any(x => x.ApplicationUserId == currentUser.Id),
+                SearchSetId = searchSetId,
+                IsNewly = this.db.NewlySearchSetsBgProperties.Any(y => y.SearchSetId == searchSetId && y.BgPropertyId == x.Id),
+                Currency = x.Currency,
+            })
+            .ToArray();
 
+            var userAllBgPropertiesTrackedFromCurrentSearchSet = userAllTrackedBgProperies
+                .Where(x => x.SearchSetId == searchSetId)
+                .OrderByDescending(x => x.IsNewly)
+                .ToArray();
+
+            var searchSet = await this.db.SearchSets.FirstOrDefaultAsync(x => x.Id == searchSetId);
+
+            return new AllBgPropertiesViewModel()
+            {
+                SearchSetId = searchSetId,
+                SearchSetName = searchSet?.Name ?? string.Empty,
+                // BgProperties = userAllBgPropertiesTrackedFromCurrentSearchSet,
+                BgProperties = userAllTrackedBgProperies,
+            };
+        }
+
+        public async Task<AllBgPropertiesViewModel> GetAllTrackedBgPropertiesByUserAsync(ApplicationUser currentUser)
+        {
+            //// Separated usage of LINQ needed here tests to work corrctly.
+            var userAllTrackedBgPropertyFiltered =
+                        await this.db.ApplicationUsersBgProperties
+                        .Where(x => x.ApplicationUserId == currentUser.Id)
+                        .Select(x => x.BgProperty)
+                        .ToArrayAsync();
+            var userAllTrackedBgProperty = userAllTrackedBgPropertyFiltered.Select(x => new BgPropertyViewModel()
+            {
+                Id = x.Id,
+                Url = x.Url,
+                Area = x.Area.ToString(),
+                Floor = x.Floor.ToString(),
+                PropertyType = this.db.PropertyTypes.FirstOrDefault(y => y.Id == x.PropertyTypeId).Name,
+                Location = this.db.Locations.FirstOrDefault(y => y.Id == x.LocationId).ToString(),
+                TotalBuildingFloors = x.TotalBuildingFloors.ToString(),
+                Description = x.Desctiption.ToString(),
+                Price = x.Price,
+                PriceInEUR = x.PriceInEUR,
+                PricePerSquareMeter = x.PricePerSquareMeter,
+                PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
+                IsTracked = x.TrackingUsers.Any(x => x.ApplicationUserId == currentUser.Id),
+                IsNewly = this.db.NewlySearchSetsBgProperties.Any(y => y.BgPropertyId == x.Id),
+                Currency = x.Currency,
+            })
+            .OrderByDescending(x => x.IsNewly)
+            .ToArray();
+
+            return new AllBgPropertiesViewModel()
+            {
+                BgProperties = userAllTrackedBgProperty,
+            };
+        }
 
         private async Task<ICollection<BgProperty>> CreateBgPropertiesQueryFromDb(ApplicationDbContext dbContext, HashSet<SearchCriteriaViewModel> queryParamsCollection)
         {

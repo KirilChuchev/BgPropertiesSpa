@@ -8,8 +8,12 @@ namespace BgPropertiesServer.Services
     {
         Task<OneBgPropertyViewModel> GetBgPropertyByIdAsync(string bgPropertyId, string searchSetId, string currentUserId = null);
 
-        Task<BgProperty> GetBgPropertyOnlyByIdAsync(string bgPropertyId);
-
         Task<AllBgPropertiesViewModel> GetAllBgPropertiesBySearchSetAsync(string currentUserId, string searchSetId);
+
+        Task TrackBgPropertyAsync(ApplicationUser currentUser, string bgPropertyId);
+
+        Task<AllBgPropertiesViewModel> GetAllTrackedBgPropertiesBySearchSetAsync(ApplicationUser currentUser, string searchSetId);
+
+        Task<AllBgPropertiesViewModel> GetAllTrackedBgPropertiesByUserAsync(ApplicationUser currentUser);
     }
 }
