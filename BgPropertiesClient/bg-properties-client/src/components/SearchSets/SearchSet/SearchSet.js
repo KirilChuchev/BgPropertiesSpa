@@ -55,6 +55,9 @@ const SearchSet = () => {
           <Link to={`/searchsets/${searchSetId}/bg-properties`}>
             Bg Properties
           </Link>
+          <Link to={`/statistics/top-profitable/${searchSetId}`}>
+            Top profitable BgProperties
+          </Link>
         </Fragment>
       )}
     </>

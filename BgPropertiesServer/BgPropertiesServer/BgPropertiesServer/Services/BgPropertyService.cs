@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace BgPropertiesServer.Services
 {
-    public class BgPropertiesService : IBgPropertiesService
+    public class BgPropertyService : IBgPropertyService
     {
         private readonly ApplicationDbContext db;
 
-        public BgPropertiesService(ApplicationDbContext db)
+        public BgPropertyService(ApplicationDbContext db)
         {
             this.db = db;
         }

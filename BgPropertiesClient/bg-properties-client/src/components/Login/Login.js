@@ -25,6 +25,7 @@ const Login = () => {
         let message = path === "/" ? "Successfully login." : "Something went wrong.";
         console.log(message);
         history.push(path);
+        return null;
       })
       .catch((err) => {
         if (err.includes("Unauthorized") || err.includes("Forbidden")) {
@@ -32,6 +33,7 @@ const Login = () => {
         }
         console.log(err);
         history.push("/login");
+        return null;
       });
   }
 

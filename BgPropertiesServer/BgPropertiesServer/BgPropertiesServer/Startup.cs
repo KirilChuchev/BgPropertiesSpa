@@ -1,32 +1,25 @@
-﻿using BgProperties.Services.Data;
-using BgPropertiesServer.Data;
-using BgPropertiesServer.Data.Models;
-using BgPropertiesServer.Services;
-using BgPropertiesServer.Settings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BgPropertiesServer
+﻿namespace BgPropertiesServer
 {
+    using BgPropertiesServer.Data;
+    using BgPropertiesServer.Data.Models;
+    using BgPropertiesServer.Services;
+    using BgPropertiesServer.Settings;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Cors.Infrastructure;
+    using Microsoft.AspNetCore.Diagnostics;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
+    using Newtonsoft.Json;
+    using System.Text;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -100,7 +93,7 @@ namespace BgPropertiesServer
             }
             );
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0); // TODO: от мен
-            services.AddTransient<IBgPropertiesService, BgPropertiesService>();
+            services.AddTransient<IBgPropertyService, BgPropertyService>();
             services.AddTransient<ISearchSetService, SearchSetService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IStatisticService, StatisticService>();

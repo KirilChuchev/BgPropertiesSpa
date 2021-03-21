@@ -1,7 +1,7 @@
-﻿namespace BgProperties.Services.Data
+﻿namespace BgPropertiesServer.Services
 {
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using BgPropertiesServer.Data;
     using BgPropertiesServer.Data.Models;
