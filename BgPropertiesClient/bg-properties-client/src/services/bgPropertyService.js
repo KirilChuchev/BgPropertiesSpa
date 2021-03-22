@@ -66,7 +66,6 @@ function searchSetTracked(token, searchSetId) {
 }
 
 function userTracked(token) {
-  console.log("here");
   return fetch(`/tracking/user`, {
     headers: {
       Accept: "application/json, text/plain, */*",

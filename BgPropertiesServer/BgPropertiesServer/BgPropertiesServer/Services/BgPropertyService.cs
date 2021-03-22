@@ -22,6 +22,8 @@ namespace BgPropertiesServer.Services
 
         public async Task<OneBgPropertyViewModel> GetBgPropertyByIdAsync(string bgPropertyId, string searchSetId, string currentUserId = null)
         {
+            searchSetId = searchSetId != "undefined" ? searchSetId : null;
+
             //// Set this BgProperty as not Newly yet for this SearchSet.
             var newlyBgProperty = await this.db.NewlySearchSetsBgProperties.FirstOrDefaultAsync(x => x.SearchSetId == searchSetId && x.BgPropertyId == bgPropertyId);
             if (newlyBgProperty != null)

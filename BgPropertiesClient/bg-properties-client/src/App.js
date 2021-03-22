@@ -41,7 +41,7 @@ const App = () => {
         path="/searchsets/:searchSetId/bg-properties/all-tracked/" exact component={() => <BgProperties />}
       />
       <Route
-        path="/searchsets/:searchSetId/bg-properties/:bgPropertyId" exact component={() => <BgProperty />}
+        path="/searchsets/:searchSetId/bg-properties/:bgPropertyId" exact component={(props) => <BgProperty props={props} />}
       />
       
       <Route

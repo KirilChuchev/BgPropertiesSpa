@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import authService from "../../../services/authService";
 import bgPropertyService from "../../../services/bgPropertyService";
 
-const BgProperty = () => {
+const BgProperty = (props) => {
+
+  // console.log(props);
 
   const userClaims = authService.getLocalStorageUserClaims();
   var token = userClaims.token;

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { Link, Redirect} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import BgPropertyShortDetails from "../BgPropertyShortDetails";
+// import authService from "../../../services/authService";
+// import bgPropertyService from "../../../services/bgPropertyService";
 
 const BgPropertiesList = ({ bgProperties, searchSetName, searchSetId }) => {
+
+  // const userClaims = authService.getLocalStorageUserClaims();
+  // var token = userClaims.token;
 
   const [isBgPropertyClicked, setIsBgPropertyClicked] = useState(false);
   const [bgPropertyId, setBgPropertyId] = useState("");
@@ -12,12 +17,27 @@ const BgPropertiesList = ({ bgProperties, searchSetName, searchSetId }) => {
     setBgPropertyId(id);
   }
 
+  // function onTrackClick(bgPropertyId) {
+  //   bgPropertyService.trackOne(token, bgPropertyId);
+  // }
+
   if (isBgPropertyClicked) {
     // history.push(`/bg-properties/one/${bgPropertyIdClicked}/${searchSetId}`)
     // return <></>;
-    return <Redirect to={`/searchsets/${searchSetId}/bg-properties/${bgPropertyId}`} />;
-  }
 
+    return (
+      <Redirect
+        to={`/searchsets/${searchSetId}/bg-properties/${bgPropertyId}`}
+      />
+
+      // <Redirect
+      //   to={{
+      //     pathname: `/searchsets/${searchSetId}/bg-properties/${bgPropertyId}`,
+      //     staticContext: () => onTrackClick(),
+      //   }}
+      // />
+    );
+  }
 
   return (
     <>
