@@ -73,6 +73,7 @@ namespace BgPropertiesServer.Data.Models
         [InverseProperty("BgProperty")]
         public virtual ICollection<AdditionalFeatureBgProperty> AdditionalFeaturesBgProperties { get; set; }
         [InverseProperty("BgProperty")]
+        // Intermediate tables usefull when operates with on BgProperty
         public virtual ICollection<ApplicationUserBgProperty> TrackingUsers { get; set; }
         [InverseProperty("BgProperty")]
         public virtual ICollection<AssetBgProperty> AssetsBgProperties { get; set; }

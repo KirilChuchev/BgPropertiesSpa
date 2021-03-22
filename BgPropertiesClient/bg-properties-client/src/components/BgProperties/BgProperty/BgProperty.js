@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import authService from "../../../services/authService";
 import bgPropertyService from "../../../services/bgPropertyService";
 
-const BgProperty = () => {
+const BgProperty = (props) => {
+
+  // console.log(props);
 
   const userClaims = authService.getLocalStorageUserClaims();
   var token = userClaims.token;
@@ -22,7 +24,7 @@ const BgProperty = () => {
         setBgProperty(data);
         setIsLoading(false);
       });
-  }, [token, bgPropertyId, searchSetId]);
+  }, [token, bgPropertyId, searchSetId, bgPropertyModel]);
 
   if (isLoading) {
     return "Loading...";
@@ -82,12 +84,13 @@ const BgProperty = () => {
           </p>
           <p>
             <strong>IsTracked: </strong>
-            {bgProperty.isTracked || "n/a"}
+            {bgProperty.isTracked ? "Tracked" : "No"}
           </p>
           <p>
             <strong>IsNewly: </strong>
             {bgProperty.isNewly || "n/a"}
           </p>
+          <button onClick={() => bgPropertyService.trackOne(token, bgPropertyId)}>{bgProperty.isTracked ? "Un-Track" : "Track"}</button>
         </Fragment>
       )}
     </>

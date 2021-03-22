@@ -36,9 +36,54 @@ function fetchAll(token, searchSetId) {
     .catch((error) => console.log(error));
 }
 
+function trackOne(token, bgPropertyId) {
+  return fetch(`/tracking/track`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(bgPropertyId),
+  })
+    .then(queryService.handleResponse)
+    .catch((error) => console.log(error));
+}
+
+function searchSetTracked(token, searchSetId) {
+  console.log("here");
+  return fetch(`/tracking/searchsets/${searchSetId}`, {
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then(queryService.handleResponse)
+  .catch((error) => console.log(error));
+}
+
+function userTracked(token) {
+  return fetch(`/tracking/user`, {
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then(queryService.handleResponse)
+  .catch((error) => console.log(error));
+}
+
 const bgPropertyService = {
   fetchOne,
   fetchAll,
+  trackOne,
+  searchSetTracked,
+  userTracked,
 };
 
 export default bgPropertyService;

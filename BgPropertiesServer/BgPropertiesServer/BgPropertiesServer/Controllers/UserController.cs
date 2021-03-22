@@ -33,6 +33,7 @@
             this.authService = authService;
         }
 
+        // POST: user/login
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
@@ -66,6 +67,7 @@
             }
         }
 
+        // POST: user/register
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
@@ -101,6 +103,7 @@
             }
         }
 
+        // POST: user/register0admin
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)

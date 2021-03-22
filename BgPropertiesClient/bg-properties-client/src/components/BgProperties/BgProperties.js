@@ -17,16 +17,26 @@ const BgProperties = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   let location = useLocation();
-  let service = pathDecider(location.pathname);
+  let resource = resourceSelector(location.pathname);
 
-  function pathDecider(path) {
+  // /searchsets/:searchSetId/bg-properties/all-tracked
+
+  function resourceSelector(path) {
     if (path.includes("/statistics/top-profitable/")) {
       return "top-profitable";
     } else if (
       path.includes("/searchsets/") &&
-      path.includes("/bg-properties")
+      path.includes("/bg-properties/all/")
     ) {
       return "bg-properties";
+    } else if (
+      path.includes("/searchsets/") &&
+      path.includes("/bg-properties/all-tracked/") &&
+      !path.includes("/all/")
+    ) {
+      return "searchset-tracked";
+    } else if (path.includes("/searchsets/all/bg-properties/all-tracked/")) {
+      return "user-tracked";
     }
   }
 
@@ -37,13 +47,16 @@ const BgProperties = () => {
         bgPropertyService.fetchAll(token, searchSetId),
       "top-profitable": (token, searchSetId) =>
         statisticService.fetchTopProfitable(token, searchSetId),
+      "searchset-tracked": (token, searchSetId) =>
+        bgPropertyService.searchSetTracked(token, searchSetId),
+      "user-tracked": (token) => bgPropertyService.userTracked(token),
     };
 
-    bgPropertyServiceMap[service](token, searchSetId).then((data) => {
+    bgPropertyServiceMap[resource](token, searchSetId).then((data) => {
       setBgPropertiesModel(data);
       setIsLoading(false);
     });
-  }, [token, searchSetId, service]);
+  }, [token, searchSetId, resource]);
 
   if (isLoading) {
     return "Loading...";

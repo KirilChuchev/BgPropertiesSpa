@@ -27,6 +27,10 @@ const SearchSet = () => {
     return "Loading...";
   }
 
+  const style = {
+    display: "block",
+  }
+
   return (
     <>
       {searchSet && (
@@ -52,11 +56,14 @@ const SearchSet = () => {
                 </li>
               ))}
           </ol>
-          <Link to={`/searchsets/${searchSetId}/bg-properties`}>
+          <Link to={`/searchsets/${searchSetId}/bg-properties/all/`} style={style}>
             Bg Properties
           </Link>
-          <Link to={`/statistics/top-profitable/${searchSetId}`}>
+          <Link to={`/statistics/top-profitable/${searchSetId}`} style={style}>
             Top profitable BgProperties
+          </Link>
+          <Link to={`/searchsets/${searchSetId}/bg-properties/all-tracked/`} style={style}>
+            Tracked BgProperties
           </Link>
         </Fragment>
       )}

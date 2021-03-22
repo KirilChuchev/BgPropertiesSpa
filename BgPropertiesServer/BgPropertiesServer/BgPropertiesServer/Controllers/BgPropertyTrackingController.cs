@@ -1,42 +1,34 @@
 ﻿namespace BgPropertiesServer.Controllers
 {
-    using BgPropertiesServer.Data;
     using BgPropertiesServer.Helpers;
     using BgPropertiesServer.Services;
     using BgPropertiesServer.ViewModels.ApplicationUser;
-    using BgPropertiesServer.ViewModels.SearchSet;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using System;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Linq;
-    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
-    [Route("searchsets/[action]")]
+    [Route("tracking")] // /[action]
     [ApiController]
     [Authorize]
-    public class SearchSetController : ControllerBase
+    public class BgPropertyTrackingController : ControllerBase
     {
-        private readonly ApplicationDbContext db;
         private readonly IAuthService authService;
-        private readonly ISearchSetService searchSetService;
+        private readonly IBgPropertyService bgPropertyService;
 
-        public SearchSetController(
-            ApplicationDbContext db,
+        public BgPropertyTrackingController(
             IAuthService authService,
-            ISearchSetService searchSetService)
+            IBgPropertyService bgPropertyService)
         {
-            this.db = db;
             this.authService = authService;
-            this.searchSetService = searchSetService;
+            this.bgPropertyService = bgPropertyService;
         }
 
-        // GET: /searchsets/one/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
-        [HttpGet("{searchSetId}"), ActionName("one")]
-        public async Task<IActionResult> GetOneById([FromHeader] string authorization, string searchSetId)
+        // POST: tracking/track
+        [HttpPost]
+        [Route("track/")]
+        public async Task<IActionResult> TrackAsync([FromHeader] string authorization, [FromBody] string bgPropertyId)
         {
             try
             {
@@ -47,9 +39,9 @@
                     return Unauthorized();
                 }
 
-                var entity = await this.searchSetService.GetOneAsViewModel(user, searchSetId);
+                await this.bgPropertyService.TrackBgPropertyAsync(user, bgPropertyId);
 
-                return Ok(entity);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -61,10 +53,12 @@
             }
         }
 
-        // GET: /searchsets/all
-        [HttpGet, ActionName("all")]
-        public async Task<IActionResult> GetAllByUserId([FromHeader] string authorization)
+        // GET: tracking/searchsets/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
+        [HttpGet]
+        [Route("searchsets/{searchSetId}")]
+        public async Task<IActionResult> GetAllTrackedBySearchSet([FromHeader] string authorization, string searchSetId)
         {
+
             try
             {
                 var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
@@ -74,7 +68,7 @@
                     return Unauthorized();
                 }
 
-                var entities = await this.searchSetService.GetAllAsViewModel(user);
+                var entities = await this.bgPropertyService.GetAllTrackedBgPropertiesBySearchSetAsync(user, searchSetId);
 
                 return Ok(entities);
             }
@@ -88,9 +82,10 @@
             }
         }
 
-        // POST: searchsets/create
-        [HttpPost, ActionName("create")]
-        public async Task<IActionResult> Create([FromHeader] string authorization, [FromBody] SearchSetInputViewModel model)
+        // GET: tracking/user/
+        [HttpGet]
+        [Route("user/")]
+        public async Task<IActionResult> GetAllTrackedByUser([FromHeader] string authorization)
         {
             try
             {
@@ -101,9 +96,9 @@
                     return Unauthorized();
                 }
 
-                var createdSearchSetId = await this.searchSetService.CreateAsync(model, user);
+                var entities = await this.bgPropertyService.GetAllTrackedBgPropertiesByUserAsync(user);
 
-                return Ok(new { searchSetId = createdSearchSetId });
+                return Ok(entities);
             }
             catch (Exception ex)
             {
@@ -114,17 +109,5 @@
                     new Response { Status = "Error", Message = message });
             }
         }
-
-        //// PUT api/<SearchSetController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<SearchSetController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
