@@ -29,6 +29,9 @@ const Home = () => {
               <Link to="/searchsets">All your searchSets</Link>
             </li>
             <li>
+              <Link to="/searchsets/all/bg-properties/all-tracked/">All your Tracked BgProperties</Link>
+            </li>
+            <li>
               <Link to="/" onClick={() => userService.logout()}>
                 Logout
               </Link>

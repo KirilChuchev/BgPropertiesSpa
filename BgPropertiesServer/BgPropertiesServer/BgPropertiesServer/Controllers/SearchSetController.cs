@@ -88,7 +88,7 @@
             }
         }
 
-        // POST <SearchSetController>
+        // POST: searchsets/create
         [HttpPost, ActionName("create")]
         public async Task<IActionResult> Create([FromHeader] string authorization, [FromBody] SearchSetInputViewModel model)
         {

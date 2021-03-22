@@ -27,12 +27,23 @@ const App = () => {
       />
       <Route path={`/searchsets/:searchSetId`} exact component={() => <SearchSet />}
       />
+      
+       {/* /searchsets/all/bg-properties/all-tracked/ */}
+      
       <Route
-        path="/searchsets/:searchSetId/bg-properties/" exact component={() => <BgProperties />}
+        path="/searchsets/all/bg-properties/all-tracked/" exact component={() => <BgProperties />}
+      />
+      {/* paths with parameters must be after other without */}
+      <Route
+        path="/searchsets/:searchSetId/bg-properties/all/" exact component={() => <BgProperties />}
+      />
+      <Route
+        path="/searchsets/:searchSetId/bg-properties/all-tracked/" exact component={() => <BgProperties />}
       />
       <Route
         path="/searchsets/:searchSetId/bg-properties/:bgPropertyId" exact component={() => <BgProperty />}
       />
+      
       <Route
         path="/statistics/top-profitable/:searchSetId" exact component={() => <BgProperties />}
       />

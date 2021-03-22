@@ -32,6 +32,7 @@
             this.authService = authService;
         }
 
+        // GET: statistics/top-profitable/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
         [HttpGet("{searchSetId}"), ActionName("top-profitable")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
