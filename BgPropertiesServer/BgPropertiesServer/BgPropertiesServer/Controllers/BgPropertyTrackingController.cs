@@ -1,17 +1,17 @@
 ﻿namespace BgPropertiesServer.Controllers
 {
-    using BgPropertiesServer.Helpers;
-    using BgPropertiesServer.Services;
-    using BgPropertiesServer.ViewModels.ApplicationUser;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
+    using BgPropertiesServer.Helpers;
+    using BgPropertiesServer.Services;
+    using Microsoft.AspNetCore.Authorization;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
 
-    [Route("tracking")] // /[action]
-    [ApiController]
     [Authorize]
+    [ApiController]
+    [Route("tracking")]
     public class BgPropertyTrackingController : ControllerBase
     {
         private readonly IAuthService authService;

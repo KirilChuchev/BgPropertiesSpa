@@ -1,9 +1,8 @@
-﻿using BgPropertiesServer.Data.Models;
-using BgPropertiesServer.ViewModels.BgProperty;
-using System.Threading.Tasks;
-
-namespace BgPropertiesServer.Services
+﻿namespace BgPropertiesServer.Services
 {
+    using System.Threading.Tasks;
+    using BgPropertiesServer.Data.Models;
+    using BgPropertiesServer.ViewModels.BgProperty;
     public interface IBgPropertyService
     {
         Task<OneBgPropertyViewModel> GetBgPropertyByIdAsync(string bgPropertyId, string searchSetId, string currentUserId = null);

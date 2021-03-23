@@ -3,31 +3,26 @@
     using System;
     using System.Net.Mime;
     using System.Threading.Tasks;
-    using BgPropertiesServer.Data.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
     using BgPropertiesServer.Helpers;
     using BgPropertiesServer.Services;
-    using BgPropertiesServer.ViewModels.ApplicationUser;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
 
-    [Route("statistics/[action]")]
-    [ApiController]
     [Authorize]
+    [ApiController]
+    [Route("statistics/[action]")]
     public class StatisticController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IStatisticService statisticService;
         private readonly IAuthService authService;
 
         public StatisticController(
-            UserManager<ApplicationUser> userManager, 
             IStatisticService statisticService,
             IAuthService authService
             )
         {
-            this.userManager = userManager;
             this.statisticService = statisticService;
             this.authService = authService;
         }
@@ -57,56 +52,48 @@
             }
         }
 
-        public async Task<IActionResult> AllNewBgPropertiesAsync()
+        // GET: statistics/all-new
+        [HttpGet, ActionName("all-newly")]
+        public async Task<IActionResult> AllNewBgPropertiesAsync([FromHeader] string authorization)
         {
-            //try
-            //{
-            //}
-            //catch (Exception)
-            //{
-            //    var route = this.Request.Path.Value;
-            //    return this.View("~/Views/Error/Error.cshtml", route);
-            //}
+            try
+            {
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
 
-            this.TempData["callingActionViewAllProperties"] = "AllNewBgProperties";
-            var currentUser = await this.userManager.GetUserAsync(this.User);
-            var model = await this.statisticService.GetAllNewBgPropertiesAsync(currentUser);
-            //model.PartialModel = new BgPropertiesTitlePartialViewModel()
-            //{
-            //    Text = $"All NEW Bg Properties by",
-            //    ForWhat = "Date",
-            //    BgPropertiesCount = model.BgProperties.Count,
-            //};
-            //return this.View("~/Views/BgPropertySearching/ViewAllProperties.cshtml", model);
+                var entities = await this.statisticService.GetAllNewBgPropertiesAsync(user);
 
-            return null;
+                return Ok(entities);
+            }
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
+
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AllNewBgPropertiesBySearchSetAsync(string searchSetId)
+        // GET: statistics/all-new/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
+        [HttpGet("{searchSetId}"), ActionName("all-newly")]
+        public async Task<IActionResult> AllNewBgPropertiesBySearchSetAsync([FromHeader] string authorization, string searchSetId)
         {
-            //try
-            //{
-            //}
-            //catch (Exception)
-            //{
-            //    var route = this.Request.Path.Value;
-            //    return this.View("~/Views/Error/Error.cshtml", route);
-            //}
+            try
+            {
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
 
-            this.TempData["callingActionViewAllProperties"] = "AllNewBgPropertiesBySearchSet";
-            var currentUser = await this.userManager.GetUserAsync(this.User);
-            var model = await this.statisticService.GetAllNewBgPropertiesAsync(currentUser, searchSetId);
-            //model.PartialModel = new BgPropertiesTitlePartialViewModel()
-            //{
-            //    Text = $"All NEW Bg Properties ",
-            //    ForWhat = "SearchSet",
-            //    SearchSetName = model.SearchSetName,
-            //    BgPropertiesCount = model.BgProperties.Count,
-            //};
-            //return this.View("~/Views/BgPropertySearching/ViewAllProperties.cshtml", model);
+                var entities = await this.statisticService.GetAllNewBgPropertiesAsync(user, searchSetId);
 
-            return null;
+                return Ok(entities);
+            }
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
+
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
         }
     }
 }

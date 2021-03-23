@@ -1,8 +1,8 @@
 ﻿namespace BgPropertiesServer.Services
 {
+    using System.Threading.Tasks;
     using BgPropertiesServer.Data.Models;
     using BgPropertiesServer.ViewModels.BgProperty;
-    using System.Threading.Tasks;
 
 	public interface IStatisticService
     {

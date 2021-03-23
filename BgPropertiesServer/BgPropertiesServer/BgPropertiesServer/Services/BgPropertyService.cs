@@ -1,16 +1,16 @@
-﻿using BgPropertiesServer.Data;
-using BgPropertiesServer.Data.Models;
-using BgPropertiesServer.ViewModels.BgProperty;
-using BgPropertiesServer.ViewModels.SearchCriteria;
-using BgPropertiesServer.ViewModels.SearchSet;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgPropertiesServer.Services
+﻿namespace BgPropertiesServer.Services
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using BgPropertiesServer.Data;
+    using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
+    using BgPropertiesServer.Data.Models;
+    using BgPropertiesServer.ViewModels.BgProperty;
+    using BgPropertiesServer.ViewModels.SearchCriteria;
+    using BgPropertiesServer.ViewModels.SearchSet;
+
     public class BgPropertyService : IBgPropertyService
     {
         private readonly ApplicationDbContext db;
@@ -59,8 +59,6 @@ namespace BgPropertiesServer.Services
                             IsNewlyFetched = this.db.NewlySearchSetsBgProperties.Any(x => x.SearchSetId == searchSetId && x.BgPropertyId == bgPropertyId),
                         })
                         .FirstOrDefaultAsync();
-
-            //var property = await this.db.BgProperties.FirstOrDefaultAsync(x => x.Id == bgPropertyId);
 
             if (property == null)
             {
@@ -187,6 +185,7 @@ namespace BgPropertiesServer.Services
             })
             .OrderByDescending(x => x.IsTracked)
             .ThenByDescending(x => x.IsNewly)
+            .ThenBy(x => x.CreatedOn)
             .ToList();
 
 
@@ -272,6 +271,7 @@ namespace BgPropertiesServer.Services
             var userAllBgPropertiesTrackedFromCurrentSearchSet = userAllTrackedBgProperies
                 .Where(x => x.SearchSetId == searchSetId)
                 .OrderByDescending(x => x.IsNewly)
+                .ThenBy(x => x.CreatedOn)
                 .ToArray();
 
             var searchSet = await this.db.SearchSets.FirstOrDefaultAsync(x => x.Id == searchSetId);
@@ -332,6 +332,7 @@ namespace BgPropertiesServer.Services
                 Currency = x.Currency,
             })
             .OrderByDescending(x => x.IsNewly)
+            .ThenBy(x => x.CreatedOn)
             .ToArray();
 
             return new AllBgPropertiesViewModel()

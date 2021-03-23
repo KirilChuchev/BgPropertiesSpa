@@ -19,24 +19,38 @@ const BgProperties = () => {
   let location = useLocation();
   let resource = resourceSelector(location.pathname);
 
-  // /searchsets/:searchSetId/bg-properties/all-tracked
-
   function resourceSelector(path) {
     if (path.includes("/statistics/top-profitable/")) {
       return "top-profitable";
     } else if (
       path.includes("/searchsets/") &&
-      path.includes("/bg-properties/all/")
+      path.includes("/bg-properties") &&
+      !path.includes("/all-tracked") &&
+      !path.includes("/all-newly")
     ) {
+      console.log("all bgproperties");
       return "bg-properties";
     } else if (
       path.includes("/searchsets/") &&
-      path.includes("/bg-properties/all-tracked/") &&
+      path.includes("/bg-properties/all-tracked") &&
       !path.includes("/all/")
     ) {
       return "searchset-tracked";
-    } else if (path.includes("/searchsets/all/bg-properties/all-tracked/")) {
+    } else if (
+      path.includes("/statistics/searchsets/") &&
+      path.includes("/bg-properties/all-newly") &&
+      !path.includes("/all/")
+    ) {
+      console.log("searchset-newly");
+      return "searchset-newly";
+    } else if (path.includes("/searchsets/all/bg-properties/all-tracked")) {
+      console.log("tracked");
       return "user-tracked";
+    } else if (
+      path.includes("/statistics/searchsets/all/bg-properties/all-newly")
+    ) {
+      console.log("user-newly");
+      return "user-newly";
     }
   }
 
@@ -50,6 +64,9 @@ const BgProperties = () => {
       "searchset-tracked": (token, searchSetId) =>
         bgPropertyService.searchSetTracked(token, searchSetId),
       "user-tracked": (token) => bgPropertyService.userTracked(token),
+      "user-newly": (token) => statisticService.fetchUserNewly(token),
+      "searchset-newly": (token, searchSetId) =>
+        statisticService.fetchSearchSetNewly(token, searchSetId),
     };
 
     bgPropertyServiceMap[resource](token, searchSetId).then((data) => {

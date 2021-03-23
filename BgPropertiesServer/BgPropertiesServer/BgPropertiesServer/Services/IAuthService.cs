@@ -1,11 +1,11 @@
 ﻿namespace BgPropertiesServer.Services
 {
-    using BgPropertiesServer.Data.Models;
-    using BgPropertiesServer.ViewModels.ApplicationUser;
-    using Microsoft.AspNetCore.Identity;
-    using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
+    using BgPropertiesServer.Data.Models;
+    using System.IdentityModel.Tokens.Jwt;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
 
     public interface IAuthService
     {
