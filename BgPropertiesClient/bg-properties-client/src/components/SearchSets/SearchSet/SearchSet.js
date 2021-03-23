@@ -56,13 +56,14 @@ const SearchSet = () => {
                 </li>
               ))}
           </ol>
-          <Link to={`/searchsets/${searchSetId}/bg-properties/all/`} style={style}>
+          {/* <Link to={`/searchsets/${searchSetId}/bg-properties/all/`} style={style}> */}
+          <Link to={`/searchsets/${searchSetId}/bg-properties`} style={style}>
             Bg Properties
           </Link>
           <Link to={`/statistics/top-profitable/${searchSetId}`} style={style}>
             Top profitable BgProperties
           </Link>
-          <Link to={`/searchsets/${searchSetId}/bg-properties/all-tracked/`} style={style}>
+          <Link to={`/searchsets/${searchSetId}/bg-properties/all-tracked`} style={style}>
             Tracked BgProperties
           </Link>
         </Fragment>

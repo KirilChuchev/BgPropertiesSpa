@@ -26,16 +26,20 @@ const BgProperties = () => {
       return "top-profitable";
     } else if (
       path.includes("/searchsets/") &&
-      path.includes("/bg-properties/all/")
+      path.includes("/bg-properties") &&
+      !path.includes("/all-tracked")
+      // /searchsets/:searchSetId/bg-properties
     ) {
+      console.log("all bgproperties");
       return "bg-properties";
     } else if (
       path.includes("/searchsets/") &&
-      path.includes("/bg-properties/all-tracked/") &&
+      path.includes("/bg-properties/all-tracked") &&
       !path.includes("/all/")
     ) {
       return "searchset-tracked";
-    } else if (path.includes("/searchsets/all/bg-properties/all-tracked/")) {
+    } else if (path.includes("/searchsets/all/bg-properties/all-tracked")) {
+      console.log("tracked");
       return "user-tracked";
     }
   }
