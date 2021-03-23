@@ -1,21 +1,20 @@
 ﻿namespace BgPropertiesServer.Controllers
 {
-    using BgPropertiesServer.Data.Models;
-    using BgPropertiesServer.GlobalConstants;
-    using BgPropertiesServer.Helpers;
-    using BgPropertiesServer.Services;
-    using BgPropertiesServer.ViewModels.ApplicationUser;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
     using System;
-    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
+    using BgPropertiesServer.Helpers;
+    using BgPropertiesServer.Services;
+    using Microsoft.AspNetCore.Identity;
+    using BgPropertiesServer.Data.Models;
+    using System.IdentityModel.Tokens.Jwt;
+    using BgPropertiesServer.GlobalConstants;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
 
-
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;

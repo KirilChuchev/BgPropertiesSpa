@@ -1,22 +1,22 @@
-﻿using BgPropertiesServer.Data;
-using BgPropertiesServer.Data.Models;
-using BgPropertiesServer.ViewModels.ApplicationUser;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BgPropertiesServer.Services
+﻿namespace BgPropertiesServer.Services
 {
+    using System;
+    using System.Linq;
+    using System.Text;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using System.Net.Http.Headers;
+    using BgPropertiesServer.Data;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using BgPropertiesServer.Data.Models;
+    using Microsoft.IdentityModel.Logging;
+    using Microsoft.IdentityModel.Tokens;
+    using System.IdentityModel.Tokens.Jwt;
+    using Microsoft.Extensions.Configuration;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
+
     public class AuthService : IAuthService
     {
         private readonly UserManager<ApplicationUser> userManager;

@@ -1,15 +1,14 @@
 ﻿namespace BgPropertiesServer.Services
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using BgPropertiesServer.Data;
-    using BgPropertiesServer.Data.Models;
+    using System.Collections.Generic;
     using BgPropertiesServer.Helpers;
-    using BgPropertiesServer.ViewModels.SearchCriteria;
-    using BgPropertiesServer.ViewModels.SearchSet;
+    using BgPropertiesServer.Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using BgPropertiesServer.ViewModels.SearchSet;
+    using BgPropertiesServer.ViewModels.SearchCriteria;
 
     public class SearchSetService : ISearchSetService
     {
@@ -119,38 +118,6 @@
                                 }).ToList(),
                             })
                             .FirstOrDefault();
-        }
-
-        /// <summary>
-        ///Returns the boolean according to the currelntlly setted Checking Mode.
-        /// </summary>
-        /// <param name="searchSetId"></param>
-        /// <returns></returns>
-        public async Task<bool> ToggleCheckingMode(string searchSetId)
-        {
-            try
-            {
-                var searchSet = await this.db.SearchSets.FirstOrDefaultAsync(x => x.Id == searchSetId);
-                if (searchSet == null)
-                {
-                    throw new ArgumentException("There is no such searchSetId");
-                }
-                else if (searchSet.IsInCheckingMode == true)
-                {
-                    searchSet.IsInCheckingMode = false;
-                }
-                else
-                {
-                    searchSet.IsInCheckingMode = true;
-                }
-
-                await this.db.SaveChangesAsync();
-                return searchSet.IsInCheckingMode;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
     }
 }

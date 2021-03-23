@@ -1,18 +1,18 @@
 ﻿namespace BgPropertiesServer.Controllers
 {
-    using BgPropertiesServer.Helpers;
-    using BgPropertiesServer.Services;
-    using BgPropertiesServer.ViewModels.ApplicationUser;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Net.Mime;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
+    using BgPropertiesServer.Helpers;
+    using BgPropertiesServer.Services;
+    using Microsoft.AspNetCore.Authorization;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
 
-    [Route("bg-properties/[action]")]
-    [ApiController]
     [Authorize]
+    [ApiController]
+    [Route("bg-properties/[action]")]
     public class BgPropertyController : ControllerBase
     {
         private readonly IAuthService authService;
@@ -28,7 +28,6 @@
 
         // GET: /bg-properties/one/[bgPropertyId:]002f51fc-20cb-4fc2-a1d1-d4097d5b9337/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
         [HttpGet, ActionName("one")]
-        //[HttpGet("{bgPropertyId}"), ActionName("one")]
         [Route("{bgPropertyId}/{searchSetId}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]

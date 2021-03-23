@@ -1,35 +1,27 @@
 ﻿namespace BgPropertiesServer.Controllers
 {
-    using BgPropertiesServer.Data;
-    using BgPropertiesServer.Helpers;
-    using BgPropertiesServer.Services;
-    using BgPropertiesServer.ViewModels.ApplicationUser;
-    using BgPropertiesServer.ViewModels.SearchSet;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using System;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Linq;
-    using System.Net.Http.Headers;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
+    using BgPropertiesServer.Services;
+    using BgPropertiesServer.Helpers;
+    using Microsoft.AspNetCore.Authorization;
+    using BgPropertiesServer.ViewModels.SearchSet;
+    using BgPropertiesServer.ViewModels.ApplicationUser;
 
-    [Route("searchsets/[action]")]
-    [ApiController]
     [Authorize]
+    [ApiController]
+    [Route("searchsets/[action]")]
     public class SearchSetController : ControllerBase
     {
-        private readonly ApplicationDbContext db;
         private readonly IAuthService authService;
         private readonly ISearchSetService searchSetService;
 
         public SearchSetController(
-            ApplicationDbContext db,
             IAuthService authService,
             ISearchSetService searchSetService)
         {
-            this.db = db;
             this.authService = authService;
             this.searchSetService = searchSetService;
         }

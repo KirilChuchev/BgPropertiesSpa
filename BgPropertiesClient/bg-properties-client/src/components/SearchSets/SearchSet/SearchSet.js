@@ -66,6 +66,9 @@ const SearchSet = () => {
           <Link to={`/searchsets/${searchSetId}/bg-properties/all-tracked`} style={style}>
             Tracked BgProperties
           </Link>
+          <Link to={`/statistics/searchsets/${searchSetId}/bg-properties/all-newly`} style={style}>
+            New BgProperties in this SearchSet
+          </Link>
         </Fragment>
       )}
     </>

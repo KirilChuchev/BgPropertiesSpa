@@ -1,9 +1,9 @@
 ﻿namespace BgPropertiesServer.Services
 {
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
     using BgPropertiesServer.Data.Models;
     using BgPropertiesServer.ViewModels.SearchSet;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public interface ISearchSetService
     {
@@ -14,7 +14,5 @@
         Task<SearchSetViewModel> GetOneAsViewModel(ApplicationUser currentUser, string searchSetId);
 
         SearchSet GetOneAsDataModel(string id);
-
-        Task<bool> ToggleCheckingMode(string searchSetId);
     }
 }

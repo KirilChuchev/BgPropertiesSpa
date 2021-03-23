@@ -1,14 +1,14 @@
 ﻿namespace BgPropertiesServer.Services
 {
     using System.Linq;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using BgPropertiesServer.Data;
+    using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
     using BgPropertiesServer.Data.Models;
+    using BgPropertiesServer.ViewModels.SearchSet;
     using BgPropertiesServer.ViewModels.BgProperty;
     using BgPropertiesServer.ViewModels.SearchCriteria;
-    using BgPropertiesServer.ViewModels.SearchSet;
-    using Microsoft.EntityFrameworkCore;
 
     public class StatisticService : IStatisticService
     {
@@ -21,10 +21,6 @@
 
         public async Task<AllBgPropertiesViewModel> GetTopProfitableBgPropertyInSearchSetByPropertyType(ApplicationUser currentUser, string searchSetId)
         {
-            // var queryParamsCollection = HelpMethods.GetFullfilledSearchCriterias(model) as HashSet<SearchCriteriaViewModel>;
-
-            // var bgProperties = await this.CreateBgPropertiesQueryFromDb(this.db, queryParamsCollection);
-
             var searchSetViewModel = this.db.SearchSets
                     .Where(x => x.Id == searchSetId)
                     .Select(x => new SearchSetViewModel()
@@ -92,41 +88,6 @@
 
             if (searchSetId != null)
             {
-                // var searchSet = this.db.SearchSets.FirstOrDefault(x => x.Id == searchSetId);
-                //allNewBgProperties =
-                //        await this.db.NewlyListedUsersBgProperties
-                //        .Where(x => x.ApplicationUserId == currentUser.Id && x.BgProperty.SearchSets.Any(y => y.SearchSetId == searchSetId) && x.BgProperty.IsNewlyFetched == true)
-                //        .Select(x => x.BgProperty)
-                //        .Select(x => new BgPropertyViewModel()
-                //        {
-                //            Id = x.Id,
-                //            CreatedOn = x.CreatedOn.ToString(), // "n"
-                //            Url = x.Url,
-                //            Area = x.Area.ToString(),
-                //            Floor = x.Floor.ToString(),
-                //            PropertyType = x.PropertyType.ToString(),
-                //            Location = x.Location.ToString(),
-                //            TotalBuildingFloors = x.TotalBuildingFloors.ToString(),
-                //            Description = x.Desctiption.ToString(),
-                //            Price = x.Price,
-                //            PriceInEUR = x.PriceInEUR,
-                //            PricePerSquareMeter = x.PricePerSquareMeter,
-                //            PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
-                //            IsTracked = x.TrackingUsers.Any(x => x.ApplicationUserId == currentUser.Id),
-                //            IsNewlyFetched = x.IsNewlyFetched,
-                //            Currency = x.Currency,
-                //            SearchSetId = searchSetId,
-                //            //SearchSets = x.SearchSets.Select(y => new SearchSetViewModel()
-                //            //{
-                //            //    Id = y.SearchSet.Id,
-                //            //    Name = y.SearchSet.Name,
-                //            //    Description = y.SearchSet.Description,
-                //            //}).ToArray(),
-                //        })
-                //        .OrderByDescending(x => x.IsTracked)
-                //        .ThenByDescending(x => x.CreatedOn)
-                //        .ToListAsync();
-
                 allNewBgProperties = await this.db.BgProperties
                         .Where(x =>
                                 x.SearchSets.Any(y => y.SearchSetId == searchSetId && y.SearchSet.ApplicationUserId == currentUser.Id)
@@ -134,22 +95,25 @@
                         .Select(x => new BgPropertyViewModel()
                         {
                             Id = x.Id,
-                            CreatedOn = x.CreatedOn, // "n"
+                            CreatedOn = x.CreatedOn,
                             Url = x.Url,
                             Area = x.Area.ToString(),
+                            BuildingYear = x.BuildingYear,
+                            BuildingType = this.db.BuildingTypes.FirstOrDefault(y => y.Id == x.BuildingTypeId).ToString(),
                             Floor = x.Floor.ToString(),
-                            PropertyType = x.PropertyType.ToString(),
-                            Location = x.Location.ToString(),
+                            PropertyType = this.db.PropertyTypes.FirstOrDefault(y => y.Id == x.PropertyTypeId).ToString(),
+                            Location = this.db.Locations.FirstOrDefault(y => y.Id == x.LocationId).ToString(),
                             TotalBuildingFloors = x.TotalBuildingFloors.ToString(),
-                            Description = x.Desctiption.ToString(),
+                            Description = x.Desctiption,
+                            CourtyardArea = x.CourtyardArea,
                             Price = x.Price,
                             PriceInEUR = x.PriceInEUR,
                             PricePerSquareMeter = x.PricePerSquareMeter,
                             PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
-                            IsTracked = x.TrackingUsers.Any(x => x.ApplicationUserId == currentUser.Id),
+                            IsTracked = this.db.ApplicationUsersBgProperties.Any(y => y.ApplicationUserId == currentUser.Id && y.BgPropertyId == x.Id),
+                            SearchSetId = searchSetId,
                             IsNewly = this.db.NewlySearchSetsBgProperties.Any(y => y.SearchSetId == searchSetId && y.BgPropertyId == x.Id),
                             Currency = x.Currency,
-                            SearchSetId = searchSetId,
                             SearchSets = x.SearchSets.Select(y => new SearchSetViewModel()
                             {
                                 Id = y.SearchSet.Id,
@@ -158,70 +122,38 @@
                             }).ToArray(),
                         })
                         .OrderByDescending(x => x.IsTracked)
+                        .ThenByDescending(x => x.IsNewly)
                         .ThenByDescending(x => x.CreatedOn)
                         .ToListAsync();
             }
             else
             {
-                //allNewBgProperties =
-                //        await this.db.NewlyListedUsersBgProperties
-                //        .Where(x => x.ApplicationUserId == currentUser.Id && x.BgProperty.IsNewlyFetched == true)
-                //        .Select(x => x.BgProperty)
-                //        .Select(x => new BgPropertyViewModel()
-                //        {
-                //            Id = x.Id,
-                //            CreatedOn = x.CreatedOn.ToString(), // "n"
-                //            Url = x.Url,
-                //            Area = x.Area.ToString(),
-                //            Floor = x.Floor.ToString(),
-                //            PropertyType = x.PropertyType.ToString(),
-                //            Location = x.Location.ToString(),
-                //            TotalBuildingFloors = x.TotalBuildingFloors.ToString(),
-                //            Description = x.Desctiption.ToString(),
-                //            Price = x.Price,
-                //            PriceInEUR = x.PriceInEUR,
-                //            PricePerSquareMeter = x.PricePerSquareMeter,
-                //            PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
-                //            IsTracked = x.TrackingUsers.Any(x => x.ApplicationUserId == currentUser.Id),
-                //            IsNewlyFetched = x.IsNewlyFetched,
-                //            Currency = x.Currency,
-                //            SearchSets = x.SearchSets.Select(y => new SearchSetViewModel()
-                //            {
-                //                Id = y.SearchSet.Id,
-                //                Name = y.SearchSet.Name,
-                //                Description = y.SearchSet.Description,
-                //            }).ToArray(),
-                //        })
-                //        .OrderByDescending(x => x.IsTracked)
-                //        .ThenByDescending(x => x.CreatedOn)
-                //        .ToListAsync();
-
                 var currentUserSearchSets =
                  await this.db.SearchSets.Where(x => x.ApplicationUserId == currentUser.Id).Select(x => x.Id).ToArrayAsync();
 
                 allNewBgProperties = await this.db.BgProperties
-                        //.Where(x =>
-                        //        x.SearchSets.Any(y => y.SearchSet.ApplicationUserId == currentUser.Id)
-                        //        && this.db.NewlySearchSetsBgProperties.Any(y => y.BgPropertyId == x.Id))
                         .Where(x =>
                                 x.SearchSets.Any(y => y.SearchSet.ApplicationUserId == currentUser.Id)
                                 && this.db.NewlySearchSetsBgProperties.Any(y => y.BgPropertyId == x.Id && currentUserSearchSets.Any(z => z == y.SearchSetId)))
                         .Select(x => new BgPropertyViewModel()
                         {
                             Id = x.Id,
-                            CreatedOn = x.CreatedOn, // "n"
+                            CreatedOn = x.CreatedOn,
                             Url = x.Url,
                             Area = x.Area.ToString(),
+                            BuildingYear = x.BuildingYear,
+                            BuildingType = this.db.BuildingTypes.FirstOrDefault(y => y.Id == x.BuildingTypeId).ToString(),
                             Floor = x.Floor.ToString(),
-                            PropertyType = x.PropertyType.ToString(),
-                            Location = x.Location.ToString(),
+                            PropertyType = this.db.PropertyTypes.FirstOrDefault(y => y.Id == x.PropertyTypeId).ToString(),
+                            Location = this.db.Locations.FirstOrDefault(y => y.Id == x.LocationId).ToString(),
                             TotalBuildingFloors = x.TotalBuildingFloors.ToString(),
-                            Description = x.Desctiption.ToString(),
+                            Description = x.Desctiption,
+                            CourtyardArea = x.CourtyardArea,
                             Price = x.Price,
                             PriceInEUR = x.PriceInEUR,
                             PricePerSquareMeter = x.PricePerSquareMeter,
                             PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
-                            IsTracked = x.TrackingUsers.Any(x => x.ApplicationUserId == currentUser.Id),
+                            IsTracked = this.db.ApplicationUsersBgProperties.Any(y => y.ApplicationUserId == currentUser.Id && y.BgPropertyId == x.Id),
                             IsNewly = this.db.NewlySearchSetsBgProperties.Any(y => y.BgPropertyId == x.Id && currentUserSearchSets.Any(z => z == y.SearchSetId)),
                             Currency = x.Currency,
                             SearchSets = x.SearchSets.Select(y => new SearchSetViewModel()
@@ -231,7 +163,9 @@
                                 Description = y.SearchSet.Description,
                             }).ToArray(),
                         })
+
                         .OrderByDescending(x => x.IsTracked)
+                        .ThenByDescending(x => x.IsNewly)
                         .ThenByDescending(x => x.CreatedOn)
                         .ToListAsync();
             }

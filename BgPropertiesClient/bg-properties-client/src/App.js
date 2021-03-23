@@ -10,7 +10,6 @@ import Register from "./components/Register";
 import "./App.css";
 // import logo from './logo.svg';
 
-
 const App = () => {
   return (
     /*the paths' order is important */
@@ -23,40 +22,67 @@ const App = () => {
 
       <Route
         // path="/searchsets/all" exact component={() => <SearchSets />}
-        path="/searchsets" exact component={() => <SearchSets />}
+        path="/searchsets"
+        exact
+        component={() => <SearchSets />}
       />
       <Route
-        path={`/searchsets/create`} exact component={() => <CreateEditSearchSet />}
+        path={`/searchsets/create`}
+        exact
+        component={() => <CreateEditSearchSet />}
       />
-      <Route path={`/searchsets/:searchSetId`} exact component={() => <SearchSet />}
+      <Route
+        path={`/searchsets/:searchSetId`}
+        exact
+        component={() => <SearchSet />}
       />
-      
+
       <Route
         // path="/searchsets/all/bg-properties/all-tracked/" exact component={() => <BgProperties />}
-        path="/searchsets/all/bg-properties/all-tracked" exact component={() => <BgProperties />}
+        path="/searchsets/all/bg-properties/all-tracked"
+        exact
+        component={() => <BgProperties />}
       />
       <Route
-        path="/searchsets/all/bg-properties/all-new" exact component={() => <BgProperties />}
+        path="/searchsets/all/bg-properties/all-new"
+        exact
+        component={() => <BgProperties />}
       />
-      
+
       <Route
         // path="/searchsets/:searchSetId/bg-properties/all/" exact component={() => <BgProperties />}
-        path="/searchsets/:searchSetId/bg-properties" exact component={() => <BgProperties />}
+        path="/searchsets/:searchSetId/bg-properties"
+        exact
+        component={() => <BgProperties />}
       />
-      
+
       <Route
         // path="/searchsets/:searchSetId/bg-properties/all-tracked/" exact component={() => <BgProperties />}
-        path="/searchsets/:searchSetId/bg-properties/all-tracked" exact component={() => <BgProperties />}
-      />
-      <Route
-        path="/searchsets/:searchSetId/bg-properties/all-new" exact component={() => <BgProperties />}
-      />
-      <Route
-        path="/searchsets/:searchSetId/bg-properties/:bgPropertyId" exact component={() => <BgProperty />}
+        path="/searchsets/:searchSetId/bg-properties/all-tracked"
+        exact
+        component={() => <BgProperties />}
       />
       
       <Route
-        path="/statistics/top-profitable/:searchSetId" exact component={() => <BgProperties />}
+        path="/searchsets/:searchSetId/bg-properties/:bgPropertyId"
+        exact
+        component={() => <BgProperty />}
+      />
+
+      <Route
+        path="/statistics/top-profitable/:searchSetId"
+        exact
+        component={() => <BgProperties />}
+      />
+      <Route
+        path="/statistics/searchsets/all/bg-properties/all-newly"
+        exact
+        component={() => <BgProperties />}
+      />
+      <Route
+        path="/statistics/searchsets/:searchSetId/bg-properties/all-newly"
+        exact
+        component={() => <BgProperties />}
       />
     </Switch>
   );
