@@ -3,16 +3,14 @@ import { useParams } from "react-router-dom";
 import authService from "../../../services/authService";
 import bgPropertyService from "../../../services/bgPropertyService";
 
-const BgProperty = (props) => {
-
-  // console.log(props);
+const BgProperty = () => {
 
   const userClaims = authService.getLocalStorageUserClaims();
   var token = userClaims.token;
 
   let { bgPropertyId, searchSetId } = useParams();
 
-  const [bgPropertyModel, setBgProperty] = useState({});
+  const [bgPropertyModel, setBgPropertyModel] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   let bgProperty = bgPropertyModel?.bgProperty;
@@ -21,10 +19,16 @@ const BgProperty = (props) => {
     bgPropertyService
       .fetchOne(token, bgPropertyId, searchSetId)
       .then((data) => {
-        setBgProperty(data);
+        setBgPropertyModel(data);
         setIsLoading(false);
+        // console.log("track");
       });
-  }, [token, bgPropertyId, searchSetId, bgPropertyModel]);
+  }, [token, bgPropertyId, searchSetId, bgProperty?.isTracked]);
+
+  async function trackBgProperty(token, bgPropertyId){
+    await bgPropertyService.trackOne(token, bgPropertyId);
+    setBgPropertyModel({...bgPropertyModel, bgProperty: {...bgProperty, isTracked: !bgProperty.isTracked}});
+  }
 
   if (isLoading) {
     return "Loading...";
@@ -90,7 +94,7 @@ const BgProperty = (props) => {
             <strong>IsNewly: </strong>
             {bgProperty.isNewly || "n/a"}
           </p>
-          <button onClick={() => bgPropertyService.trackOne(token, bgPropertyId)}>{bgProperty.isTracked ? "Un-Track" : "Track"}</button>
+          <button onClick={() => trackBgProperty(token, bgPropertyId)}>{bgProperty.isTracked ? "Un-Track" : "Track"}</button>
         </Fragment>
       )}
     </>
