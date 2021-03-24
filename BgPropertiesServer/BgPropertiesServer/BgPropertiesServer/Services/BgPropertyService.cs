@@ -126,9 +126,52 @@
 
             var queryParamsCollection = searchSetViewModel.SearchCriterias.ToHashSet();
 
-            //// All Bgproperties from Database according to current query parameters.
+            var currentBgPropertyIds = await this.db.BgPropertiesSearchSets.Where(x => x.SearchSetId == searchSet.Id).Select(x => x.BgPropertyId).ToArrayAsync();
+
+            //// All Bgproperties from Database according to the new query parameters.
             var dbBgProperties = await this.CreateBgPropertiesQueryFromDb(this.db, queryParamsCollection);
 
+            //// Disattach all BgProperties from this SearchSet which do not compliant on the new criterias.
+            foreach (var currentPropertyId in currentBgPropertyIds)
+            {
+                if (dbBgProperties.Any(x => x.Id == currentPropertyId))
+                {
+                    continue;
+                }
+
+                //// Disattach this BgProperty from this SearchSet
+                var bgPropertySearchSetToDelete =
+                    await this.db.BgPropertiesSearchSets
+                        .FirstOrDefaultAsync(x => x.BgPropertyId == currentPropertyId && x.SearchSetId == searchSetId);
+                this.db.BgPropertiesSearchSets.Remove(bgPropertySearchSetToDelete);
+
+                //// Set this BgProperty not to be more newly for this one.
+                var newlyBgPropertyToDelete =
+                    await this.db.NewlySearchSetsBgProperties
+                        .FirstOrDefaultAsync(x => x.BgPropertyId == currentPropertyId && x.SearchSetId == searchSetId);
+                if (newlyBgPropertyToDelete != null)
+                {
+                    this.db.NewlySearchSetsBgProperties.Remove(newlyBgPropertyToDelete);
+                }
+
+                //// Un-Track this BgProperty if it not persists in any other searchsets.
+                var currentBgPropertySearchSets = await this.db.BgPropertiesSearchSets.Where(x => x.BgPropertyId == currentPropertyId).ToArrayAsync();
+                if (currentBgPropertySearchSets.Length == 0)
+                {
+                    var applicationUserBgProperty =
+                    await this.db.ApplicationUsersBgProperties
+                                .FirstOrDefaultAsync(x => x.ApplicationUserId == currentUserId && x.BgPropertyId == currentPropertyId);
+                    if (applicationUserBgProperty != null)
+                    {
+                        this.db.ApplicationUsersBgProperties.Remove(applicationUserBgProperty);
+                    }
+                }
+            }
+
+            await this.db.SaveChangesAsync();
+
+            //// Attach all BgProperties which are comliant with the new criterias 
+            //// and check then if they are Newly(not open to view in details) for the SearchSet.
             foreach (var property in dbBgProperties)
             {
                 var bgPropertySearchSet
@@ -207,7 +250,7 @@
                                 .FirstOrDefaultAsync(x => x.ApplicationUserId == currentUser.Id && x.BgPropertyId == bgPropertyId);
 
             var bgProperty = await this.db.BgProperties.FirstOrDefaultAsync(x => x.Id == bgPropertyId);
-            
+
             if (applicationUserBgProperty != null)
             {
                 this.db.ApplicationUsersBgProperties.Remove(applicationUserBgProperty);

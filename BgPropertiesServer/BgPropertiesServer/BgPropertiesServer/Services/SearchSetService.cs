@@ -58,6 +58,49 @@
             return searchSet.Id;
         }
 
+        public async Task<string> EditAsync(string searchSetId, SearchSetInputViewModel input)
+        {
+            var fullfilledSearchCriterias = HelpMethods.GetFullfilledSearchCriterias(input);
+
+            var searchSet = await this.db.SearchSets.FirstOrDefaultAsync(x => x.Id == searchSetId);
+
+            var searchCriteraSearchSets = await this.db.SearchCriteriasSearchSets.Where(x => x.SearchSetId == searchSetId).ToArrayAsync();
+
+            foreach (var fullfilledSearchCriteria in fullfilledSearchCriterias)
+            {
+                foreach (var searchCriteriaSearchSet in searchCriteraSearchSets)
+                {
+                    if (searchCriteriaSearchSet.SearchCriteria.Name == fullfilledSearchCriteria.Name
+                        && searchCriteriaSearchSet.SearchCriteria.Value == fullfilledSearchCriteria.Value)
+                    {
+                        continue;
+                    }
+                    
+                    //// Remove old unneccessary searchCriteria and the ralation with current SearchSet.
+                    this.db.SearchCriteriasSearchSets.Remove(searchCriteriaSearchSet);
+                    var searchCriteriaToDelete = await this.db.SearchCriterias.FirstOrDefaultAsync(x => x.Id == searchCriteriaSearchSet.SearchCriteriaId);
+                    this.db.SearchCriterias.Remove(searchCriteriaToDelete);
+
+                    var searchCriteria = new SearchCriteria()
+                    {
+                        Name = fullfilledSearchCriteria.Name,
+                        Value = fullfilledSearchCriteria.Value,
+                    };
+
+                    await this.db.SearchCriterias.AddAsync(searchCriteria);
+                    await this.db.SearchCriteriasSearchSets.AddAsync(new SearchCriteriaSearchSet()
+                    {
+                        SearchCriteria = searchCriteria,
+                        SearchSet = searchSet,
+                    });
+                }
+            }
+
+            await this.db.SaveChangesAsync();
+
+            return searchSet.Id;
+        }
+
         public async Task<ICollection<SearchSetViewModel>> GetAllAsViewModel(ApplicationUser currentUser)
         {
             var searchSetViewModels = this.db.SearchSets.Where(x => x.ApplicationUser.Id == currentUser.Id)
