@@ -32,6 +32,11 @@ const App = () => {
         component={() => <CreateEditSearchSet />}
       />
       <Route
+        path={`/searchsets/edit/:searchSetId`}
+        exact
+        component={() => <CreateEditSearchSet />}
+      />
+      <Route
         path={`/searchsets/:searchSetId`}
         exact
         component={() => <SearchSet />}

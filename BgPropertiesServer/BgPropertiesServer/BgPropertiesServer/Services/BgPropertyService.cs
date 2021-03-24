@@ -154,9 +154,12 @@
                     this.db.NewlySearchSetsBgProperties.Remove(newlyBgPropertyToDelete);
                 }
 
-                //// Un-Track this BgProperty if it not persists in any other searchsets.
-                var currentBgPropertySearchSets = await this.db.BgPropertiesSearchSets.Where(x => x.BgPropertyId == currentPropertyId).ToArrayAsync();
-                if (currentBgPropertySearchSets.Length == 0)
+                //// Un-Track this BgProperty if it not persists in any other SearchSets.
+                var currentBgPropertySearchSetsIds = 
+                    await this.db.BgPropertiesSearchSets.Where(x => x.BgPropertyId == currentPropertyId).Select(x => x.SearchSetId).ToArrayAsync();
+                var isCheckedInOtherUserSearchSet = await this.db.SearchSets.AnyAsync(x => x.ApplicationUserId == currentUserId && currentBgPropertySearchSetsIds.Contains(x.Id));
+                //    await this.db.ApplicationUsersBgProperties.FirstOrDefaultAsync(x => x.ApplicationUserId == currentUserId && x.BgPropertyId == currentPropertyId);
+                if (currentBgPropertySearchSetsIds.Length == 0 || !isCheckedInOtherUserSearchSet)
                 {
                     var applicationUserBgProperty =
                     await this.db.ApplicationUsersBgProperties
@@ -170,8 +173,8 @@
 
             await this.db.SaveChangesAsync();
 
-            //// Attach all BgProperties which are comliant with the new criterias 
-            //// and check then if they are Newly(not open to view in details) for the SearchSet.
+            //// Attach all BgProperties which are compliant with the new criterias 
+            //// and check them if they are Newly(not open to view full details) for the SearchSet.
             foreach (var property in dbBgProperties)
             {
                 var bgPropertySearchSet
@@ -231,16 +234,12 @@
             .ThenBy(x => x.CreatedOn)
             .ToList();
 
-
-
             return new AllBgPropertiesViewModel()
             {
                 BgProperties = bgProperties,
                 SearchSetId = searchSetId,
                 SearchSetName = searchSet.Name,
             };
-
-            //return bgProperties;
         }
 
         public async Task TrackBgPropertyAsync(ApplicationUser currentUser, string bgPropertyId)
