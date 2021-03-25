@@ -92,7 +92,7 @@ const BgProperty = () => {
           </p>
           <p>
             <strong>IsNewly: </strong>
-            {bgProperty.isNewly || "n/a"}
+            {bgProperty.isNewly ? "New" : "Not new"}
           </p>
           <button onClick={() => trackBgProperty(token, bgPropertyId)}>{bgProperty.isTracked ? "Un-Track" : "Track"}</button>
         </Fragment>

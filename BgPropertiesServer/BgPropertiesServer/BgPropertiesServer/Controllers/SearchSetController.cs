@@ -107,11 +107,25 @@
             }
         }
 
-        //// PUT api/<SearchSetController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        // PUT: searchsets/edit
+        [HttpPut("{searchSetId}"), ActionName("edit")]
+        public async Task<IActionResult> Edit([FromHeader] string authorization, string searchSetId, [FromBody] SearchSetInputViewModel model)
+        {
+            try
+            {
+                var updatedSearchSetId = await this.searchSetService.EditAsync(searchSetId, model);
+
+                return Ok(new { searchSetId = updatedSearchSetId });
+            }
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
+
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
+        }
 
         //// DELETE api/<SearchSetController>/5
         //[HttpDelete("{id}")]

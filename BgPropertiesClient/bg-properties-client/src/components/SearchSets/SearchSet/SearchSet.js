@@ -56,7 +56,7 @@ const SearchSet = () => {
                 </li>
               ))}
           </ol>
-          {/* <Link to={`/searchsets/${searchSetId}/bg-properties/all/`} style={style}> */}
+          <Link to={`/searchsets/edit/${searchSetId}`} style={style}>Edit SearchSet</Link>
           <Link to={`/searchsets/${searchSetId}/bg-properties`} style={style}>
             Bg Properties
           </Link>

@@ -15,6 +15,21 @@ function create(token, obj) {
     .catch((err) => console.log(err));
 }
 
+function edit(token, searchSetId, obj) {
+  return fetch(`/searchsets/edit/${searchSetId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(obj),
+  })
+    .then(queryService.handleResponse)
+    .catch((err) => console.log(err));
+}
+
 function fetchOne(token, id) {
   return fetch(`/searchsets/one/${id}`, {
     headers: {
@@ -42,6 +57,7 @@ function fetchAll(token) {
 }
 
 const searchSetService = {
+  edit,
   create,
   fetchOne,
   fetchAll,
