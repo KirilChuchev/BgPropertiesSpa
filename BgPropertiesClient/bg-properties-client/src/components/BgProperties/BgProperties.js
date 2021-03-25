@@ -83,6 +83,7 @@ const BgProperties = () => {
     <>
       {bgPropertiesModel && (
         <BgPropertiesList
+          resource={resource}
           bgProperties={bgPropertiesModel.bgProperties}
           searchSetName={bgPropertiesModel.searchSetName}
           searchSetId={searchSetId}

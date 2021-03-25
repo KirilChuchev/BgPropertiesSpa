@@ -4,7 +4,7 @@ import BgPropertyShortDetails from "../BgPropertyShortDetails";
 // import authService from "../../../services/authService";
 // import bgPropertyService from "../../../services/bgPropertyService";
 
-const BgPropertiesList = ({ bgProperties, searchSetName, searchSetId }) => {
+const BgPropertiesList = ({ resource, bgProperties, searchSetName, searchSetId }) => {
 
   // const userClaims = authService.getLocalStorageUserClaims();
   // var token = userClaims.token;
@@ -50,7 +50,7 @@ const BgPropertiesList = ({ bgProperties, searchSetName, searchSetId }) => {
       <ol>
         {bgProperties.map((x) => (
           <li key={x.id} onClick={() => onBgPropertyClick(x.id)}>
-            {<BgPropertyShortDetails bgProperty={x} />}
+            {<BgPropertyShortDetails resource={resource} bgProperty={x} />}
           </li>
         ))}
       </ol>

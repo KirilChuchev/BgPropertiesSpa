@@ -153,13 +153,20 @@
                 {
                     this.db.NewlySearchSetsBgProperties.Remove(newlyBgPropertyToDelete);
                 }
+            }
 
-                //// Un-Track this BgProperty if it not persists in any other SearchSets.
-                var currentBgPropertySearchSetsIds = 
+            await this.db.SaveChangesAsync();
+
+            //// Un-Track this BgProperty if it not persists in any other SearchSets.
+            foreach (var currentPropertyId in currentBgPropertyIds)
+            {
+                var currentBgPropertySearchSetsIds =
                     await this.db.BgPropertiesSearchSets.Where(x => x.BgPropertyId == currentPropertyId).Select(x => x.SearchSetId).ToArrayAsync();
-                var isCheckedInOtherUserSearchSet = await this.db.SearchSets.AnyAsync(x => x.ApplicationUserId == currentUserId && currentBgPropertySearchSetsIds.Contains(x.Id));
-                //    await this.db.ApplicationUsersBgProperties.FirstOrDefaultAsync(x => x.ApplicationUserId == currentUserId && x.BgPropertyId == currentPropertyId);
-                if (currentBgPropertySearchSetsIds.Length == 0 || !isCheckedInOtherUserSearchSet)
+                
+                var userSearchSetIds = await this.db.SearchSets.Where(x => x.ApplicationUserId == currentUserId).Select(x => x.Id).ToArrayAsync();
+                var commonSearchSetIds = currentBgPropertySearchSetsIds.Intersect(userSearchSetIds);
+
+                if (commonSearchSetIds.Count() == 0)
                 {
                     var applicationUserBgProperty =
                     await this.db.ApplicationUsersBgProperties
@@ -369,8 +376,7 @@
                 PricePerSquareMeter = x.PricePerSquareMeter,
                 PricePerSquareMeterInEUR = x.PricePerSquareMeterInEUR,
                 IsTracked = this.db.ApplicationUsersBgProperties.Any(y => y.ApplicationUserId == currentUser.Id && y.BgPropertyId == x.Id),
-                //IsNewly = this.db.NewlySearchSetsBgProperties.Any(y => y.SearchSetId == searchSetId && y.BgPropertyId == x.Id),
-                IsNewly = this.db.NewlySearchSetsBgProperties.Any(y => y.BgPropertyId == x.Id),
+                IsNewly = false, // Here is setted false because it's hard to consider if this BgProperty is newly for all User SearchSets or not.
                 Currency = x.Currency,
             })
             .OrderByDescending(x => x.IsNewly)
