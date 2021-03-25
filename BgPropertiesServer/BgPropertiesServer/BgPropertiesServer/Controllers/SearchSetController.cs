@@ -17,13 +17,16 @@
     {
         private readonly IAuthService authService;
         private readonly ISearchSetService searchSetService;
+        private readonly IBgPropertyService bgPropertyService;
 
         public SearchSetController(
             IAuthService authService,
-            ISearchSetService searchSetService)
+            ISearchSetService searchSetService,
+            IBgPropertyService bgPropertyService)
         {
             this.authService = authService;
             this.searchSetService = searchSetService;
+            this.bgPropertyService = bgPropertyService;
         }
 
         // GET: /searchsets/one/[searchSetId:]4e80ee26-4ec6-408f-9e64-b7cd4f3b3404
@@ -95,6 +98,8 @@
 
                 var createdSearchSetId = await this.searchSetService.CreateAsync(model, user);
 
+                await this.bgPropertyService.GetAllBgPropertiesBySearchSetAsync(user.Id, createdSearchSetId);
+
                 return Ok(new { searchSetId = createdSearchSetId });
             }
             catch (Exception ex)
@@ -113,7 +118,11 @@
         {
             try
             {
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
+
                 var updatedSearchSetId = await this.searchSetService.EditAsync(searchSetId, model);
+
+                await this.bgPropertyService.GetAllBgPropertiesBySearchSetAsync(user.Id, updatedSearchSetId);
 
                 return Ok(new { searchSetId = updatedSearchSetId });
             }
