@@ -10,37 +10,37 @@ const EditForm = ({ searchSetId }) => {
   const history = useHistory();
 
   const [searchSet, setSearchSet] = useState({
-    searchSetName: null,
-    description: null,
-    oneRoomPropType: null,
-    twoRoomsPropType: null,
-    threeRoomsPropType: null,
-    fourRoomsPropType: null,
-    multiRoomsPropType: null,
-    maisonettePropType: null,
-    studioPropType: null,
-    officePropType: null,
-    storePropType: null,
-    restaurantPropType: null,
-    warehousePropType: null,
-    hotelPropType: null,
-    industrialPropType: null,
-    businessPropType: null,
-    houseFloorPropType: null,
-    housePropType: null,
-    villagePropType: null,
-    plotPropType: null,
-    garagePropType: null,
-    landPropType: null,
-    priceFrom: null,
-    priceTo: null,
-    pricePerSqrMFrom: null,
-    pricePerSqrMTo: null,
-    sizeFrom: null,
-    sizeTo: null,
-    floorFrom: null,
-    floorTo: null,
-    cityRegion: null,
+    searchSetName: "",
+    description: "",
+    oneRoomPropType: "",
+    twoRoomsPropType: "",
+    threeRoomsPropType: "",
+    fourRoomsPropType: "",
+    multiRoomsPropType: "",
+    maisonettePropType: "",
+    studioPropType: "",
+    officePropType: "",
+    storePropType: "",
+    restaurantPropType: "",
+    warehousePropType: "",
+    hotelPropType: "",
+    industrialPropType: "",
+    businessPropType: "",
+    houseFloorPropType: "",
+    housePropType: "",
+    villagePropType: "",
+    plotPropType: "",
+    garagePropType: "",
+    landPropType: "",
+    priceFrom: "",
+    priceTo: "",
+    pricePerSqrMFrom: "",
+    pricePerSqrMTo: "",
+    sizeFrom: "",
+    sizeTo: "",
+    floorFrom: "",
+    floorTo: "",
+    cityRegion: "",
   });
 
   console.log(searchSet);
@@ -77,7 +77,7 @@ const EditForm = ({ searchSetId }) => {
   async function handleSubmit(event) {
     alert("Моля потвърдете, че желаете да промените Вашият SearchSet!");
     event.preventDefault();
-    console.log("submit");
+    console.log(searchSet);
     await searchSetService.edit(token, searchSetId, { ...searchSet });
     history.push(`/searchsets/${searchSetId}`);
     return null;
