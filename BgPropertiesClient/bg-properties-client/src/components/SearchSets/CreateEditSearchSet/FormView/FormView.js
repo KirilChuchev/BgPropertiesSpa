@@ -1,8 +1,8 @@
 import { Fragment } from "react";
-import PropTypeBlockFormElement from "../FormComponents/PropTypeBlockFormElement";
-import InputFormElement from "../FormComponents/InputFormElement";
-import SelectFormElement from "../FormComponents/SelectFormElement";
-import TextAreaFormElement from "../FormComponents/TextAreaFormElement";
+import PropTypeBlockFormElement from "../FormViewComponents/PropTypeBlockFormElement";
+import InputFormElement from "../FormViewComponents/InputFormElement";
+import SelectFormElement from "../FormViewComponents/SelectFormElement";
+import TextAreaFormElement from "../FormViewComponents/TextAreaFormElement";
 
 import { PropTypeBlockFormElementConsts } from "../constants";
 import { NameInputFormElementConst } from "../constants";
