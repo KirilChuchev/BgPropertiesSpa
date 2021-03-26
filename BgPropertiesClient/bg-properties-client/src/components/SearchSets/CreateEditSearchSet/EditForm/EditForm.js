@@ -6,6 +6,8 @@ import FormView from "../FormView";
 import authService from "../../../../services/authService";
 import searchSetService from "../../../../services/searchSetService";
 
+import { FormHeadingsAndSubmitButton } from "../constants";
+
 const EditForm = ({ searchSetId }) => {
   const token = authService.getLocalStorageUserClaims().token;
 
@@ -86,6 +88,7 @@ const EditForm = ({ searchSetId }) => {
 
   return (
     <FormView
+      form={FormHeadingsAndSubmitButton.editForm}
       searchSet={searchSet}
       handleChange={handleChange}
       handleSubmit={handleSubmit}

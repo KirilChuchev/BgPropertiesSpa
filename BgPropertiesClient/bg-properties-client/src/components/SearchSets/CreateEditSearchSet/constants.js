@@ -1,3 +1,14 @@
+export const FormHeadingsAndSubmitButton = {
+  createForm: {
+    searchSetName: "Име на Вашият нов SearchSet:",
+    submitButton: "С Ъ З Д А Й",
+  },
+  editForm: {
+    searchSetName: "Име на Вашият SearchSet:",
+    submitButton: "Р Е Д А К Т И Р А Й",
+  }
+}
+
 export const NameInputFormElementConst = {
   id: "searchSetName",
   name: "searchSetName",

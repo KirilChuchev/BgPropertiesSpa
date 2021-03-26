@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import FormView from '../FormView'
+import FormView from "../FormView";
 
 import authService from "../../../../services/authService";
 import searchSetService from "../../../../services/searchSetService";
+
+import { FormHeadingsAndSubmitButton } from "../constants";
 
 const CreateForm = () => {
   const token = authService.getLocalStorageUserClaims().token;
@@ -68,7 +70,12 @@ const CreateForm = () => {
   }
 
   return (
-    <FormView searchSet={searchSet} handleChange={handleChange} handleSubmit={handleSubmit} />
+    <FormView
+      form={FormHeadingsAndSubmitButton.createForm}
+      searchSet={searchSet}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
   );
 };
 

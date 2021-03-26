@@ -16,6 +16,7 @@ import { LocationOptionInputFormElementConsts } from "../constants";
 import { DescriptionInputFormElementConst } from "../constants";
 
 const CreateEditSearchSetFormView = ({
+  form,
   searchSet,
   handleChange,
   handleSubmit,
@@ -24,7 +25,7 @@ const CreateEditSearchSetFormView = ({
     <Fragment>
       <form onSubmit={(event) => handleSubmit(event)}>
         <section>
-          <h4>Име на вашия нов SearchSet:</h4>
+          <h4>{form.searchSetName}</h4>
           <InputFormElement
             details={NameInputFormElementConst}
             value={searchSet[NameInputFormElementConst.name]}
@@ -125,7 +126,7 @@ const CreateEditSearchSetFormView = ({
 
         <input
           type="submit"
-          value="С Ъ З Д А Й!"
+          value={form.submitButton}
           // style="width: 260px; height: 80px; font-weight: bold"
         />
       </form>
