@@ -1,22 +1,24 @@
 const InputFormElement = ({ details, value, handleChange }) => {
   return (
-    <section>
+    <article>
       <label>
+        {details.type === "text" && <p>{details.text}</p>}
         <input
           type={details.type}
           name={details.name}
           id={details.id}
           checked={value}
+          value={value}
           onChange={handleChange}
         />
-        {details.type !== "text" ? details.text : ""}
+        {details.type === "checkbox" && details.text}
       </label>
       <span
         // style="color: red; background-color: lightyellow"
         // class="field-validation-valid"
         validation-for={details.id}
       ></span>
-    </section>
+    </article>
   );
 };
 
