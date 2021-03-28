@@ -1,6 +1,6 @@
 import { Field, ErrorMessage } from "formik";
 
-const InputFormElement = ({ form, label, details, value, handleChange }) => {
+const InputFormElement = ({ label, element, handleChange }) => {
   // console.log(details);
   return (
     // <article>
@@ -23,16 +23,16 @@ const InputFormElement = ({ form, label, details, value, handleChange }) => {
     //   ></span>
     // </article>
     <article>
-      <label htmlFor={details.id}>
+      <label htmlFor={element.id}>
         {label}
         <Field
-          type={details.type}
-          name={details.name}
-          id={details.id}
+          type={element.type}
+          name={element.name}
+          id={element.id}
           onChange={handleChange}
         />
-        <ErrorMessage name={details.name} />
-        {details.type === "checkbox" && details.text}
+        <ErrorMessage name={element.name} />
+        {element.type === "checkbox" && element.text}
       </label>
     </article>
   );

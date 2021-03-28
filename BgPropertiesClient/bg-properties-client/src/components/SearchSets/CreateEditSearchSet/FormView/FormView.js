@@ -1,12 +1,7 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import FormikControl from "../FormViewComponents/FormikControl";
-
-import PropTypeBlockFormElement from "../FormViewComponents/PropTypeBlockFormElement";
-import InputFormElement from "../FormViewComponents/InputFormElement";
-import SelectFormElement from "../FormViewComponents/SelectFormElement";
-import TextAreaFormElement from "../FormViewComponents/TextAreaFormElement";
 
 import { PropTypeBlockFormElementConsts } from "../constants";
 import { PropTypeInputFormElementConsts } from "../constants";
@@ -65,6 +60,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
       validationSchema={Yup.object({
         test: Yup.string().required("Това трябва."),
         searchSetName: Yup.string().required("напиши нещо"),
+        cityRegion: Yup.string().required("напиши нещо"),
       })}
       // onSubmit={handleSubmit}
     >
@@ -82,7 +78,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
         <section>
           <FormikControl
             control={"input"}
-            details={NameInputFormElementConst}
+            element={NameInputFormElementConst}
             handleChange={handleChange}
             label={form.searchSetName}
           />
@@ -135,8 +131,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
             />
           </article>
 
-
-          <article>
+          {/* <article>
             <h4>Цена на кв.м площ:</h4>
             <h4>(EUR)</h4>
             {PricePerSqrMInputFormElementConsts &&
@@ -148,11 +143,20 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
                   handleChange={handleChange}
                 />
               ))}
+          </article> */}
+
+          <article>
+            <FormikControl
+              control={"inputGroup"}
+              groupElements={PricePerSqrMInputFormElementConsts}
+              handleChange={handleChange}
+              label={"Цена на кв.м площ:"}
+            />
           </article>
         </section>
 
         <section>
-          <h4>Квадратура:</h4>
+          {/* <h4>Квадратура:</h4>
           <h4>(кв.м)</h4>
           {SizeInputFormElementConsts &&
             SizeInputFormElementConsts.map((x) => (
@@ -162,11 +166,18 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
                 // value={searchSet[x.name]}
                 handleChange={handleChange}
               />
-            ))}
+            ))} */}
+
+          <FormikControl
+            control={"inputGroup"}
+            groupElements={SizeInputFormElementConsts}
+            handleChange={handleChange}
+            label={"Квадратура (кв.м):"}
+          />
         </section>
 
         <section>
-          <h4>Етаж:</h4>
+          {/* <h4>Етаж:</h4>
           {FloorInputFormElementConsts &&
             FloorInputFormElementConsts.map((x) => (
               <SelectFormElement
@@ -176,11 +187,19 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
                 // value={searchSet[x.name]}
                 handleChange={handleChange}
               />
-            ))}
+            ))} */}
+
+          <FormikControl
+            control={"selectGroup"}
+            groupElements={FloorInputFormElementConsts}
+            options={FloorOptionInputFormElementConsts}
+            handleChange={handleChange}
+            label={"Етаж:"}
+          />
         </section>
 
         <section>
-          <h4>Местоположение на търсения от Вас Имот:</h4>
+          {/* <h4>Местоположение на търсения от Вас Имот:</h4>
           {LocationInputFormElementConst && (
             <SelectFormElement
               optionsData={LocationOptionInputFormElementConsts}
@@ -188,15 +207,30 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
               // value={searchSet[LocationInputFormElementConst.name]}
               handleChange={handleChange}
             />
-          )}
+          )} */}
+
+          
+          <FormikControl
+            control={"select"}
+            element={LocationInputFormElementConst}
+            options={LocationOptionInputFormElementConsts}
+            handleChange={handleChange}
+            label={"Местоположение на търсения от Вас Имот:"}
+          />
         </section>
 
         <section>
-          <h4>Въведете кратко описание:</h4>
+          {/* <h4>Въведете кратко описание:</h4>
           <TextAreaFormElement
             details={DescriptionInputFormElementConst}
             // value={searchSet[DescriptionInputFormElementConst.name]}
             handleChange={handleChange}
+          /> */}
+          <FormikControl
+            control={"textarea"}
+            element={DescriptionInputFormElementConst}
+            handleChange={handleChange}
+            label={"Въведете кратко описание:"}
           />
         </section>
 

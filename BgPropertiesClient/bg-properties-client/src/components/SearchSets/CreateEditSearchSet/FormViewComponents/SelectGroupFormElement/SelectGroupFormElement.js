@@ -1,6 +1,6 @@
-import InputFormElement from "../InputFormElement";
+import SelectFormElement from "../SelectFormElement";
 
-const InputGroupFormElement = ({ label, groupElements, handleChange }) => {
+const SelectGroupFormElement = ({ label, groupElements, options, handleChange }) => {
   return (
     <section>
       <h4>{label}</h4>
@@ -9,9 +9,10 @@ const InputGroupFormElement = ({ label, groupElements, handleChange }) => {
       >
         {groupElements &&
           groupElements.map((x) => (
-            <InputFormElement
+            <SelectFormElement
               key={x.id}
               element={x}
+              options={options}
               handleChange={handleChange}
             />
           ))}
@@ -20,4 +21,4 @@ const InputGroupFormElement = ({ label, groupElements, handleChange }) => {
   );
 };
 
-export default InputGroupFormElement;
+export default SelectGroupFormElement;

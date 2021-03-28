@@ -17,7 +17,7 @@ const PropTypeBlockFormElement = ({
         checkboxElements.slice(blockDetails.from, blockDetails.to).map((x) => (
           <InputFormElement
             key={x.id}
-            details={x}
+            element={x}
             // value={searchSet[x.name]}
             handleChange={handleChange}
           />

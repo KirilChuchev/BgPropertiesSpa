@@ -64,8 +64,8 @@ const CreateForm = () => {
     alert("Моля потвърдете, че желаете създаването на нов SearchSet!");
     event.preventDefault();
     console.log(searchSet);
-    await searchSetService.create(token, { ...searchSet });
-    history.push("/searchsets");
+    // await searchSetService.create(token, { ...searchSet });
+    // history.push("/searchsets");
     return null;
   }
 

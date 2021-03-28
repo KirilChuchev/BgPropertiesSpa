@@ -3,6 +3,7 @@ import TextAreaFormElement from "../TextAreaFormElement";
 import SelectFormElement from "../SelectFormElement";
 import CheckboxGroupFormElement from '../CheckboxGroupFormElement';
 import InputGroupFormElement from '../InputGroupFormElement';
+import SelectGroupFormElement from '../SelectGroupFormElement';
 
 function FormikControl(props) {
   const { control, ...rest } = props;
@@ -15,6 +16,8 @@ function FormikControl(props) {
       return <TextAreaFormElement {...rest} />;
     case "select":
       return <SelectFormElement {...rest} />;
+      case "selectGroup":
+      return <SelectGroupFormElement {...rest} />;
     case "checkboxGroup":
       return <CheckboxGroupFormElement {...rest} />;
     default:
