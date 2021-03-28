@@ -81,8 +81,8 @@ const EditForm = ({ searchSetId }) => {
     alert("Моля потвърдете, че желаете да промените Вашият SearchSet!");
     event.preventDefault();
     console.log(searchSet);
-    await searchSetService.edit(token, searchSetId, { ...searchSet });
-    history.push(`/searchsets/${searchSetId}`);
+    // await searchSetService.edit(token, searchSetId, { ...searchSet });
+    // history.push(`/searchsets/${searchSetId}`);
     return null;
   }
 
