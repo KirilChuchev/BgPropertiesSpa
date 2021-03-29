@@ -1,22 +1,22 @@
-import PropTypeBlockFormElement from "../PropTypeBlockFormElement";
+import CheckboxBlockFormElement from "../CheckboxBlockFormElement";
 
 const CheckboxGroupFormElement = ({
-  checkboxBlocksDetails,
   checkboxElements,
+  checkboxBlocksDetails,
   label,
-  searchSet,
   handleChange,
 }) => {
   return (
-    <section>
+    <section
+      // style="width: 145px;height: 243px;background-color: bisque; border-color: red;  padding: 3px;"
+    >
       <h4>{label}</h4>
       {checkboxBlocksDetails &&
         checkboxBlocksDetails.map((x) => (
-          <PropTypeBlockFormElement
+          <CheckboxBlockFormElement
             key={x.id}
-            blockDetails={x}
-            checkboxElements={checkboxElements}
-            searchSet={searchSet}
+            id={x.id}
+            checkboxElements={checkboxElements.slice(x.from, x.to)}
             handleChange={handleChange}
           />
         ))}

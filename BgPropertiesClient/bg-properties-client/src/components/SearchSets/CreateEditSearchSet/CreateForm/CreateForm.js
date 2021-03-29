@@ -6,7 +6,7 @@ import FormView from "../FormView";
 import authService from "../../../../services/authService";
 import searchSetService from "../../../../services/searchSetService";
 
-import { FormHeadingsAndSubmitButton } from "../constants";
+import { FormHeadingsAndSubmitButton } from "../FormView/FormViewConstants";
 
 const CreateForm = () => {
   const token = authService.getLocalStorageUserClaims().token;
@@ -64,8 +64,8 @@ const CreateForm = () => {
     alert("Моля потвърдете, че желаете създаването на нов SearchSet!");
     event.preventDefault();
     console.log(searchSet);
-    // await searchSetService.create(token, { ...searchSet });
-    // history.push("/searchsets");
+    await searchSetService.create(token, { ...searchSet });
+    history.push("/searchsets");
     return null;
   }
 

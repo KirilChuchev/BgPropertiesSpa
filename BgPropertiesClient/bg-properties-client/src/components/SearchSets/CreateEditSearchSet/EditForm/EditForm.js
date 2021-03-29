@@ -6,7 +6,7 @@ import FormView from "../FormView";
 import authService from "../../../../services/authService";
 import searchSetService from "../../../../services/searchSetService";
 
-import { FormHeadingsAndSubmitButton } from "../constants";
+import { FormHeadingsAndSubmitButton } from "../FormView/FormViewConstants";
 
 const EditForm = ({ searchSetId }) => {
   const token = authService.getLocalStorageUserClaims().token;
@@ -81,8 +81,8 @@ const EditForm = ({ searchSetId }) => {
     alert("Моля потвърдете, че желаете да промените Вашият SearchSet!");
     event.preventDefault();
     console.log(searchSet);
-    // await searchSetService.edit(token, searchSetId, { ...searchSet });
-    // history.push(`/searchsets/${searchSetId}`);
+    await searchSetService.edit(token, searchSetId, { ...searchSet });
+    history.push(`/searchsets/${searchSetId}`);
     return null;
   }
 
