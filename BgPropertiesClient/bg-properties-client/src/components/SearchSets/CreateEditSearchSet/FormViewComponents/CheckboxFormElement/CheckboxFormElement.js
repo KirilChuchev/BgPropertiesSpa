@@ -1,6 +1,8 @@
 import { Field, ErrorMessage } from "formik";
 
-const CheckboxFormElement = ({ element, handleChange }) => {
+import TextError from "../TextError";
+
+const CheckboxFormElement = ({ element, searchSet }) => {
   return (
     <article>
       <label htmlFor={element.id}>
@@ -8,10 +10,16 @@ const CheckboxFormElement = ({ element, handleChange }) => {
           type={element.type}
           name={element.name}
           id={element.id}
-          onChange={handleChange}
+          // checked={searchSet[element.name]}
+          // value={element.value}
         />
-        <ErrorMessage name={element.name} />
+        <ErrorMessage
+          component={TextError}
+          name={element.name}
+          nameValue={element.name}
+        />
         {element.text}
+        {/* <ErrorMessage name={element.name} /> */}
       </label>
     </article>
   );

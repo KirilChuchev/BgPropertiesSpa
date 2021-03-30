@@ -1,6 +1,6 @@
 import { Field, ErrorMessage } from "formik";
 
-const TextAreaFormElement = ({ element, label, handleChange }) => {
+const TextAreaFormElement = ({ element, label }) => {
   return (
     <article className="form-control">
       <label htmlFor={element.id}>
@@ -12,7 +12,6 @@ const TextAreaFormElement = ({ element, label, handleChange }) => {
           cols="50"
           id={element.id}
           name={element.name}
-          onChange={handleChange}
         />
         <ErrorMessage name={element.name} />
       </label>

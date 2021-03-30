@@ -1,33 +1,16 @@
 import { Field, ErrorMessage } from "formik";
+import TextError from '../TextError';
 
-const SelectFormElement = ({ options, element, label, handleChange }) => {
+const SelectFormElement = ({ options, element, label }) => {
   return (
-    // <article>
-    //   <label htmlFor={element.id}>
-    //     {element.type === "text" && <p>{element.text}</p>}
-    //     <select
-    //       id={element.id}
-    //       name={element.name}
-    //       value={value}
-    //       onChange={handleChange}
-    //     >
-    //       {options &&
-    //         options.map((x) => (
-    //           <option key={x.value} value={x.value}>
-    //             {x.text}
-    //           </option>
-    //         ))}
-    //     </select>
-    //   </label>
-    // </article>
     <article>
       <label htmlFor={element.id}>
         {label}
+        {element.text}
         <Field
           as="select"
           id={element.id}
           name={element.name}
-          onChange={handleChange}
         >
           {options.map((option) => {
             return (
@@ -38,7 +21,7 @@ const SelectFormElement = ({ options, element, label, handleChange }) => {
           })}
         </Field>
       </label>
-      <ErrorMessage name={element.name} />
+      <ErrorMessage component={TextError} name={element.name} nameValue={element.name} />
     </article>
   );
 };

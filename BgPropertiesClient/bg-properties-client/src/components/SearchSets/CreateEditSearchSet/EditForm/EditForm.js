@@ -16,26 +16,26 @@ const EditForm = ({ searchSetId }) => {
   const [searchSet, setSearchSet] = useState({
     searchSetName: "",
     description: "",
-    oneRoomPropType: "",
-    twoRoomsPropType: "",
-    threeRoomsPropType: "",
-    fourRoomsPropType: "",
-    multiRoomsPropType: "",
-    maisonettePropType: "",
-    studioPropType: "",
-    officePropType: "",
-    storePropType: "",
-    restaurantPropType: "",
-    warehousePropType: "",
-    hotelPropType: "",
-    industrialPropType: "",
-    businessPropType: "",
-    houseFloorPropType: "",
-    housePropType: "",
-    villagePropType: "",
-    plotPropType: "",
-    garagePropType: "",
-    landPropType: "",
+    oneRoomPropType: false,
+    twoRoomsPropType: false,
+    threeRoomsPropType: false,
+    fourRoomsPropType: false,
+    multiRoomsPropType: false,
+    maisonettePropType: false,
+    studioPropType: false,
+    officePropType: false,
+    storePropType: false,
+    restaurantPropType: false,
+    warehousePropType: false,
+    hotelPropType: false,
+    industrialPropType: false,
+    businessPropType: false,
+    houseFloorPropType: false,
+    housePropType: false,
+    villagePropType: false,
+    plotPropType: false,
+    garagePropType: false,
+    landPropType: false,
     priceFrom: "",
     priceTo: "",
     pricePerSqrMFrom: "",
@@ -55,10 +55,13 @@ const EditForm = ({ searchSetId }) => {
       let obj = {};
       data.searchCriterias.forEach((x) => {
         if (x.name.endsWith("PropType") && x.value) {
-          obj[x.name] = "on";
+          obj[x.name] = true;
+        } else if (x.name.endsWith("PropType") && !x.value) {
+          obj[x.name] = false;
         } else {
           obj[x.name] = x.value;
         }
+        return obj;
       });
       obj["searchSetName"] = data.name;
       obj["description"] = data.description;
@@ -67,22 +70,35 @@ const EditForm = ({ searchSetId }) => {
     });
   }, [token, searchSetId]);
 
-  function handleChange(event) {
-    var obj = {};
-    if (event.target.name.endsWith("PropType")) {
-      obj[`${event.target.name}`] = event.target.checked ? "on" : "";
-    } else {
-      obj[`${event.target.name}`] = event.target.value;
-    }
-    setSearchSet(() => ({ ...searchSet, ...obj }));
-  }
+  // function handleChange(event) {
+  //   var obj = {};
+  //   if (event.target.name.endsWith("PropType")) {
+  //     obj[`${event.target.name}`] = event.target.checked ? "on" : "";
+  //   } else {
+  //     obj[`${event.target.name}`] = event.target.value;
+  //   }
+  //   setSearchSet(() => ({ ...searchSet, ...obj }));
+  // }
 
-  async function handleSubmit(event) {
+  // async function handleSubmit(event, values, submitProps) {
+  async function handleSubmit(values) {
     alert("Моля потвърдете, че желаете да промените Вашият SearchSet!");
-    event.preventDefault();
-    console.log(searchSet);
-    await searchSetService.edit(token, searchSetId, { ...searchSet });
-    history.push(`/searchsets/${searchSetId}`);
+    // event.preventDefault();
+
+    var searchSet = {};
+    for (const valueName of Object.keys(values)) {
+      if (valueName.endsWith("PropType")) {
+        searchSet[`${valueName}`] =
+          values[valueName] === true || values[valueName] === "on" ? "on" : "";
+      } else {
+        searchSet[`${valueName}`] = values[valueName];
+      }
+    }
+
+    console.log("Submitted searchSet", searchSet);
+    // submitProps.setSubmitting(false);
+    // await searchSetService.edit(token, searchSetId, { ...searchSet });
+    // history.push(`/searchsets/${searchSetId}`);
     return null;
   }
 
@@ -90,7 +106,7 @@ const EditForm = ({ searchSetId }) => {
     <FormView
       form={FormHeadingsAndSubmitButton.editForm}
       searchSet={searchSet}
-      handleChange={handleChange}
+      // handleChange={handleChange}
       handleSubmit={handleSubmit}
     />
   );

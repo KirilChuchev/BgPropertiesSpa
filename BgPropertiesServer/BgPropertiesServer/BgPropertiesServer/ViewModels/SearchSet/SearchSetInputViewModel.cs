@@ -36,14 +36,14 @@
                 yield return new ValidationResult("Полето \"Цена на имота: -> до\" трябва да съдържа цели, неотрицателни числа.");
             }
 
-            if (!string.IsNullOrEmpty(this.PricePerSqrMFrom) && (!double.TryParse(this.PricePerSqrMFrom, out double pricePerSqrMFrom) || pricePerSqrMFrom < 0))
+            if (!string.IsNullOrEmpty(this.PricePerSqrMFrom) && (!int.TryParse(this.PricePerSqrMFrom, out int pricePerSqrMFrom) || pricePerSqrMFrom < 0))
             {
-                yield return new ValidationResult("Полето \"Цена на кв.м площ: -> от\" трябва да съдържа неотрицателни числа.");
+                yield return new ValidationResult("Полето \"Цена на кв.м площ: -> от\" трябва да съдържа цели, неотрицателни числа.");
             }
 
-            if (!string.IsNullOrEmpty(this.PricePerSqrMTo) && (!double.TryParse(this.PricePerSqrMTo, out double pricePerSqrMTo) || pricePerSqrMTo < 0))
+            if (!string.IsNullOrEmpty(this.PricePerSqrMTo) && (!int.TryParse(this.PricePerSqrMTo, out int pricePerSqrMTo) || pricePerSqrMTo < 0))
             {
-                yield return new ValidationResult("Полето \"Цена на кв.м площ: -> до\" трябва да съдържа неотрицателни числа.");
+                yield return new ValidationResult("Полето \"Цена на кв.м площ: -> до\" трябва да съдържа цели, неотрицателни числа.");
             }
 
             if (!string.IsNullOrEmpty(this.SizeFrom) && (!int.TryParse(this.SizeFrom, out int sizeFrom) || sizeFrom < 0))

@@ -1,6 +1,6 @@
 import InputFormElement from "../InputFormElement";
 
-const InputGroupFormElement = ({ label, groupElements, handleChange }) => {
+const InputGroupFormElement = ({ label, groupElements, validate }) => {
   return (
     <section>
       <h4>{label}</h4>
@@ -12,7 +12,7 @@ const InputGroupFormElement = ({ label, groupElements, handleChange }) => {
             <InputFormElement
               key={x.id}
               element={x}
-              handleChange={handleChange}
+              validate={validate}
             />
           ))}
       </section>

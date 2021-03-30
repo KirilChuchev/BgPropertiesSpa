@@ -16,26 +16,26 @@ const CreateForm = () => {
   const [searchSet, setSearchSet] = useState({
     searchSetName: "",
     description: "",
-    oneRoomPropType: "",
-    twoRoomsPropType: "",
-    threeRoomsPropType: "",
-    fourRoomsPropType: "",
-    multiRoomsPropType: "",
-    maisonettePropType: "",
-    studioPropType: "",
-    officePropType: "",
-    storePropType: "",
-    restaurantPropType: "",
-    warehousePropType: "",
-    hotelPropType: "",
-    industrialPropType: "",
-    businessPropType: "",
-    houseFloorPropType: "",
-    housePropType: "",
-    villagePropType: "",
-    plotPropType: "",
-    garagePropType: "",
-    landPropType: "",
+    oneRoomPropType: false,
+    twoRoomsPropType: false,
+    threeRoomsPropType: false,
+    fourRoomsPropType: false,
+    multiRoomsPropType: false,
+    maisonettePropType: false,
+    studioPropType: false,
+    officePropType: false,
+    storePropType: false,
+    restaurantPropType: false,
+    warehousePropType: false,
+    hotelPropType: false,
+    industrialPropType: false,
+    businessPropType: false,
+    houseFloorPropType: false,
+    housePropType: false,
+    villagePropType: false,
+    plotPropType: false,
+    garagePropType: false,
+    landPropType: false,
     priceFrom: "",
     priceTo: "",
     pricePerSqrMFrom: "",
@@ -49,23 +49,33 @@ const CreateForm = () => {
 
   console.log(searchSet);
 
-  function handleChange(event) {
-    var obj = {};
-    if (event.target.name.endsWith("PropType")) {
-      obj[`${event.target.name}`] = event.target.checked ? "on" : "";
-    } else {
-      obj[`${event.target.name}`] = event.target.value;
-    }
-    console.log(obj);
-    setSearchSet(() => ({ ...searchSet, ...obj }));
-  }
+  // function handleChange(event) {
+  //   var obj = {};
+  //   if (event.target.name.endsWith("PropType")) {
+  //     obj[`${event.target.name}`] = event.target.checked ? "on" : "";
+  //   } else {
+  //     obj[`${event.target.name}`] = event.target.value;
+  //   }
+  //   console.log(obj);
+  //   setSearchSet(() => ({ ...searchSet, ...obj }));
+  // }
 
-  async function handleSubmit(event) {
+  // async function handleSubmit(event) {
+  async function handleSubmit(values) {
     alert("Моля потвърдете, че желаете създаването на нов SearchSet!");
-    event.preventDefault();
-    console.log(searchSet);
-    await searchSetService.create(token, { ...searchSet });
-    history.push("/searchsets");
+    // event.preventDefault();
+    var searchSet = {};
+    for (const valueName of Object.keys(values)) {
+      if (valueName.endsWith("PropType")) {
+        searchSet[`${valueName}`] = values[valueName] === true ? "on" : "";
+      } else {
+        searchSet[`${valueName}`] = values[valueName];
+      }
+    }
+    
+    console.log("Submitted searchSet", searchSet);
+    // await searchSetService.create(token, { ...searchSet });
+    // history.push("/searchsets");
     return null;
   }
 
@@ -73,7 +83,7 @@ const CreateForm = () => {
     <FormView
       form={FormHeadingsAndSubmitButton.createForm}
       searchSet={searchSet}
-      handleChange={handleChange}
+      // handleChange={handleChange}
       handleSubmit={handleSubmit}
     />
   );

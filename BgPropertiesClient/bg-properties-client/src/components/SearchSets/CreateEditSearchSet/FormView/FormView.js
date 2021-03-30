@@ -15,104 +15,133 @@ import { FloorOptionInputFormElementConsts } from "./FormViewConstants";
 import { PricePerSqrMInputFormElementConsts } from "./FormViewConstants";
 import { LocationOptionInputFormElementConsts } from "./FormViewConstants";
 
+import { validateCreateEditSearchSetForm } from "../../../../utils/formValidations";
+
+// Yup.addMethod(Yup.string, "customValidator", function (value) {
+//   if (value === "haha") {
+//     console.log("dfffffffffffffffffffffff");
+//     return "not haha";
+//   }
+// });
+
+// const yupValidationSchema = Yup.object({
+//   // searchSetName: Yup.string().required("напиши нещо"),
+//   searchSetName: Yup.string().required("напиши нещо").customValidator(),
+//   // searchSetName: Yup.lazy((value) => {
+//   //   if (value === "haha") {
+//   //     console.log(value);
+//   //     return Yup.string().required("haha");
+//   //   } else {
+//   //     return Yup.string().required("напиши нещо");
+//   //   }
+//   // }),
+//   cityRegion: Yup.string().required("напиши нещо"),
+// });
+
 const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
   return (
     <Formik
       enableReinitialize
       initialValues={searchSet}
-      validationSchema={Yup.object({
-        test: Yup.string().required("Това трябва."),
-        searchSetName: Yup.string().required("напиши нещо"),
-        cityRegion: Yup.string().required("напиши нещо"),
-      })}
-      // onSubmit={handleSubmit}
+      // validationSchema={yupValidationSchema}
+      validate={validateCreateEditSearchSetForm}
+      // validateOnChange={false}
+      
+      onSubmit={handleSubmit}
     >
-      {/* {({ setFieldValue, onSubmit }) => ( */}
-      <Form onSubmit={handleSubmit}>
-        <section>
-          <FormikControl
-            control={"input"}
-            element={NameInputFormElementConst}
-            handleChange={handleChange}
-            label={form.searchSetName}
-          />
-        </section>
+      {/* Form -> onSubmit={handleSubmit} */}
+      {({ errors, values }) => {
+        console.log("errors", errors);
+        console.log("values", values);
+        return (
+          <Form>
+            <section>
+              <FormikControl
+                control={"input"}
+                element={NameInputFormElementConst}
+                handleChange={handleChange}
+                label={form.searchSetName}
+              />
+            </section>
 
-        <section>
-          <FormikControl
-            control={"checkboxGroup"}
-            checkboxBlocksDetails={PropTypeBlockFormElementConsts}
-            checkboxElements={PropTypeInputFormElementConsts}
-            handleChange={handleChange}
-            label={"Вид на имота:"}
-          />
-        </section>
+            <section>
+              <FormikControl
+                control={"checkboxGroup"}
+                checkboxBlocksDetails={PropTypeBlockFormElementConsts}
+                checkboxElements={PropTypeInputFormElementConsts}
+                handleChange={handleChange}
+                searchSet={searchSet}
+                label={"Вид на имота:"}
+                errors={errors}
+              />
+            </section>
 
-        <section>
-          <article>
-            <FormikControl
-              control={"inputGroup"}
-              groupElements={PriceInputFormElementConsts}
-              handleChange={handleChange}
-              label={"Цена на имота:"}
+            <section>
+              <article>
+                <FormikControl
+                  control={"inputGroup"}
+                  groupElements={PriceInputFormElementConsts}
+                  handleChange={handleChange}
+                  label={"Цена на имота:"}
+                />
+              </article>
+
+              <article>
+                <FormikControl
+                  control={"inputGroup"}
+                  groupElements={PricePerSqrMInputFormElementConsts}
+                  handleChange={handleChange}
+                  label={"Цена на кв.м площ:"}
+                />
+              </article>
+            </section>
+
+            <section>
+              <FormikControl
+                control={"inputGroup"}
+                groupElements={SizeInputFormElementConsts}
+                handleChange={handleChange}
+                label={"Квадратура (кв.м):"}
+              />
+            </section>
+
+            <section>
+              <FormikControl
+                control={"selectGroup"}
+                groupElements={FloorInputFormElementConsts}
+                options={FloorOptionInputFormElementConsts}
+                handleChange={handleChange}
+                label={"Етаж:"}
+              />
+            </section>
+
+            <section>
+              <FormikControl
+                control={"select"}
+                element={LocationInputFormElementConst}
+                options={LocationOptionInputFormElementConsts}
+                handleChange={handleChange}
+                label={"Местоположение на търсения от Вас Имот:"}
+              />
+            </section>
+
+            <section>
+              <FormikControl
+                control={"textarea"}
+                element={DescriptionInputFormElementConst}
+                handleChange={handleChange}
+                label={"Въведете кратко описание:"}
+              />
+            </section>
+
+            <input
+              type="submit"
+              value={form.submitButton}
+              // style="width: 260px; height: 80px; font-weight: bold"
             />
-          </article>
-
-          <article>
-            <FormikControl
-              control={"inputGroup"}
-              groupElements={PricePerSqrMInputFormElementConsts}
-              handleChange={handleChange}
-              label={"Цена на кв.м площ:"}
-            />
-          </article>
-        </section>
-
-        <section>
-          <FormikControl
-            control={"inputGroup"}
-            groupElements={SizeInputFormElementConsts}
-            handleChange={handleChange}
-            label={"Квадратура (кв.м):"}
-          />
-        </section>
-
-        <section>
-          <FormikControl
-            control={"selectGroup"}
-            groupElements={FloorInputFormElementConsts}
-            options={FloorOptionInputFormElementConsts}
-            handleChange={handleChange}
-            label={"Етаж:"}
-          />
-        </section>
-
-        <section>
-          <FormikControl
-            control={"select"}
-            element={LocationInputFormElementConst}
-            options={LocationOptionInputFormElementConsts}
-            handleChange={handleChange}
-            label={"Местоположение на търсения от Вас Имот:"}
-          />
-        </section>
-
-        <section>
-          <FormikControl
-            control={"textarea"}
-            element={DescriptionInputFormElementConst}
-            handleChange={handleChange}
-            label={"Въведете кратко описание:"}
-          />
-        </section>
-
-        <input
-          type="submit"
-          value={form.submitButton}
-          // style="width: 260px; height: 80px; font-weight: bold"
-        />
-      </Form>
-      {/* )} */}
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

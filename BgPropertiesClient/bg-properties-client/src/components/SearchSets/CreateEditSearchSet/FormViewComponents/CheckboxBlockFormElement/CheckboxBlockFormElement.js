@@ -1,6 +1,11 @@
 import CheckboxFormElement from "../CheckboxFormElement";
 
-const CheckboxGroupFormElement = ({ id, checkboxElements, handleChange }) => {
+const CheckboxGroupFormElement = ({
+  id,
+  checkboxElements,
+  searchSet,
+  handleChange,
+}) => {
   return (
     <section id={id}>
       {checkboxElements &&
@@ -8,9 +13,11 @@ const CheckboxGroupFormElement = ({ id, checkboxElements, handleChange }) => {
           <CheckboxFormElement
             key={x.id}
             element={x}
+            searchSet={searchSet}
             handleChange={handleChange}
           />
         ))}
+      <hr />
     </section>
   );
 };
