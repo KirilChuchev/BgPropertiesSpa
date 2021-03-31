@@ -12,7 +12,7 @@ const InputGroupFormElement = ({ label, groupElements, validate }) => {
             <InputFormElement
               key={x.id}
               element={x}
-              validate={validate}
+              // validate={validate}
             />
           ))}
       </section>

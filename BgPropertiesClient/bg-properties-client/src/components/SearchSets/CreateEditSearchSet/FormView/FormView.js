@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 
-import FormikControl from "../FormViewComponents/FormikControl";
+import FormikControl from "../../../Common/FormViewComponents/FormikControl";
 
 import { NameInputFormElementConst } from "./FormViewConstants";
 import { SizeInputFormElementConsts } from "./FormViewConstants";
@@ -34,7 +34,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
               <FormikControl
                 control={"input"}
                 element={NameInputFormElementConst}
-                handleChange={handleChange}
+                // handleChange={handleChange}
                 label={form.searchSetName}
               />
             </section>
@@ -44,7 +44,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
                 control={"checkboxGroup"}
                 checkboxBlocksDetails={PropTypeBlockFormElementConsts}
                 checkboxElements={PropTypeInputFormElementConsts}
-                handleChange={handleChange}
+                // handleChange={handleChange}
                 searchSet={searchSet}
                 label={"Вид на имота:"}
                 errors={errors}
@@ -56,7 +56,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
                 <FormikControl
                   control={"inputGroup"}
                   groupElements={PriceInputFormElementConsts}
-                  handleChange={handleChange}
+                  // handleChange={handleChange}
                   label={"Цена на имота:"}
                 />
               </article>
@@ -65,7 +65,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
                 <FormikControl
                   control={"inputGroup"}
                   groupElements={PricePerSqrMInputFormElementConsts}
-                  handleChange={handleChange}
+                  // handleChange={handleChange}
                   label={"Цена на кв.м площ:"}
                 />
               </article>
@@ -75,7 +75,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
               <FormikControl
                 control={"inputGroup"}
                 groupElements={SizeInputFormElementConsts}
-                handleChange={handleChange}
+                // handleChange={handleChange}
                 label={"Квадратура (кв.м):"}
               />
             </section>
@@ -85,7 +85,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
                 control={"selectGroup"}
                 groupElements={FloorInputFormElementConsts}
                 options={FloorOptionInputFormElementConsts}
-                handleChange={handleChange}
+                // handleChange={handleChange}
                 label={"Етаж:"}
               />
             </section>
@@ -95,7 +95,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
                 control={"select"}
                 element={LocationInputFormElementConst}
                 options={LocationOptionInputFormElementConsts}
-                handleChange={handleChange}
+                // handleChange={handleChange}
                 label={"Местоположение на търсения от Вас Имот:"}
               />
             </section>
@@ -104,7 +104,7 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
               <FormikControl
                 control={"textarea"}
                 element={DescriptionInputFormElementConst}
-                handleChange={handleChange}
+                // handleChange={handleChange}
                 label={"Въведете кратко описание:"}
               />
             </section>
