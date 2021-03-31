@@ -1,5 +1,4 @@
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
 
 import FormikControl from "../FormViewComponents/FormikControl";
 
@@ -17,40 +16,16 @@ import { LocationOptionInputFormElementConsts } from "./FormViewConstants";
 
 import { validateCreateEditSearchSetForm } from "../../../../utils/formValidations";
 
-// Yup.addMethod(Yup.string, "customValidator", function (value) {
-//   if (value === "haha") {
-//     console.log("dfffffffffffffffffffffff");
-//     return "not haha";
-//   }
-// });
-
-// const yupValidationSchema = Yup.object({
-//   // searchSetName: Yup.string().required("напиши нещо"),
-//   searchSetName: Yup.string().required("напиши нещо").customValidator(),
-//   // searchSetName: Yup.lazy((value) => {
-//   //   if (value === "haha") {
-//   //     console.log(value);
-//   //     return Yup.string().required("haha");
-//   //   } else {
-//   //     return Yup.string().required("напиши нещо");
-//   //   }
-//   // }),
-//   cityRegion: Yup.string().required("напиши нещо"),
-// });
-
 const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
   return (
     <Formik
       enableReinitialize
       initialValues={searchSet}
-      // validationSchema={yupValidationSchema}
       validate={validateCreateEditSearchSetForm}
-      // validateOnChange={false}
       
       onSubmit={handleSubmit}
     >
-      {/* Form -> onSubmit={handleSubmit} */}
-      {({ errors, values }) => {
+      {({ errors, values, touched, isSubmitting, setFieldValue }) => {
         console.log("errors", errors);
         console.log("values", values);
         return (

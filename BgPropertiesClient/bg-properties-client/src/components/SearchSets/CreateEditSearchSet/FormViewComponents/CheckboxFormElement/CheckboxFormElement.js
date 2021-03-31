@@ -2,7 +2,7 @@ import { Field, ErrorMessage } from "formik";
 
 import TextError from "../TextError";
 
-const CheckboxFormElement = ({ element, searchSet }) => {
+const CheckboxFormElement = ({ element, searchSet }) => { //searchSet -> за стилизация евент.
   return (
     <article>
       <label htmlFor={element.id}>
@@ -10,8 +10,6 @@ const CheckboxFormElement = ({ element, searchSet }) => {
           type={element.type}
           name={element.name}
           id={element.id}
-          // checked={searchSet[element.name]}
-          // value={element.value}
         />
         <ErrorMessage
           component={TextError}

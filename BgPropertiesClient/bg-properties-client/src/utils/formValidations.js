@@ -2,7 +2,6 @@ import {
   FloorOptionInputFormElementConsts,
   LocationOptionInputFormElementConsts,
   PropTypeInputFormElementConsts,
-  NameInputFormElementConst,
 } from "../components/SearchSets/CreateEditSearchSet/FormView/FormViewConstants";
 
 export const validateCreateEditSearchSetForm = (values) => {
@@ -166,7 +165,6 @@ export const validateCreateEditSearchSetForm = (values) => {
   }
 
   //PropTypes
-
   var propTypesClicked = Object.keys(values)
     .filter(
       (x) =>

@@ -70,35 +70,22 @@ const EditForm = ({ searchSetId }) => {
     });
   }, [token, searchSetId]);
 
-  // function handleChange(event) {
-  //   var obj = {};
-  //   if (event.target.name.endsWith("PropType")) {
-  //     obj[`${event.target.name}`] = event.target.checked ? "on" : "";
-  //   } else {
-  //     obj[`${event.target.name}`] = event.target.value;
-  //   }
-  //   setSearchSet(() => ({ ...searchSet, ...obj }));
-  // }
-
-  // async function handleSubmit(event, values, submitProps) {
   async function handleSubmit(values) {
     alert("Моля потвърдете, че желаете да промените Вашият SearchSet!");
-    // event.preventDefault();
-
     var searchSet = {};
     for (const valueName of Object.keys(values)) {
       if (valueName.endsWith("PropType")) {
         searchSet[`${valueName}`] =
           values[valueName] === true || values[valueName] === "on" ? "on" : "";
       } else {
-        searchSet[`${valueName}`] = values[valueName];
+        searchSet[`${valueName}`] = (String)(values[valueName]);
       }
     }
 
     console.log("Submitted searchSet", searchSet);
     // submitProps.setSubmitting(false);
-    // await searchSetService.edit(token, searchSetId, { ...searchSet });
-    // history.push(`/searchsets/${searchSetId}`);
+    await searchSetService.edit(token, searchSetId, { ...searchSet });
+    history.push(`/searchsets/${searchSetId}`);
     return null;
   }
 
@@ -106,7 +93,6 @@ const EditForm = ({ searchSetId }) => {
     <FormView
       form={FormHeadingsAndSubmitButton.editForm}
       searchSet={searchSet}
-      // handleChange={handleChange}
       handleSubmit={handleSubmit}
     />
   );
