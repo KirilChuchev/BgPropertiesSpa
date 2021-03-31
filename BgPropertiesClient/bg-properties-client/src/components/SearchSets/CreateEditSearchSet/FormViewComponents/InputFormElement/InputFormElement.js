@@ -1,23 +1,20 @@
-const InputFormElement = ({ details, value, handleChange }) => {
+import { Field, ErrorMessage } from "formik";
+import TextError from "../TextError";
+
+const InputFormElement = ({ label, element }) => {
   return (
+   
     <article>
-      <label>
-        {details.type === "text" && <p>{details.text}</p>}
-        <input
-          type={details.type}
-          name={details.name}
-          id={details.id}
-          checked={value}
-          value={value}
-          onChange={handleChange}
+      <label htmlFor={element.id}>
+        {label}
+        {element.text}
+        <Field
+          type={element.type}
+          name={element.name}
+          id={element.id}
         />
-        {details.type === "checkbox" && details.text}
       </label>
-      <span
-        // style="color: red; background-color: lightyellow"
-        // class="field-validation-valid"
-        validation-for={details.id}
-      ></span>
+      <ErrorMessage component={TextError} name={element.name} nameValue={element.name} /> 
     </article>
   );
 };

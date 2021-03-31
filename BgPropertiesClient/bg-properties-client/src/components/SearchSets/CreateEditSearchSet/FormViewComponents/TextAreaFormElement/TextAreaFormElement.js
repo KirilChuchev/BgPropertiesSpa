@@ -1,14 +1,21 @@
-const TextAreaFormElement = ({ details, value, handleChange }) => {
+import { Field, ErrorMessage } from "formik";
+
+const TextAreaFormElement = ({ element, label }) => {
   return (
-    <textarea
-      maxLength="300"
-      rows="6"
-      cols="50"
-      id={details.id}
-      name={details.name}
-      value={value}
-      onChange={handleChange}
-    ></textarea>
+    <article className="form-control">
+      <label htmlFor={element.id}>
+        {label}
+        <Field
+          as="textarea"
+          maxLength="300"
+          rows="6"
+          cols="50"
+          id={element.id}
+          name={element.name}
+        />
+        <ErrorMessage name={element.name} />
+      </label>
+    </article>
   );
 };
 

@@ -15,7 +15,8 @@ function register(userCredentials) {
   .then((userClaims) => {
     authService.setLocalStorageUserClaims(userClaims);
     return userClaims;
-  });
+  })
+  .catch((err) => console.log(err));
 }
 
 function registerAdmin() {}
@@ -36,7 +37,8 @@ function login(userCredentials) {
     .then((userClaims) => {
       authService.setLocalStorageUserClaims(userClaims);
       return userClaims;
-    });
+    })
+    .catch((err) => console.log(err));
 }
 
 function logout() {

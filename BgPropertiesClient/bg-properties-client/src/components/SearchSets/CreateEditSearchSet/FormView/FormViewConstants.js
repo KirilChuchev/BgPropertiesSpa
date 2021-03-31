@@ -1,13 +1,15 @@
 export const FormHeadingsAndSubmitButton = {
   createForm: {
+    mode: "create",
     searchSetName: "Име на Вашият нов SearchSet:",
     submitButton: "С Ъ З Д А Й",
   },
   editForm: {
+    mode: "edit",
     searchSetName: "Име на Вашият SearchSet:",
     submitButton: "Р Е Д А К Т И Р А Й",
-  }
-}
+  },
+};
 
 export const NameInputFormElementConst = {
   id: "searchSetName",
@@ -39,120 +41,140 @@ export const PropTypeInputFormElementConsts = [
     name: "oneRoomPropType",
     type: "checkbox",
     text: "1-СТАЕН",
+    block: "first", // block is only for validation
   },
   {
     id: "vi2",
     name: "twoRoomsPropType",
     type: "checkbox",
     text: "2-СТАЕН",
+    block: "first",
   },
   {
     id: "vi3",
     name: "threeRoomsPropType",
     type: "checkbox",
     text: "3-СТАЕН",
+    block: "first",
   },
   {
     id: "vi4",
     name: "fourRoomsPropType",
     type: "checkbox",
     text: "4-СТАЕН",
+    block: "first",
   },
   {
     id: "vi5",
     name: "multiRoomsPropType",
     type: "checkbox",
     text: "МНОГОСТАЕН",
+    block: "first",
   },
   {
     id: "vi6",
     name: "maisonettePropType",
     type: "checkbox",
     text: "МЕЗОНЕТ",
+    block: "first",
   },
   {
     id: "vi8",
     name: "studioPropType",
     type: "checkbox",
     text: "АТЕЛИЕ, ТАВАН",
+    block: "first",
   },
   {
     id: "vi7",
     name: "officePropType",
     type: "checkbox",
     text: "ОФИС",
+    block: "seconsd",
   },
   {
     id: "vi12",
     name: "storePropType",
     type: "checkbox",
     text: "МАГАЗИН",
+    block: "seconsd",
   },
   {
     id: "vi13",
     name: "restaurantPropType",
     type: "checkbox",
     text: "ЗАВЕДЕНИЕ",
+    block: "seconsd",
   },
   {
     id: "vi14",
     name: "warehousePropType",
     type: "checkbox",
     text: "СКЛАД",
+    block: "seconsd",
   },
   {
     id: "vi17",
     name: "hotelPropType",
     type: "checkbox",
     text: "ХОТЕЛ",
+    block: "seconsd",
   },
   {
     id: "vi16",
     name: "industrialPropType",
     type: "checkbox",
-    text: " ПРОМ. ПОМЕЩЕНИЕ",
+    text: "ПРОМ. ПОМЕЩЕНИЕ",
+    block: "seconsd",
   },
   {
     id: "vi20",
     name: "businessPropType",
     type: "checkbox",
     text: "БИЗНЕС ИМОТ",
+    block: "third",
   },
   {
     id: "vi9",
     name: "houseFloorPropType",
     type: "checkbox",
     text: "ЕТАЖ ОТ КЪЩА",
+    block: "forth",
   },
   {
     id: "vi10",
     name: "housePropType",
     type: "checkbox",
     text: "КЪЩА",
+    block: "forth",
   },
   {
     id: "vi11",
     name: "villagePropType",
     type: "checkbox",
     text: "ВИЛА",
+    block: "forth",
   },
   {
     id: "vi18",
     name: "plotPropType",
     type: "checkbox",
     text: "ПАРЦЕЛ",
+    block: "fifth",
   },
   {
     id: "vi15",
     name: "garagePropType",
     type: "checkbox",
     text: "ГАРАЖ",
+    block: "sixth",
   },
   {
     id: "vi19",
     name: "landPropType",
     type: "checkbox",
     text: "ЗЕМЕДЕЛСКА ЗЕМЯ",
+    block: "seventh",
   },
 ];
 
@@ -160,13 +182,13 @@ export const PriceInputFormElementConsts = [
   {
     id: "priceFrom",
     name: "priceFrom",
-    type: "text",
+    type: "number",
     text: "от",
   },
   {
     id: "priceTo",
     name: "priceTo",
-    type: "text",
+    type: "number",
     text: "до",
   },
 ];
@@ -175,13 +197,13 @@ export const PricePerSqrMInputFormElementConsts = [
   {
     id: "pricePerSqrMFrom",
     name: "pricePerSqrMFrom",
-    type: "text",
+    type: "number",
     text: "от",
   },
   {
     id: "pricePerSqrMTo",
     name: "pricePerSqrMTo",
-    type: "text",
+    type: "number",
     text: "до",
   },
 ];
@@ -190,13 +212,13 @@ export const SizeInputFormElementConsts = [
   {
     id: "sizeFrom",
     name: "sizeFrom",
-    type: "text",
+    type: "number",
     text: "от",
   },
   {
     id: "sizeTo",
     name: "sizeTo",
-    type: "text",
+    type: "number",
     text: "до",
   },
 ];
@@ -218,256 +240,256 @@ export const FloorInputFormElementConsts = [
 
 export const FloorOptionInputFormElementConsts = [
   {
+    key: "",
     value: "",
-    text: "",
   },
   {
+    key: "Партер",
     value: "0",
-    text: "Партер",
   },
   {
+    key: "Без последен",
     value: "999",
-    text: "Без последен",
   },
   {
+    key: "1-ви",
     value: "1",
-    text: "1-ви",
   },
   {
+    key: "2-ри",
     value: "2",
-    text: "2-ри",
   },
   {
+    key: "3-ти",
     value: "3",
-    text: "3-ти",
   },
   {
+    key: "4-ти",
     value: "4",
-    text: "4-ти",
   },
   {
+    key: "5-ти",
     value: "5",
-    text: "5-ти",
   },
   {
+    key: "6-ти",
     value: "6",
-    text: "6-ти",
   },
   {
+    key: "7-ми",
     value: "7",
-    text: "7-ми",
   },
   {
+    key: "8-ми",
     value: "8",
-    text: "8-ми",
   },
   {
+    key: "9-ти",
     value: "9",
-    text: "9-ти",
   },
   {
+    key: "10-ти",
     value: "10",
-    text: "10-ти",
   },
   {
+    key: "11-ти",
     value: "11",
-    text: "11-ти",
   },
   {
+    key: "12-ти",
     value: "12",
-    text: "12-ти",
   },
   {
+    key: "13-ти",
     value: "13",
-    text: "13-ти",
   },
   {
+    key: "14-ти",
     value: "14",
-    text: "14-ти",
   },
   {
+    key: "15-ти",
     value: "15",
-    text: "15-ти",
   },
   {
+    key: "16-ти",
     value: "16",
-    text: "16-ти",
   },
   {
+    key: "17-ти",
     value: "17",
-    text: "17-ти",
   },
   {
+    key: "18-ти",
     value: "18",
-    text: "18-ти",
   },
   {
+    key: "19-ти",
     value: "19",
-    text: "19-ти",
   },
   {
+    key: "20-ти",
     value: "20",
-    text: "20-ти",
   },
   {
+    key: "21-ви",
     value: "21",
-    text: "21-ви",
   },
   {
+    key: "22-ри",
     value: "22",
-    text: "22-ри",
   },
   {
+    key: "23-ти",
     value: "23",
-    text: "23-ти",
   },
   {
+    key: "24-ти",
     value: "24",
-    text: "24-ти",
   },
   {
+    key: "25-ти",
     value: "25",
-    text: "25-ти",
   },
   {
+    key: "26-ти",
     value: "26",
-    text: "26-ти",
   },
   {
+    key: "27-ми",
     value: "27",
-    text: "27-ми",
   },
   {
+    key: "28-ми",
     value: "28",
-    text: "28-ми",
   },
   {
+    key: "29-ти",
     value: "29",
-    text: "29-ти",
   },
   {
+    key: "30-ти",
     value: "30",
-    text: "30-ти",
   },
   {
+    key: "31-ви",
     value: "31",
-    text: "31-ви",
   },
   {
+    key: "32-ри",
     value: "32",
-    text: "32-ри",
   },
   {
+    key: "33-ти",
     value: "33",
-    text: "33-ти",
   },
   {
+    key: "34-ти",
     value: "34",
-    text: "34-ти",
   },
   {
+    key: "35-ти",
     value: "35",
-    text: "35-ти",
   },
   {
+    key: "36-ти",
     value: "36",
-    text: "36-ти",
   },
   {
+    key: "37-ми",
     value: "37",
-    text: "37-ми",
   },
   {
+    key: "38-ми",
     value: "38",
-    text: "38-ми",
   },
   {
+    key: "39-ти",
     value: "39",
-    text: "39-ти",
   },
   {
+    key: "40-ти",
     value: "40",
-    text: "40-ти",
   },
   {
+    key: "41-ви",
     value: "41",
-    text: "41-ви",
   },
   {
+    key: "42-ри",
     value: "42",
-    text: "42-ри",
   },
   {
+    key: "43-ти",
     value: "43",
-    text: "43-ти",
   },
   {
+    key: "44-ти",
     value: "44",
-    text: "44-ти",
   },
   {
+    key: "45-ти",
     value: "45",
-    text: "45-ти",
   },
   {
+    key: "46-ти",
     value: "46",
-    text: "46-ти",
   },
   {
+    key: "47-ми",
     value: "47",
-    text: "47-ми",
   },
   {
+    key: "48-ми",
     value: "48",
-    text: "48-ми",
   },
   {
+    key: "49-ти",
     value: "49",
-    text: "49-ти",
   },
   {
+    key: "50-ти",
     value: "50",
-    text: "50-ти",
   },
   {
+    key: "51-ви",
     value: "51",
-    text: "51-ви",
   },
   {
+    key: "52-ри",
     value: "52",
-    text: "52-ри",
   },
   {
+    key: "53-ти",
     value: "53",
-    text: "53-ти",
   },
   {
+    key: "54-ти",
     value: "54",
-    text: "54-ти",
   },
   {
+    key: "55-ти",
     value: "55",
-    text: "55-ти",
   },
   {
+    key: "56-ти",
     value: "56",
-    text: "56-ти",
   },
   {
+    key: "57-ми",
     value: "57",
-    text: "57-ми",
   },
   {
+    key: "58-ми",
     value: "58",
-    text: "58-ми",
   },
   {
+    key: "59-ти",
     value: "59",
-    text: "59-ти",
   },
   {
+    key: "60-ти",
     value: "60",
-    text: "60-ти",
   },
 ];
 
@@ -479,224 +501,224 @@ export const LocationInputFormElementConst = {
 
 export const LocationOptionInputFormElementConsts = [
   {
+    key: "",
     value: "",
-    text: "",
   },
   {
+    key: "град Благоевград",
     value: "град Благоевград",
-    text: "град Благоевград",
   },
   {
+    key: "област Благоевград",
     value: "област Благоевград",
-    text: "област Благоевград",
   },
   {
+    key: "град Бургас",
     value: "град Бургас",
-    text: "град Бургас",
   },
   {
+    key: "област Бургас",
     value: "област Бургас",
-    text: "област Бургас",
   },
   {
+    key: "град Варна",
     value: "град Варна",
-    text: "град Варна",
   },
   {
+    key: "област Варна",
     value: "област Варна",
-    text: "област Варна",
   },
   {
+    key: "град Велико Търново",
     value: "град Велико Търново",
-    text: "град Велико Търново",
   },
   {
+    key: "област Велико Търново",
     value: "област Велико Търново",
-    text: "област Велико Търново",
   },
   {
+    key: "град Видин",
     value: "град Видин",
-    text: "град Видин",
   },
   {
+    key: "област Видин",
     value: "област Видин",
-    text: "област Видин",
   },
   {
+    key: "град Враца",
     value: "град Враца",
-    text: "град Враца",
   },
   {
+    key: "област Враца",
     value: "област Враца",
-    text: "област Враца",
   },
   {
+    key: "град Габрово",
     value: "град Габрово",
-    text: "град Габрово",
   },
   {
+    key: "област Габрово",
     value: "област Габрово",
-    text: "област Габрово",
   },
   {
+    key: "град Добрич",
     value: "град Добрич",
-    text: "град Добрич",
   },
   {
+    key: "област Добрич",
     value: "област Добрич",
-    text: "област Добрич",
   },
   {
+    key: "град Кърджали",
     value: "град Кърджали",
-    text: "град Кърджали",
   },
   {
+    key: "област Кърджали",
     value: "област Кърджали",
-    text: "област Кърджали",
   },
   {
+    key: "град Кюстендил",
     value: "град Кюстендил",
-    text: "град Кюстендил",
   },
   {
+    key: "област Кюстендил",
     value: "област Кюстендил",
-    text: "област Кюстендил",
   },
   {
+    key: "град Ловеч",
     value: "град Ловеч",
-    text: "град Ловеч",
   },
   {
+    key: "област Ловеч",
     value: "област Ловеч",
-    text: "област Ловеч",
   },
   {
+    key: "град Монтана",
     value: "град Монтана",
-    text: "град Монтана",
   },
   {
+    key: "област Монтана",
     value: "област Монтана",
-    text: "област Монтана",
   },
   {
+    key: "град Пазарджик",
     value: "град Пазарджик",
-    text: "град Пазарджик",
   },
   {
+    key: "област Пазарджик",
     value: "област Пазарджик",
-    text: "област Пазарджик",
   },
   {
+    key: "град Перник",
     value: "град Перник",
-    text: "град Перник",
   },
   {
+    key: "област Перник",
     value: "област Перник",
-    text: "област Перник",
   },
   {
+    key: "град Плевен",
     value: "град Плевен",
-    text: "град Плевен",
   },
   {
+    key: "област Плевен",
     value: "област Плевен",
-    text: "област Плевен",
   },
   {
+    key: "град Пловдив",
     value: "град Пловдив",
-    text: "град Пловдив",
   },
   {
+    key: "област Пловдив",
     value: "област Пловдив",
-    text: "област Пловдив",
   },
   {
+    key: "град Разград",
     value: "град Разград",
-    text: "град Разград",
   },
   {
+    key: "област Разград",
     value: "област Разград",
-    text: "област Разград",
   },
   {
+    key: "град Русе",
     value: "град Русе",
-    text: "град Русе",
   },
   {
+    key: "област Русе",
     value: "област Русе",
-    text: "област Русе",
   },
   {
+    key: "град Силистра",
     value: "град Силистра",
-    text: "град Силистра",
   },
   {
+    key: "област Силистра",
     value: "област Силистра",
-    text: "област Силистра",
   },
   {
+    key: "град Сливен",
     value: "град Сливен",
-    text: "град Сливен",
   },
   {
+    key: "област Сливен",
     value: "област Сливен",
-    text: "област Сливен",
   },
   {
+    key: "град Смолян",
     value: "град Смолян",
-    text: "град Смолян",
   },
   {
+    key: "област Смолян",
     value: "област Смолян",
-    text: "област Смолян",
   },
   {
+    key: "град София",
     value: "град София",
-    text: "град София",
   },
   {
+    key: "област София",
     value: "област София",
-    text: "област София",
   },
   {
+    key: "град Стара Загора",
     value: "град Стара Загора",
-    text: "град Стара Загора",
   },
   {
+    key: "област Стара Загора",
     value: "област Стара Загора",
-    text: "област Стара Загора",
   },
   {
+    key: "град Търговище",
     value: "град Търговище",
-    text: "град Търговище",
   },
   {
+    key: "област Търговище",
     value: "област Търговище",
-    text: "област Търговище",
   },
   {
+    key: "град Хасково",
     value: "град Хасково",
-    text: "град Хасково",
   },
   {
+    key: "област Хасково",
     value: "област Хасково",
-    text: "област Хасково",
   },
   {
+    key: "град Шумен",
     value: "град Шумен",
-    text: "град Шумен",
   },
   {
+    key: "област Шумен",
     value: "област Шумен",
-    text: "област Шумен",
   },
   {
+    key: "град Ямбол",
     value: "град Ямбол",
-    text: "град Ямбол",
   },
   {
+    key: "област Ямбол",
     value: "област Ямбол",
-    text: "област Ямбол",
   },
 ];
 

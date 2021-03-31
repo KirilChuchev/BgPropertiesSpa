@@ -1,137 +1,124 @@
-import { Fragment } from "react";
-import PropTypeBlockFormElement from "../FormComponents/PropTypeBlockFormElement";
-import InputFormElement from "../FormComponents/InputFormElement";
-import SelectFormElement from "../FormComponents/SelectFormElement";
-import TextAreaFormElement from "../FormComponents/TextAreaFormElement";
+import { Formik, Form } from "formik";
 
-import { PropTypeBlockFormElementConsts } from "../constants";
-import { NameInputFormElementConst } from "../constants";
-import { PriceInputFormElementConsts } from "../constants";
-import { PricePerSqrMInputFormElementConsts } from "../constants";
-import { SizeInputFormElementConsts } from "../constants";
-import { FloorInputFormElementConsts } from "../constants";
-import { FloorOptionInputFormElementConsts } from "../constants";
-import { LocationInputFormElementConst } from "../constants";
-import { LocationOptionInputFormElementConsts } from "../constants";
-import { DescriptionInputFormElementConst } from "../constants";
+import FormikControl from "../FormViewComponents/FormikControl";
 
-const CreateEditSearchSetFormView = ({
-  form,
-  searchSet,
-  handleChange,
-  handleSubmit,
-}) => {
+import { NameInputFormElementConst } from "./FormViewConstants";
+import { SizeInputFormElementConsts } from "./FormViewConstants";
+import { FloorInputFormElementConsts } from "./FormViewConstants";
+import { PriceInputFormElementConsts } from "./FormViewConstants";
+import { LocationInputFormElementConst } from "./FormViewConstants";
+import { PropTypeBlockFormElementConsts } from "./FormViewConstants";
+import { PropTypeInputFormElementConsts } from "./FormViewConstants";
+import { DescriptionInputFormElementConst } from "./FormViewConstants";
+import { FloorOptionInputFormElementConsts } from "./FormViewConstants";
+import { PricePerSqrMInputFormElementConsts } from "./FormViewConstants";
+import { LocationOptionInputFormElementConsts } from "./FormViewConstants";
+
+import { validateCreateEditSearchSetForm } from "../../../../utils/formValidations";
+
+const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
   return (
-    <Fragment>
-      <form onSubmit={(event) => handleSubmit(event)}>
-        <section>
-          <h4>{form.searchSetName}</h4>
-          <InputFormElement
-            details={NameInputFormElementConst}
-            value={searchSet[NameInputFormElementConst.name]}
-            handleChange={handleChange}
-          />
-        </section>
+    <Formik
+      enableReinitialize
+      initialValues={searchSet}
+      validate={validateCreateEditSearchSetForm}
+      
+      onSubmit={handleSubmit}
+    >
+      {({ errors, values, touched, isSubmitting, setFieldValue }) => {
+        console.log("errors", errors);
+        console.log("values", values);
+        return (
+          <Form>
+            <section>
+              <FormikControl
+                control={"input"}
+                element={NameInputFormElementConst}
+                handleChange={handleChange}
+                label={form.searchSetName}
+              />
+            </section>
 
-        <section>
-          <h4>Вид на имота:</h4>
-          {PropTypeBlockFormElementConsts &&
-            PropTypeBlockFormElementConsts.map((x) => (
-              <PropTypeBlockFormElement
-                key={x.id}
-                blockDetails={x}
+            <section>
+              <FormikControl
+                control={"checkboxGroup"}
+                checkboxBlocksDetails={PropTypeBlockFormElementConsts}
+                checkboxElements={PropTypeInputFormElementConsts}
+                handleChange={handleChange}
                 searchSet={searchSet}
-                handleChange={handleChange}
+                label={"Вид на имота:"}
+                errors={errors}
               />
-            ))}
-        </section>
+            </section>
 
-        <section>
-          <article>
-            <h4>Цена на имота:</h4>
-            <h4>(EUR)</h4>
-            {PriceInputFormElementConsts &&
-              PriceInputFormElementConsts.map((x) => (
-                <InputFormElement
-                  key={x.id}
-                  details={x}
-                  value={searchSet[x.name]}
+            <section>
+              <article>
+                <FormikControl
+                  control={"inputGroup"}
+                  groupElements={PriceInputFormElementConsts}
                   handleChange={handleChange}
+                  label={"Цена на имота:"}
                 />
-              ))}
-          </article>
-          <article>
-            <h4>Цена на кв.м площ:</h4>
-            <h4>(EUR)</h4>
-            {PricePerSqrMInputFormElementConsts &&
-              PricePerSqrMInputFormElementConsts.map((x) => (
-                <InputFormElement
-                  key={x.id}
-                  details={x}
-                  value={searchSet[x.name]}
+              </article>
+
+              <article>
+                <FormikControl
+                  control={"inputGroup"}
+                  groupElements={PricePerSqrMInputFormElementConsts}
                   handleChange={handleChange}
+                  label={"Цена на кв.м площ:"}
                 />
-              ))}
-          </article>
-        </section>
+              </article>
+            </section>
 
-        <section>
-          <h4>Квадратура:</h4>
-          <h4>(кв.м)</h4>
-          {SizeInputFormElementConsts &&
-            SizeInputFormElementConsts.map((x) => (
-              <InputFormElement
-                key={x.id}
-                details={x}
-                value={searchSet[x.name]}
+            <section>
+              <FormikControl
+                control={"inputGroup"}
+                groupElements={SizeInputFormElementConsts}
                 handleChange={handleChange}
+                label={"Квадратура (кв.м):"}
               />
-            ))}
-        </section>
+            </section>
 
-        <section>
-          <h4>Етаж:</h4>
-          {FloorInputFormElementConsts &&
-            FloorInputFormElementConsts.map((x) => (
-              <SelectFormElement
-                key={x.id}
-                optionsData={FloorOptionInputFormElementConsts}
-                details={x}
-                value={searchSet[x.name]}
+            <section>
+              <FormikControl
+                control={"selectGroup"}
+                groupElements={FloorInputFormElementConsts}
+                options={FloorOptionInputFormElementConsts}
                 handleChange={handleChange}
+                label={"Етаж:"}
               />
-            ))}
-        </section>
+            </section>
 
-        <section>
-          <h4>Местоположение на търсения от Вас Имот:</h4>
-          {LocationInputFormElementConst && (
-            <SelectFormElement
-              optionsData={LocationOptionInputFormElementConsts}
-              details={LocationInputFormElementConst}
-              value={searchSet[LocationInputFormElementConst.name]}
-              handleChange={handleChange}
+            <section>
+              <FormikControl
+                control={"select"}
+                element={LocationInputFormElementConst}
+                options={LocationOptionInputFormElementConsts}
+                handleChange={handleChange}
+                label={"Местоположение на търсения от Вас Имот:"}
+              />
+            </section>
+
+            <section>
+              <FormikControl
+                control={"textarea"}
+                element={DescriptionInputFormElementConst}
+                handleChange={handleChange}
+                label={"Въведете кратко описание:"}
+              />
+            </section>
+
+            <input
+              type="submit"
+              value={form.submitButton}
+              // style="width: 260px; height: 80px; font-weight: bold"
             />
-          )}
-        </section>
-
-        <section>
-          <h4>Въведете кратко описание:</h4>
-          <TextAreaFormElement
-            details={DescriptionInputFormElementConst}
-            value={searchSet[DescriptionInputFormElementConst.name]}
-            handleChange={handleChange}
-          />
-        </section>
-
-        <input
-          type="submit"
-          value={form.submitButton}
-          // style="width: 260px; height: 80px; font-weight: bold"
-        />
-      </form>
-    </Fragment>
+          </Form>
+        );
+      }}
+    </Formik>
   );
 };
 
-export default CreateEditSearchSetFormView;
+export default FormView;
