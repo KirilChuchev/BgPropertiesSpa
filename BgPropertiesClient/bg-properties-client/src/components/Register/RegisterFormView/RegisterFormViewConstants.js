@@ -4,6 +4,7 @@ export const RegisterFormViewConstants = [
     name: "username",
     type: "text",
     text: "Username",
+    autofocus: true,
   },
   {
     id: "email",

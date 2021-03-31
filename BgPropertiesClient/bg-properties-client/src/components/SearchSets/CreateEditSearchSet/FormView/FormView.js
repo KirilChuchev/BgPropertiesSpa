@@ -22,7 +22,6 @@ const FormView = ({ form, searchSet, handleChange, handleSubmit }) => {
       enableReinitialize
       initialValues={searchSet}
       validate={validateCreateEditSearchSetForm}
-      
       onSubmit={handleSubmit}
     >
       {({ errors, values, touched, isSubmitting, setFieldValue }) => {

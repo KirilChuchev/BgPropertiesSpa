@@ -1,3 +1,5 @@
+import * as Yup from "yup";
+
 import {
   FloorOptionInputFormElementConsts,
   LocationOptionInputFormElementConsts,
@@ -194,3 +196,60 @@ export const validateCreateEditSearchSetForm = (values) => {
 
   return errors;
 };
+
+export const validateRegisterLoginForm = (values) => {
+  let errors = {};
+
+  // Username
+  if (
+    values?.username !== undefined &&
+    String(values.username) !== "" &&
+    values.username.match(/[\W]/)
+  ) {
+    console.log("here");
+    errors.username = "Username can only contain letters or digits.";
+  }
+
+  // Email
+  if (
+    String(values.email) !== "" &&
+    !values.email.match(
+      // eslint-disable-next-line
+      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+    )
+  ) {
+    errors.email = "Invalid email format";
+  }
+
+  // Password
+  if (
+    !values.password.match(/[^a-zA-Z\d\s:]+/) ||
+    !values.password.match(/[A-Z]/) ||
+    !values.password.match(/[0-9]/) ||
+    values.password.length < 6
+  ) {
+    errors.password = `Passwords must be at least 6 characters.
+    Passwords must have at least one non alphanumeric character.
+    Passwords must have at least one digit ('0'-'9').
+    Passwords must have at least one uppercase ('A'-'Z').`;
+  }
+  return errors;
+};
+
+export const validationSchemaRegisterForm = Yup.object({
+  username: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid email format").required("Required"),
+  password: Yup.string().required("Required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), ""], "Passwords must match")
+    .required("Required"),
+  // phone: Yup.string().when("modeOfContact", {
+  //   is: "telephonemoc",
+  //   then: Yup.string().required("Required"),
+  // }),
+});
+
+export const validationSchemaLoginForm = Yup.object({
+  email: Yup.string().email("Invalid email format").required("Required"),
+  password: Yup.string().required("Required"),
+});

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import userService from "../../services/userService";
@@ -7,11 +6,6 @@ import RegisterFormView from "./RegisterFormView";
 const Register = () => {
   let history = useHistory();
 
-  // const [email, setEmail] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-
   let userInitialValues = {
     username: "",
     email: "",
@@ -19,19 +13,7 @@ const Register = () => {
     confirmPassword: "",
   };
 
-  // function validateForm() {
-  //   return (
-  //     email.length > 0 &&
-  //     password.length > 0 &&
-  //     username.length > 0 &&
-  //     password === confirmPassword
-  //   );
-  // }
-
-  // function handleSubmit(event) {
-  function handleSubmit({email, username, password}) {
-    console.log(email, username, password);
-
+  function handleSubmit({ email, username, password }) {
     userService
       .register({ email, username, password })
       .then((res) => {
@@ -47,12 +29,11 @@ const Register = () => {
           message = "Something went wrong.";
           path = "/register";
         }
-        // console.log(message);
+        console.log(message);
         history.push(path);
         return null;
       })
       .catch((err) => {
-        console.log("ERROR", err);
         if (err.includes("Unauthorized") || err.includes("Forbidden")) {
           userService.logout();
         }
@@ -66,46 +47,6 @@ const Register = () => {
       userInitialValues={userInitialValues}
       handleSubmit={handleSubmit}
     />
-    // <div className="register">
-    //   <form onSubmit={handleSubmit}>
-    //     <div size="lg" id="email">
-    //       <label>Email</label>
-    //       <input
-    //         autoFocus
-    //         type="email"
-    //         value={email}
-    //         onChange={(e) => setEmail(e.target.value)}
-    //       />
-    //     </div>
-    //     <div size="lg" id="username">
-    //       <label>Username</label>
-    //       <input
-    //         type="text"
-    //         value={username}
-    //         onChange={(e) => setUsername(e.target.value)}
-    //       />
-    //     </div>
-    //     <div size="lg" id="password">
-    //       <label>Password</label>
-    //       <input
-    //         type="password"
-    //         value={password}
-    //         onChange={(e) => setPassword(e.target.value)}
-    //       />
-    //     </div>
-    //     <div size="lg" id="confirmPassword">
-    //       <label>Confirm Password</label>
-    //       <input
-    //         type="password"
-    //         value={confirmPassword}
-    //         onChange={(e) => setConfirmPassword(e.target.value)}
-    //       />
-    //     </div>
-    //     <button size="lg" type="submit" disabled={!validateForm()}>
-    //       Register
-    //     </button>
-    //   </form>
-    // </div>
   );
 };
 

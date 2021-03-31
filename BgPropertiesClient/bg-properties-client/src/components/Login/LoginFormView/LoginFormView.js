@@ -2,32 +2,31 @@ import { Formik, Form } from "formik";
 
 import FormikControl from "../../Common/FormViewComponents/FormikControl";
 
-import { RegisterFormViewConstants } from "./RegisterFormViewConstants";
+import { LoginFormViewConstants } from "./LoginFormViewConstants";
 import {
   validateRegisterLoginForm,
-  validationSchemaRegisterForm,
+  validationSchemaLoginForm,
 } from "../../../utils/formValidations";
 
-const RegisterFormView = ({ userInitialValues, handleSubmit }) => {
+const LoginFormView = ({ userInitialValues, handleSubmit }) => {
   return (
     <Formik
       initialValues={userInitialValues}
-      validationSchema={validationSchemaRegisterForm}
       validate={validateRegisterLoginForm}
-      onSubmit={handleSubmit}
+      validationSchema={validationSchemaLoginForm}
       validateOnBlur={false}
+      onSubmit={handleSubmit}
     >
       {(formik) => {
         return (
           <Form>
             <FormikControl
               control="inputGroup"
-              groupElements={RegisterFormViewConstants}
-              //   label="Email"
+              groupElements={LoginFormViewConstants}
             />
             <input
               type="submit"
-              value={"Register"}
+              value={"Login"}
               disabled={!formik.isValid}
               // style="width: 260px; height: 80px; font-weight: bold"
             />
@@ -38,4 +37,4 @@ const RegisterFormView = ({ userInitialValues, handleSubmit }) => {
   );
 };
 
-export default RegisterFormView;
+export default LoginFormView;
