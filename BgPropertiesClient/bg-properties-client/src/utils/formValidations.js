@@ -206,7 +206,6 @@ export const validateRegisterLoginForm = (values) => {
     String(values.username) !== "" &&
     values.username.match(/[\W]/)
   ) {
-    console.log("here");
     errors.username = "Username can only contain letters or digits.";
   }
 

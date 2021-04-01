@@ -4,7 +4,6 @@ const CheckboxGroupFormElement = ({
   id,
   checkboxElements,
   searchSet,
-  handleChange,
 }) => {
   return (
     <section id={id}>
@@ -14,7 +13,6 @@ const CheckboxGroupFormElement = ({
             key={x.id}
             element={x}
             searchSet={searchSet}
-            handleChange={handleChange}
           />
         ))}
       <hr />

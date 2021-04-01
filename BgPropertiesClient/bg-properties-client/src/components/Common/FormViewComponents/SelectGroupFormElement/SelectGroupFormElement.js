@@ -1,6 +1,6 @@
 import SelectFormElement from "../SelectFormElement";
 
-const SelectGroupFormElement = ({ label, groupElements, options, handleChange }) => {
+const SelectGroupFormElement = ({ label, groupElements, options }) => {
   return (
     <section>
       <h4>{label}</h4>
@@ -13,7 +13,6 @@ const SelectGroupFormElement = ({ label, groupElements, options, handleChange })
               key={x.id}
               element={x}
               options={options}
-              handleChange={handleChange}
             />
           ))}
       </section>
