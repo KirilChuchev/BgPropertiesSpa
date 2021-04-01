@@ -12,6 +12,7 @@ const InputFormElement = ({ label, element }) => {
           type={element.type}
           name={element.name}
           id={element.id}
+          autoFocus={element.autofocus}
         />
       </label>
       <ErrorMessage component={TextError} name={element.name} nameValue={element.name} /> 

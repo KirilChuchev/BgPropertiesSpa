@@ -6,7 +6,6 @@ const CheckboxGroupFormElement = ({
   label,
   searchSet,
   errors,
-  handleChange,
 }) => {
   return (
     <section
@@ -20,7 +19,6 @@ const CheckboxGroupFormElement = ({
             id={x.id}
             checkboxElements={checkboxElements.slice(x.from, x.to)}
             searchSet={searchSet}
-            handleChange={handleChange}
           />
         ))}
       <span>{errors.checkboxes}</span>
