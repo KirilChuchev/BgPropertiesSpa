@@ -8,6 +8,8 @@ import {
   validationSchemaLoginForm,
 } from "../../../utils/formValidations";
 
+import styles from "./LoginFormView.module.css";
+
 const LoginFormView = ({ userInitialValues, handleSubmit }) => {
   return (
     <Formik
@@ -19,18 +21,23 @@ const LoginFormView = ({ userInitialValues, handleSubmit }) => {
     >
       {(formik) => {
         return (
-          <Form>
-            <FormikControl
-              control="inputGroup"
-              groupElements={LoginFormViewConstants}
-            />
-            <input
-              type="submit"
-              value={"Login"}
-              disabled={!formik.isValid}
-              // style="width: 260px; height: 80px; font-weight: bold"
-            />
-          </Form>
+          <section className={styles.loginFormWrapper}>
+            <Form className={styles.loginForm}>
+              <FormikControl
+                control="inputGroup"
+                groupElements={LoginFormViewConstants}
+                label={"Login"}
+                styles={styles}
+              />
+              <input
+                className={styles.button}
+                type="submit"
+                value={"Login"}
+                disabled={!formik.isValid}
+                // style="width: 260px; height: 80px; font-weight: bold"
+              />
+            </Form>
+          </section>
         );
       }}
     </Formik>

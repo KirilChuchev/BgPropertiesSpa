@@ -1,19 +1,21 @@
 import InputFormElement from "../InputFormElement";
 
-const InputGroupFormElement = ({ label, groupElements}) => {
+import {
+  wrapper,
+  title,
+  content,
+} from "./InputGroupFormElement.module.css";
+
+const InputGroupFormElement = ({ label, groupElements, styles }) => {
   return (
-    <section>
-      <h4>{label}</h4>
+    <section className={styles?.wrapper || wrapper}>
+      <h4 className={styles?.title || title}>{label}</h4>
       <section
-      // style="width: 145px;height: 243px;background-color: bisque; border-color: red;  padding: 3px;"
+        className={styles?.content || content}
+        // style="width: 145px;height: 243px;background-color: bisque; border-color: red;  padding: 3px;"
       >
         {groupElements &&
-          groupElements.map((x) => (
-            <InputFormElement
-              key={x.id}
-              element={x}
-            />
-          ))}
+          groupElements.map((x) => <InputFormElement key={x.id} element={x} styles={styles} />)}
       </section>
     </section>
   );

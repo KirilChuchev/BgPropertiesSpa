@@ -1,0 +1,21 @@
+.wrapper {
+  border: 2px solid green;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+    color: green;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+}
+
+

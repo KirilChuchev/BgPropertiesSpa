@@ -16,6 +16,8 @@ import { LocationOptionInputFormElementConsts } from "./FormViewConstants";
 
 import { validateCreateEditSearchSetForm } from "../../../../utils/formValidations";
 
+import styles from './FormView.module.css'
+
 const FormView = ({ form, searchSet, handleSubmit }) => {
   return (
     <Formik
@@ -28,12 +30,13 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
         console.log("errors", errors);
         console.log("values", values);
         return (
-          <Form>
-            <section>
+          <Form className={styles.form}>
+            <section className={styles.searchSetNameWrapper}>
               <FormikControl
                 control={"input"}
                 element={NameInputFormElementConst}
                 label={form.searchSetName}
+                styles={styles}
               />
             </section>
 
@@ -54,6 +57,7 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
                   control={"inputGroup"}
                   groupElements={PriceInputFormElementConsts}
                   label={"Цена на имота:"}
+                  styles={styles}
                 />
               </article>
 
@@ -62,6 +66,7 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
                   control={"inputGroup"}
                   groupElements={PricePerSqrMInputFormElementConsts}
                   label={"Цена на кв.м площ:"}
+                  styles={styles}
                 />
               </article>
             </section>
@@ -71,6 +76,7 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
                 control={"inputGroup"}
                 groupElements={SizeInputFormElementConsts}
                 label={"Квадратура (кв.м):"}
+                styles={styles}
               />
             </section>
 
