@@ -1,8 +1,11 @@
+import { error } from "./TextError.module.css";
 
-function TextError (props) { // , nameValue
-    // console.log(props);
-    // console.log(nameValue);
-  return <span className='error'>{props.children}</span>
+function TextError(props, styles) {
+  // , nameValue
+  // console.log(props);
+  // console.log(nameValue);
+
+  return <span className={styles?.error || error}>{props.children}</span>;
 }
 
-export default TextError
+export default TextError;

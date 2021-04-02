@@ -1,9 +1,14 @@
 import { Field, ErrorMessage } from "formik";
 import TextError from "../TextError";
 
-import { article, labelStyle, field } from "./InputFormElement.module.css";
+import {
+  article,
+  labelStyle,
+  field,
+} from "./InputFormElement.module.css";
 
-const InputFormElement = ({ label, element, styles }) => {
+const InputFormElement = ({ label, element, styles, errors }) => {
+  // console.log(errors);
   return (
     <article className={styles?.article || article}>
       <label className={styles?.label || labelStyle} htmlFor={element.id}>

@@ -6,7 +6,7 @@ import {
   content,
 } from "./InputGroupFormElement.module.css";
 
-const InputGroupFormElement = ({ label, groupElements, styles }) => {
+const InputGroupFormElement = ({ label, groupElements, styles, errors }) => {
   return (
     <section className={styles?.wrapper || wrapper}>
       <h4 className={styles?.title || title}>{label}</h4>
@@ -15,7 +15,7 @@ const InputGroupFormElement = ({ label, groupElements, styles }) => {
         // style="width: 145px;height: 243px;background-color: bisque; border-color: red;  padding: 3px;"
       >
         {groupElements &&
-          groupElements.map((x) => <InputFormElement key={x.id} element={x} styles={styles} />)}
+          groupElements.map((x) => <InputFormElement key={x.id} element={x} styles={styles} errors={errors} />)}
       </section>
     </section>
   );
