@@ -1,0 +1,22 @@
+.article {
+  display: inline-flex;
+  border: 2px solid red;
+  width: 45%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.labelStyle {
+  /* display: inline-block; */
+  text-transform: capitalize;
+  font-style: italic;
+}
+
+.field {
+  width: 50%;
+  /* display: inline-block; */
+  font-size: 18px;
+  /* text-align:center; */
+  padding-left: 10px;
+  border: 2px solid black;
+}

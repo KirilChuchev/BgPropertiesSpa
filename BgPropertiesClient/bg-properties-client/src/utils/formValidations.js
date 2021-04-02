@@ -11,7 +11,7 @@ export const validateCreateEditSearchSetForm = (values) => {
 
   // SearchSetName
   if (String(values.searchSetName) === "") {
-    errors.searchSetName = "Полето SearchSet не трябва да е празно.";
+    errors.searchSetName = "Задайте имe на Вашия SearchSet.";
   }
   if (String(values.searchSetName) !== "" && values.searchSetName.length > 20) {
     errors.searchSetName =

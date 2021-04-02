@@ -8,6 +8,8 @@ import {
   validationSchemaRegisterForm,
 } from "../../../utils/formValidations";
 
+import styles from "./RegisterFormView.module.css";
+
 const RegisterFormView = ({ userInitialValues, handleSubmit }) => {
   return (
     <Formik
@@ -19,19 +21,24 @@ const RegisterFormView = ({ userInitialValues, handleSubmit }) => {
     >
       {(formik) => {
         return (
-          <Form>
-            <FormikControl
-              control="inputGroup"
-              groupElements={RegisterFormViewConstants}
-              //   label="Email"
-            />
-            <input
-              type="submit"
-              value={"Register"}
-              disabled={!formik.isValid}
-              // style="width: 260px; height: 80px; font-weight: bold"
-            />
-          </Form>
+          <section className={styles.formWrapper}>
+            <Form className={styles.form}>
+              <FormikControl
+                control="inputGroup"
+                label="Register"
+                groupElements={RegisterFormViewConstants}
+                styles={styles}
+                //   label="Email"
+              />
+              <input
+                className={styles.submitButton}
+                type="submit"
+                value={"Register"}
+                disabled={!formik.isValid}
+                // style="width: 260px; height: 80px; font-weight: bold"
+              />
+            </Form>
+          </section>
         );
       }}
     </Formik>
