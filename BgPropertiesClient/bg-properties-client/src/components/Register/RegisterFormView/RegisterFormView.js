@@ -8,7 +8,7 @@ import {
   validationSchemaRegisterForm,
 } from "../../../utils/formValidations";
 
-import styles from "./RegisterFormView.css";
+import styles from "./RegisterFormView.module.css";
 
 const RegisterFormView = ({ userInitialValues, handleSubmit }) => {
   return (
@@ -21,16 +21,17 @@ const RegisterFormView = ({ userInitialValues, handleSubmit }) => {
     >
       {(formik) => {
         return (
-          <section className={styles.loginFormWrapper}>
-            <Form className={styles.loginForm}>
+          <section className={styles.formWrapper}>
+            <Form className={styles.form}>
               <FormikControl
                 control="inputGroup"
+                label="Register"
                 groupElements={RegisterFormViewConstants}
                 styles={styles}
                 //   label="Email"
               />
               <input
-                className={styles.button}
+                className={styles.submitButton}
                 type="submit"
                 value={"Register"}
                 disabled={!formik.isValid}

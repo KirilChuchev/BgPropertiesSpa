@@ -21,8 +21,8 @@ const LoginFormView = ({ userInitialValues, handleSubmit }) => {
     >
       {(formik) => {
         return (
-          <section className={styles.loginFormWrapper}>
-            <Form className={styles.loginForm}>
+          <section className={styles.formWrapper}>
+            <Form className={styles.form}>
               <FormikControl
                 control="inputGroup"
                 groupElements={LoginFormViewConstants}
@@ -30,7 +30,7 @@ const LoginFormView = ({ userInitialValues, handleSubmit }) => {
                 styles={styles}
               />
               <input
-                className={styles.button}
+                className={styles.submitButton}
                 type="submit"
                 value={"Login"}
                 disabled={!formik.isValid}
