@@ -2,16 +2,16 @@ import InputFormElement from "../InputFormElement";
 
 import {
   wrapper,
-  title,
+  inputGroupTitle,
   content,
 } from "./InputGroupFormElement.module.css";
 
-const InputGroupFormElement = ({ label, groupElements, styles, errors }) => {
+const InputGroupFormElement = ({ title, groupElements, styles, errors }) => {
   return (
-    <section className={styles?.wrapper || wrapper}>
-      <h4 className={styles?.title || title}>{label}</h4>
+    <section className={styles?.inputGroupWrapper || wrapper}>
+      <h4 className={styles?.inputGroupTitle || inputGroupTitle}>{title}</h4>
       <section
-        className={styles?.content || content}
+        className={styles?.inputGroupContent || content}
         // style="width: 145px;height: 243px;background-color: bisque; border-color: red;  padding: 3px;"
       >
         {groupElements &&

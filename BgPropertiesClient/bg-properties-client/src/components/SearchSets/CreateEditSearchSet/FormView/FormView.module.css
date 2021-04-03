@@ -1,26 +1,272 @@
-/* .inputGroupWrapper{
-    border: 2px solid orange;
-    padding-left: 20px;
-} */
-
-.form{
-    border: 2px solid black;
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.formWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.searchSetNameWrapper{
-    width: 100%;
-    margin: 30px 0;
+.form {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  width: 750px;
+  padding: 30px;
+  margin: 50px 0;
+  background: rgb(243, 243, 239);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 3px 1px 10px 1px grey;
 }
 
-.article{
-    width: 80%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.form .submitButton {
+  width: 150px;
+  padding: 5px 10px;
+  /* margin: 10px; */
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  font-style: italic;
+  background: rgb(10, 192, 116);
+  text-transform: uppercase;
+  color: white;
+  font-weight: 600;
+  box-shadow: 3px 1px 10px 1px grey;
+  /* outline: none; */
 }
 
+.form .submitButton:hover {
+  cursor: pointer;
+}
+
+.form .submitButton:disabled {
+  background: grey;
+}
+
+/* inputs - start */
+
+.inputGroupTitle {
+  color: purple;
+  font-size: 20px;
+}
+
+.inputGroupWrapper {
+  width: 100%;
+  height: 140px;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.inputGroupContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items:flex-start;
+}
+
+.inputArticle {
+  width: 40%;
+  /* margin-bottom: 30px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.inputTitle {
+  color: purple;
+  font-size: 18px;
+  text-align: center;
+}
+
+.inputLabel {
+  text-transform: capitalize;
+  font-style: italic;
+  margin-left: 5px;
+  height: 100%;
+}
+
+.inputField {
+  width: 100%;
+  /* height: 30px; */
+  /* height: 100%; */
+  padding-left: 10px;
+  box-shadow: 3px 1px 10px 1px grey;
+  outline: none;
+}
+
+/* inputs - end */
+
+/* Checkbox Group */
+
+.checkboxGroupTitle {
+  color: purple;
+  font-size: 20px;
+}
+
+.checkboxGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -40px;
+}
+
+.checkboxBlocksWrapper {
+  width: 100%;
+  /* height: 150px; */
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
+  /* border: 2px solid red; */
+}
+
+.checkboxBlock {
+  width: calc(100% / 3.2);
+  display: inline-block;
+}
+
+.checkboxArticle {
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.checkboxBlock:nth-child(1) .checkboxArticle {
+  border: 2px solid purple;
+  box-shadow: 3px 1px 12px 0px purple;
+}
+
+.checkboxBlock:nth-child(2) .checkboxArticle:not(:last-child) {
+  border: 2px solid green;
+  box-shadow: 3px 1px 12px 0px green;
+}
+
+.checkboxBlock:nth-child(2) .checkboxArticle:last-child {
+  border: 2px solid brown;
+  box-shadow: 3px 1px 12px 0px brown;
+}
+
+.checkboxBlock:nth-child(3) .checkboxArticle:nth-child(-n + 3) {
+  border: 2px solid rgb(146, 146, 6);
+  box-shadow: 3px 1px 12px 0px rgb(146, 146, 6);
+}
+
+.checkboxBlock:nth-child(3) .checkboxArticle:nth-child(4) {
+  border: 2px solid blue;
+  box-shadow: 3px 1px 12px 0px blue;
+}
+
+.checkboxBlock:nth-child(3) .checkboxArticle:nth-child(5) {
+  border: 2px solid orange;
+  box-shadow: 3px 1px 12px 0px orange;
+}
+
+.checkboxBlock:nth-child(3) .checkboxArticle:nth-child(6) {
+  border: 2px solid rgb(23, 221, 195);
+  box-shadow: 3px 1px 12px 0px rgb(23, 221, 195);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.checkboxField {
+  margin: 5px 10px;
+  transform: scale(1.2);
+}
+
+/* Select group */
+
+.selectGroupTitle {
+  color: purple;
+  font-size: 20px;
+}
+
+.selectGroupWrapper {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin: 20px; */
+}
+
+.selectGroup {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/* Select */
+
+.selectArticle {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.selectTitle {
+  width: 100%;
+  color: purple;
+  font-size: 16px;
+  text-align: center;
+}
+
+.selectLabel {
+  width: 100%;
+  text-transform: capitalize;
+  font-style: italic;
+  margin-left: 5px;
+}
+
+.selectField {
+  width: 100%;
+  height: 30px;
+  border: 2px solid black;
+  box-shadow: 3px 1px 10px 1px grey;
+  outline: none;
+}
+
+.selectField:hover{
+    cursor: pointer;
+}
+
+/* TextArea */
+.textAreaArticle {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.textAreaTitle {
+  color: purple;
+  font-size: 20px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.textAreaField {
+    padding: 5px;
+}
+
+/* Error */
+.error {
+  width: 100%;
+  font-size: 13px;
+  color: red;
+  text-align: center;
+}

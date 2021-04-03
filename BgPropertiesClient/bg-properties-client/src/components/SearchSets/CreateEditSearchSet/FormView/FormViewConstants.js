@@ -33,6 +33,41 @@ export const PropTypeBlockFormElementConsts = [
     from: 14,
     to: 20,
   },
+  // {
+  //   id: "gr1",
+  //   from: 0,
+  //   to: 7,
+  // },
+  // {
+  //   id: "gr2",
+  //   from: 7,
+  //   to: 13,
+  // },
+  // {
+  //   id: "gr3",
+  //   from: 13,
+  //   to: 14,
+  // },
+  // {
+  //   id: "gr4",
+  //   from: 14,
+  //   to: 17,
+  // },
+  // {
+  //   id: "gr5",
+  //   from: 17,
+  //   to: 18,
+  // },
+  // {
+  //   id: "gr6",
+  //   from: 18,
+  //   to: 19,
+  // },
+  // {
+  //   id: "gr7",
+  //   from: 19,
+  //   to: 20,
+  // },
 ];
 
 export const PropTypeInputFormElementConsts = [

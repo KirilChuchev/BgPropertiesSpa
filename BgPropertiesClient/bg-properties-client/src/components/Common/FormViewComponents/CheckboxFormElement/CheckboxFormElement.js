@@ -1,23 +1,17 @@
-import { Field, ErrorMessage } from "formik";
+import { Field } from "formik";
 
-import TextError from "../TextError";
-
-const CheckboxFormElement = ({ element, searchSet }) => { //searchSet -> за стилизация евент.
+const CheckboxFormElement = ({ element, searchSet, styles }) => {
+  //searchSet -> за стилизация евент.
   return (
-    <article>
-      <label htmlFor={element.id}>
+    <article id={element.name} className={styles.checkboxArticle}>
+      <label htmlFor={element.id} className={styles.checkboxLabel}>
         <Field
+          className={styles.checkboxField}
           type={element.type}
           name={element.name}
           id={element.id}
         />
-        <ErrorMessage
-          component={TextError}
-          name={element.name}
-          nameValue={element.name}
-        />
         {element.text}
-        {/* <ErrorMessage name={element.name} /> */}
       </label>
     </article>
   );
