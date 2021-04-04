@@ -1,11 +1,12 @@
 import SelectFormElement from "../SelectFormElement";
 
-const SelectGroupFormElement = ({ label, groupElements, options }) => {
+const SelectGroupFormElement = ({ title, groupElements, options, styles }) => {
   return (
-    <section>
-      <h4>{label}</h4>
+    <section className={styles.selectGroupWrapper}>
+      <h4 className={styles.selectGroupTitle}>{title}</h4>
       <section
-      // style="width: 145px;height: 243px;background-color: bisque; border-color: red;  padding: 3px;"
+        className={styles.selectGroup}
+        // style="width: 145px;height: 243px;background-color: bisque; border-color: red;  padding: 3px;"
       >
         {groupElements &&
           groupElements.map((x) => (
@@ -13,6 +14,7 @@ const SelectGroupFormElement = ({ label, groupElements, options }) => {
               key={x.id}
               element={x}
               options={options}
+              styles={styles}
             />
           ))}
       </section>

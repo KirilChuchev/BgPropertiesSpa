@@ -10,32 +10,42 @@ import {
 
 import styles from "./LoginFormView.module.css";
 
-const LoginFormView = ({ userInitialValues, handleSubmit }) => {
+const LoginFormView = ({ userInitialValues, handleSubmit, serverErrors }) => {
   return (
     <Formik
       initialValues={userInitialValues}
       validate={validateRegisterLoginForm}
       validationSchema={validationSchemaLoginForm}
-      validateOnBlur={false}
+      // validateOnBlur={false}
       onSubmit={handleSubmit}
     >
       {(formik) => {
+        if (serverErrors) {
+          formik.errors = { ...formik.errors, serverErrors };
+        } else {
+          formik.errors = { ...formik.errors };
+        }
         return (
           <section className={styles.formWrapper}>
             <Form className={styles.form}>
               <FormikControl
                 control="inputGroup"
                 groupElements={LoginFormViewConstants}
-                label={"Login"}
+                title={"Login"}
                 styles={styles}
+                errors={formik.errors}
               />
               <input
                 className={styles.submitButton}
                 type="submit"
                 value={"Login"}
                 disabled={!formik.isValid}
-                // style="width: 260px; height: 80px; font-weight: bold"
               />
+              {formik.errors?.serverErrors?.somethingWrong && (
+                <span className={styles.error}>
+                  {formik.errors.serverErrors.somethingWrong}
+                </span>
+              )}
             </Form>
           </section>
         );

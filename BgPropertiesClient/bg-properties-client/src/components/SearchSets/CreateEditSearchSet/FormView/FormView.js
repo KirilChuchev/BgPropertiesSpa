@@ -16,7 +16,7 @@ import { LocationOptionInputFormElementConsts } from "./FormViewConstants";
 
 import { validateCreateEditSearchSetForm } from "../../../../utils/formValidations";
 
-import styles from './FormView.module.css'
+import styles from "./FormView.module.css";
 
 const FormView = ({ form, searchSet, handleSubmit }) => {
   return (
@@ -30,89 +30,83 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
         console.log("errors", errors);
         console.log("values", values);
         return (
-          <Form className={styles.form}>
-            <section className={styles.searchSetNameWrapper}>
+          <section className={styles.formWrapper}>
+            <Form className={styles.form}>
+              <section className={styles.inputGroupWrapper}>
               <FormikControl
                 control={"input"}
                 element={NameInputFormElementConst}
-                label={form.searchSetName}
+                title={form.searchSetName}
                 styles={styles}
               />
-            </section>
+              </section>
 
-            <section>
               <FormikControl
                 control={"checkboxGroup"}
                 checkboxBlocksDetails={PropTypeBlockFormElementConsts}
                 checkboxElements={PropTypeInputFormElementConsts}
                 searchSet={searchSet}
-                label={"Вид на имота:"}
+                title={"Вид на имота:"}
                 errors={errors}
+                styles={styles}
               />
-            </section>
 
-            <section>
-              <article>
-                <FormikControl
-                  control={"inputGroup"}
-                  groupElements={PriceInputFormElementConsts}
-                  label={"Цена на имота:"}
-                  styles={styles}
-                />
-              </article>
+              <FormikControl
+                control={"inputGroup"}
+                groupElements={PriceInputFormElementConsts}
+                title={"Цена на имота:"}
+                styles={styles}
+              />
 
-              <article>
-                <FormikControl
-                  control={"inputGroup"}
-                  groupElements={PricePerSqrMInputFormElementConsts}
-                  label={"Цена на кв.м площ:"}
-                  styles={styles}
-                />
-              </article>
-            </section>
+              <FormikControl
+                control={"inputGroup"}
+                groupElements={PricePerSqrMInputFormElementConsts}
+                title={"Цена на кв.м площ:"}
+                styles={styles}
+              />
 
-            <section>
               <FormikControl
                 control={"inputGroup"}
                 groupElements={SizeInputFormElementConsts}
-                label={"Квадратура (кв.м):"}
+                title={"Квадратура (кв.м):"}
                 styles={styles}
               />
-            </section>
 
-            <section>
               <FormikControl
                 control={"selectGroup"}
                 groupElements={FloorInputFormElementConsts}
                 options={FloorOptionInputFormElementConsts}
-                label={"Етаж:"}
+                title={"Етаж:"}
+                styles={styles}
               />
-            </section>
 
-            <section>
+              <section className={styles.selectGroupWrapper}>
               <FormikControl
                 control={"select"}
                 element={LocationInputFormElementConst}
                 options={LocationOptionInputFormElementConsts}
                 // handleChange={handleChange}
-                label={"Местоположение на търсения от Вас Имот:"}
+                title={"Местоположение на търсения имот:"}
+                styles={styles}
               />
-            </section>
+              </section>
 
-            <section>
               <FormikControl
                 control={"textarea"}
                 element={DescriptionInputFormElementConst}
-                label={"Въведете кратко описание:"}
+                title={"Въведете кратко описание:"}
+                styles={styles}
               />
-            </section>
 
-            <input
-              type="submit"
-              value={form.submitButton}
-              // style="width: 260px; height: 80px; font-weight: bold"
-            />
-          </Form>
+              {/* <input
+                className={styles.submitButton}
+                type="submit"
+                value={form.submitButton}
+                // style="width: 260px; height: 80px; font-weight: bold"
+              /> */}
+              <button type='submit' className={styles.submitButton}>{form.submitButton}</button>
+            </Form>
+          </section>
         );
       }}
     </Formik>

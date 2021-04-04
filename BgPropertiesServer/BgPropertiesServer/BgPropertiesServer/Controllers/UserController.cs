@@ -77,7 +77,7 @@
                 if (userExists != null)
                     return StatusCode(
                         StatusCodes.Status500InternalServerError,
-                        new Response { Status = "Error", Message = "User already exists!" });
+                        new Response { Status = "Error", Message = "User with this email already exists!" });
 
                 var result = await authService.ServeRegister(model);
 
