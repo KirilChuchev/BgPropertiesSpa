@@ -4,6 +4,10 @@ import {
   FloorOptionInputFormElementConsts,
   LocationOptionInputFormElementConsts,
   PropTypeInputFormElementConsts,
+  PriceInputFormElementConsts,
+  PricePerSqrMInputFormElementConsts,
+  SizeInputFormElementConsts,
+  FloorInputFormElementConsts,
 } from "../components/SearchSets/CreateEditSearchSet/FormView/FormViewConstants";
 
 export const validateCreateEditSearchSetForm = (values) => {
@@ -15,7 +19,7 @@ export const validateCreateEditSearchSetForm = (values) => {
   }
   if (String(values.searchSetName) !== "" && values.searchSetName.length > 20) {
     errors.searchSetName =
-      "Името на Вашия SearchSet не трябва да превишава 20 знака.";
+      "Името на Вашия SearchSet не трябва да превишава 30 знака.";
   }
 
   // Description
@@ -28,8 +32,9 @@ export const validateCreateEditSearchSetForm = (values) => {
     String(values.priceFrom) !== "" &&
     !String(values.priceFrom).match(/^[0-9]+$/)
   ) {
-    errors.priceFrom =
-      'Полето "Цена на имота: -> от" трябва да съдържа цели, неотрицателни числа.';
+    let field = PriceInputFormElementConsts.find((x) => x.id === "priceFrom")
+      .text;
+    errors.priceFrom = `Полето "${field}" трябва да съдържа цели, неотрицателни числа.`;
   }
 
   // Price to
@@ -37,8 +42,9 @@ export const validateCreateEditSearchSetForm = (values) => {
     String(values.priceTo) !== "" &&
     (!String(values.priceTo).match(/^[0-9]+$/) || parseInt(values.priceTo) <= 0)
   ) {
-    errors.priceTo =
-      'Полето "Цена на имота: -> до" трябва да съдържа цели положителни числа.';
+    let field = PriceInputFormElementConsts.find((x) => x.id === "priceTo")
+      .text;
+    errors.priceTo = `Полето "${field}" трябва да съдържа цели положителни числа.`;
   }
 
   // Price from && Price to
@@ -50,8 +56,11 @@ export const validateCreateEditSearchSetForm = (values) => {
     parseInt(values.priceTo) > 0 &&
     parseInt(values.priceFrom) > parseInt(values.priceTo)
   ) {
-    errors.priceTo =
-      'Стойността на полето "Цена на имота: -> до" трябва да е по-голяма или равна на стойността на полето "Цена на имота: -> от"';
+    let fieldOne = PriceInputFormElementConsts.find((x) => x.id === "priceFrom")
+      .text;
+    let fieldTwo = PriceInputFormElementConsts.find((x) => x.id === "priceTo")
+      .text;
+    errors.priceTo = `Стойността на полето "${fieldOne}" трябва да е по-голяма или равна на стойността на полето "${fieldTwo}"`;
   }
 
   // Price per square meter from
@@ -59,8 +68,10 @@ export const validateCreateEditSearchSetForm = (values) => {
     String(values.pricePerSqrMFrom) !== "" &&
     !String(values.pricePerSqrMFrom).match(/^[0-9]+$/)
   ) {
-    errors.pricePerSqrMFrom =
-      'Полето "Цена на кв.м площ: -> от" трябва да съдържа цели, неотрицателни числа.';
+    let field = PricePerSqrMInputFormElementConsts.find(
+      (x) => x.id === "pricePerSqrMFrom"
+    ).text;
+    errors.pricePerSqrMFrom = `Полето "${field}" трябва да съдържа цели, неотрицателни числа.`;
   }
 
   // Price per square meter to
@@ -69,8 +80,10 @@ export const validateCreateEditSearchSetForm = (values) => {
     (!String(values.pricePerSqrMTo).match(/^[0-9]+$/) ||
       parseInt(values.pricePerSqrMTo) <= 0)
   ) {
-    errors.pricePerSqrMTo =
-      'Полето "Цена на кв.м площ: -> до" трябва да съдържа цели, положителни числа.';
+    let field = PricePerSqrMInputFormElementConsts.find(
+      (x) => x.id === "pricePerSqrMTo"
+    ).text;
+    errors.pricePerSqrMTo = `Полето "${field}" трябва да съдържа цели, положителни числа.`;
   }
 
   // Price per square meter from && Price per square meter to
@@ -82,8 +95,13 @@ export const validateCreateEditSearchSetForm = (values) => {
     parseInt(values.pricePerSqrMTo) > 0 &&
     parseFloat(values.pricePerSqrMFrom) > parseFloat(values.pricePerSqrMTo)
   ) {
-    errors.pricePerSqrMTo =
-      'Стойността на полето "Цена на кв.м площ: -> до" трябва да е по-голяма или равна на стойността на полето "Цена на кв.м площ: -> от"';
+    let fieldOne = PricePerSqrMInputFormElementConsts.find(
+      (x) => x.id === "pricePerSqrMFrom"
+    ).text;
+    let fieldTwo = PricePerSqrMInputFormElementConsts.find(
+      (x) => x.id === "pricePerSqrMTo"
+    ).text;
+    errors.pricePerSqrMTo = `Стойността на полето "${fieldOne}" трябва да е по-голяма или равна на стойността на полето "${fieldTwo}"`;
   }
 
   // Size from
@@ -91,8 +109,9 @@ export const validateCreateEditSearchSetForm = (values) => {
     String(values.sizeFrom) !== "" &&
     !String(values.sizeFrom).match(/^[0-9]+$/)
   ) {
-    errors.sizeFrom =
-      'Полето "Квадратура: -> от" трябва да съдържа цели, неотрицателни числа.';
+    let field = SizeInputFormElementConsts.find((x) => x.id === "sizeFrom")
+      .text;
+    errors.sizeFrom = `Полето "${field}" трябва да съдържа цели, неотрицателни числа.`;
   }
 
   // Size to
@@ -100,8 +119,8 @@ export const validateCreateEditSearchSetForm = (values) => {
     String(values.sizeTo) !== "" &&
     (!String(values.sizeTo).match(/^[0-9]+$/) || parseInt(values.sizeTo) <= 0)
   ) {
-    errors.sizeTo =
-      'Полето "Квадратура: -> до" трябва да съдържа цели, положителни числа.';
+    let field = SizeInputFormElementConsts.find((x) => x.id === "sizeTo").text;
+    errors.sizeTo = `Полето "${field}" трябва да съдържа цели, положителни числа.`;
   }
 
   // Size from && Size to
@@ -113,8 +132,11 @@ export const validateCreateEditSearchSetForm = (values) => {
     parseInt(values.sizeTo) > 0 &&
     parseInt(values.sizeFrom) > parseInt(values.sizeTo)
   ) {
-    errors.sizeTo =
-      'Стойността на полето "Квадратура: -> до" трябва да е по-голяма или равна на стойността на полето "Квадратура: -> от"';
+    let fieldOne = SizeInputFormElementConsts.find((x) => x.id === "sizeFrom")
+      .text;
+    let fieldTwo = SizeInputFormElementConsts.find((x) => x.id === "sizeTo")
+      .text;
+    errors.sizeTo = `Стойността на полето "${fieldOne}" трябва да е по-голяма или равна на стойността на полето "${fieldTwo}"`;
   }
 
   // Floor from
@@ -124,8 +146,10 @@ export const validateCreateEditSearchSetForm = (values) => {
       values.floorFrom
     )
   ) {
-    errors.floorFrom =
-      'Полето "Етаж: -> от" трябва да съдържа едно от изредените стойности.';
+    let field = FloorInputFormElementConsts.find(
+      (x) => x.id === "floorFrom"
+    ).text;
+    errors.floorFrom = `Полето "${field}" трябва да съдържа едно от изредените стойности.`;
   }
 
   // Floor To
@@ -135,8 +159,10 @@ export const validateCreateEditSearchSetForm = (values) => {
       values.floorTo
     )
   ) {
-    errors.floorTo =
-      'Полето "Етаж: -> до" трябва да съдържа едно от изредените стойности.';
+    let field = FloorInputFormElementConsts.find(
+      (x) => x.id === "floorTo"
+    ).text;
+    errors.floorTo = `Полето "${field}" трябва да съдържа едно от изредените стойности.`;
   }
 
   // Floor from && Floor To
@@ -151,8 +177,13 @@ export const validateCreateEditSearchSetForm = (values) => {
     ) &&
     parseInt(values.floorFrom) > parseInt(values.floorTo)
   ) {
-    errors.floorTo =
-      '"Етаж: -> до" трябва да е по-голям или равен на "Етаж: -> от".';
+    let fieldOne = FloorInputFormElementConsts.find(
+      (x) => x.id === "floorFrom"
+    ).text;
+    let fieldTwo = FloorInputFormElementConsts.find(
+      (x) => x.id === "floorTo"
+    ).text;
+    errors.floorTo = `Етаж: "${fieldOne}" трябва да е по-голям или равен на Етаж: "${fieldTwo}".`;
   }
 
   // cityRegion

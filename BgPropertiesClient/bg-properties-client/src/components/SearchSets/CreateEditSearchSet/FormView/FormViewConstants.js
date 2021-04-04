@@ -218,13 +218,13 @@ export const PriceInputFormElementConsts = [
     id: "priceFrom",
     name: "priceFrom",
     type: "number",
-    text: "от",
+    text: "От",
   },
   {
     id: "priceTo",
     name: "priceTo",
     type: "number",
-    text: "до",
+    text: "До",
   },
 ];
 
@@ -233,13 +233,13 @@ export const PricePerSqrMInputFormElementConsts = [
     id: "pricePerSqrMFrom",
     name: "pricePerSqrMFrom",
     type: "number",
-    text: "от",
+    text: "От",
   },
   {
     id: "pricePerSqrMTo",
     name: "pricePerSqrMTo",
     type: "number",
-    text: "до",
+    text: "До",
   },
 ];
 
@@ -248,13 +248,13 @@ export const SizeInputFormElementConsts = [
     id: "sizeFrom",
     name: "sizeFrom",
     type: "number",
-    text: "от",
+    text: "От",
   },
   {
     id: "sizeTo",
     name: "sizeTo",
     type: "number",
-    text: "до",
+    text: "До",
   },
 ];
 
@@ -263,13 +263,13 @@ export const FloorInputFormElementConsts = [
     id: "floorFrom",
     name: "floorFrom",
     type: "text",
-    text: "от",
+    text: "От",
   },
   {
     id: "floorTo",
     name: "floorTo",
     type: "text",
-    text: "до",
+    text: "До",
   },
 ];
 
