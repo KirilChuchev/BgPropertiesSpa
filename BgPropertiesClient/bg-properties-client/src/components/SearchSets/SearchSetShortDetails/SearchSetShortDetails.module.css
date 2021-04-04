@@ -1,0 +1,26 @@
+.searchSetShortDetailsArticle{
+    width: 45%;
+    margin: 10px 0;
+    padding: 20px;
+    background: rgb(243, 243, 239);
+    border-radius: 20px;
+    box-shadow: 3px 1px 10px 1px grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.searchSetShortDetailsArticle:hover{
+    cursor: pointer;
+}
+
+/* .nameSection{
+display: flex;
+justify-content: space-between;
+align-items: center;
+} */
+
+.description{
+
+}
