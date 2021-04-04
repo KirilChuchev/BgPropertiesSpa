@@ -16,7 +16,9 @@ function register(userCredentials) {
     authService.setLocalStorageUserClaims(userClaims);
     return userClaims;
   })
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    return Promise.reject(err);
+  });
 }
 
 function registerAdmin() {}
@@ -38,7 +40,9 @@ function login(userCredentials) {
       authService.setLocalStorageUserClaims(userClaims);
       return userClaims;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      return Promise.reject(err);
+    });
 }
 
 function logout() {

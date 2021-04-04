@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import userService from "../../services/userService";
@@ -12,6 +13,8 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   };
+
+  const [serverErrors, setServerErrors] = useState({});
 
   function handleSubmit({ email, username, password }) {
     userService
@@ -30,6 +33,8 @@ const Register = () => {
           path = "/register";
         }
         console.log(message);
+        let somethingWrong = message;
+        setServerErrors((state) => ({ ...state, somethingWrong }));
         history.push(path);
         return null;
       })
@@ -38,6 +43,8 @@ const Register = () => {
           userService.logout();
         }
         console.log(err);
+        let userExistence = err;
+        setServerErrors((state) => ({ ...state, userExistence }));
         history.push("/register");
         return null;
       });
@@ -46,6 +53,7 @@ const Register = () => {
     <RegisterFormView
       userInitialValues={userInitialValues}
       handleSubmit={handleSubmit}
+      serverErrors={serverErrors}
     />
   );
 };

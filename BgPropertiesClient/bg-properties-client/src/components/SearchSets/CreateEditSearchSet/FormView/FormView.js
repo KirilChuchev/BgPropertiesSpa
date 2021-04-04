@@ -41,7 +41,6 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
               />
               </section>
 
-              {/* <section> */}
               <FormikControl
                 control={"checkboxGroup"}
                 checkboxBlocksDetails={PropTypeBlockFormElementConsts}
@@ -51,38 +50,28 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
                 errors={errors}
                 styles={styles}
               />
-              {/* </section> */}
 
-              {/* <section> */}
-              {/* <article> */}
               <FormikControl
                 control={"inputGroup"}
                 groupElements={PriceInputFormElementConsts}
                 title={"Цена на имота:"}
                 styles={styles}
               />
-              {/* </article> */}
 
-              {/* <article> */}
               <FormikControl
                 control={"inputGroup"}
                 groupElements={PricePerSqrMInputFormElementConsts}
                 title={"Цена на кв.м площ:"}
                 styles={styles}
               />
-              {/* </article> */}
-              {/* </section> */}
 
-              {/* <section> */}
               <FormikControl
                 control={"inputGroup"}
                 groupElements={SizeInputFormElementConsts}
                 title={"Квадратура (кв.м):"}
                 styles={styles}
               />
-              {/* </section> */}
 
-              {/* <section> */}
               <FormikControl
                 control={"selectGroup"}
                 groupElements={FloorInputFormElementConsts}
@@ -90,7 +79,6 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
                 title={"Етаж:"}
                 styles={styles}
               />
-              {/* </section> */}
 
               <section className={styles.selectGroupWrapper}>
               <FormikControl
@@ -103,14 +91,12 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
               />
               </section>
 
-              {/* <section> */}
               <FormikControl
                 control={"textarea"}
                 element={DescriptionInputFormElementConst}
                 title={"Въведете кратко описание:"}
                 styles={styles}
               />
-              {/* </section> */}
 
               {/* <input
                 className={styles.submitButton}

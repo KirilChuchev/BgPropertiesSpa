@@ -1,18 +1,20 @@
 .formWrapper {
-  position: relative;
+  /* position: relative; */
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .form {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  margin-top: 50px;
   width: 500px;
+  /* height: 350px; */
   padding: 30px;
   /* border: 2px black solid; */
   background: rgb(243, 243, 239);
@@ -26,6 +28,7 @@
 .form .submitButton {
   width: 100px;
   padding: 5px 10px;
+  margin: 30px 0;
   border: 1px solid lightgray;
   border-radius: 15px;
   text-align: center;
@@ -46,37 +49,46 @@
   background: grey;
 }
 
-.wrapper {
+.inputGroupWrapper {
   width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.title {
+.inputGroupTitle {
   color: purple;
   font-size: 30px;
 }
 
-.content {
+.inputGroupContent {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.article {
+.inputArticle {
   width: 100%;
-  margin: 30px 0;
   display: flex;
   flex-direction: column;
 }
 
-.field {
+.inputArticle:nth-child(1){
+  height: 100px;
+}
+
+.inputField {
   width: 100%;
   height: 30px;
   padding-left: 10px;
-  /* border: 2px solid black; */
   box-shadow: 3px 1px 10px 1px grey;
   outline: none;
+}
+
+.error {
+  width: 100%;
+  font-size: 13px;
+  color: red;
+  text-align:center;
 }
