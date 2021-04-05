@@ -3,8 +3,9 @@ import { Link, Redirect } from "react-router-dom";
 
 import SearchSetShortDetails from "../SearchSetShortDetails";
 
-const SearchSetsList = ({ searchSets, username }) => {
-  
+import styles from "./SearchSetsList.module.css";
+
+const SearchSetsList = ({ searchSets }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [searchSetIdClicked, setSearchSetIdClicked] = useState(false);
 
@@ -18,25 +19,38 @@ const SearchSetsList = ({ searchSets, username }) => {
   }
 
   return (
-    <>
+    <section className={styles.searchSetShortDetailsListWrapper}>
       <Link to="/">Go Home.</Link>
-      <h2>Your SearchSets - short information:</h2>
-      <h3>SearchSets for user: {username}</h3>
-      <Link to="/searchsets/create">Create new SearchSet</Link>
+
+      {/* <h3>SearchSets for user: {username}</h3> */}
 
       {searchSets?.length > 0 && (
-        <ol>
-          {searchSets.map((x) => (
-            <li key={x.id} onClick={() => onSearchSetClick(x.id)}>
-              {<SearchSetShortDetails searchSet={x} />}
-            </li>
-          ))}
-        </ol>
+        <>
+          <section className={styles.searchSetsListHeader}>
+            <h4 className={styles.titleSection}>Вашите SearhcSet-ове:</h4>
+            <Link className={styles.headerLink} to="/searchsets/create">
+              Създайте нов SearchSet
+            </Link>
+          </section>
+          <section className={styles.searchSetShortDetailsList}>
+            {searchSets.map((x, index) => (
+              <SearchSetShortDetails
+                key={x.id}
+                onSearchSetClick={onSearchSetClick}
+                searchSet={x}
+                index={index + 1}
+              />
+            ))}
+          </section>
+        </>
       )}
       {searchSets?.length === 0 && (
-        <p>No data fetched.</p>
+        <>
+          <p>No data fetched.</p>
+          <Link to="/searchsets/create">Създайте Вашият първи SearchSet</Link>
+        </>
       )}
-    </>
+    </section>
   );
 };
 

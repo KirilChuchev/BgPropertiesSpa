@@ -1,0 +1,52 @@
+.searchSetShortDetailsListWrapper {
+  width: 100%;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchSetsListHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  padding: 0 30px;
+}
+
+.titleSection {
+    color: purple;
+    font-family: 'Blippo', fantasy;
+    font-size: 25px;
+    text-align: center;
+    margin: 10px 0 30px 0;
+    letter-spacing: 1px;
+  }
+
+.headerLink {
+    font-family: URW Chancery L, cursive;
+    text-decoration: none;
+    padding: 10px;
+    border: 2px solid indigo;
+    border-radius: 20px;
+    box-shadow: 0px 0px 9px 2px indigo;
+    align-self: flex-end;
+  }
+  
+  .headerLink:hover {
+    cursor: pointer;
+    background: indigo;
+    color: white;
+  }
+
+
+
+.searchSetShortDetailsList {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
