@@ -26,9 +26,9 @@ const SearchSetsList = ({ searchSets }) => {
 
       {searchSets?.length > 0 && (
         <>
-          <section className={styles.titleSection}>
-            <h4>Вашите SearhcSet-ове:</h4>
-            <Link className="button" to="/searchsets/create">
+          <section className={styles.searchSetsListHeader}>
+            <h4 className={styles.titleSection}>Вашите SearhcSet-ове:</h4>
+            <Link className={styles.headerLink} to="/searchsets/create">
               Създайте нов SearchSet
             </Link>
           </section>
@@ -36,7 +36,7 @@ const SearchSetsList = ({ searchSets }) => {
             {searchSets.map((x, index) => (
               <SearchSetShortDetails
                 key={x.id}
-                onClick={() => onSearchSetClick(x.id)}
+                onSearchSetClick={onSearchSetClick}
                 searchSet={x}
                 index={index + 1}
               />
