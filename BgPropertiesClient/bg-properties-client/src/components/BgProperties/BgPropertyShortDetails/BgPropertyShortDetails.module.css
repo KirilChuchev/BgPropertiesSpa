@@ -1,5 +1,9 @@
-.searchSetShortDetailsCard {
-  width: 45%;
+.newly {
+  background-color: rgb(129, 192, 255);
+}
+
+.bgPropertyShortDetailsCard {
+  width: 30%;
   margin: 10px 0;
   padding: 20px;
   background: rgb(228, 228, 225);
@@ -10,30 +14,40 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
-.searchSetShortDetailsCard:hover{
-    cursor: pointer;
-    background: white;
+
+.bgPropertyShortDetailsCard:hover {
+  cursor: pointer;
+  background: white;
 }
 
-.searchSetShortDetailsWrapper{
+.bgPropertyShortDetailsWrapper{
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
-
 }
 
-.searchSetShortDetail {
+.bgPropertyShortDetail {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-self:center;
+  align-self: center;
   padding: 3px;
 }
 
-.searchSetShortDetailNumber {
+.bgPropertyShortDetail:nth-of-type(3){
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.newly{
+    background: rgb(129, 192, 255);;
+}
+
+.bgPropertyShortDetailNumber {
   margin-right: 5px;
   border-radius: 5px 50px 5px;
   background: purple;
@@ -41,16 +55,15 @@
   color: white;
 }
 
-.searchSetShortDetailLabel {
+.bgPropertyShortDetailLabel {
   margin-right: 5px;
   font-family: URW Chancery L, cursive;
   color: rgb(83, 77, 77);
   font-size: 16px;
-  /* margin: 5px 0; */
 }
 
-.searchSetShortDetailValue {
-    font-size: 16px;
-    color: purple;
-    font-weight: 600;
+.bgPropertyShortDetailValue {
+  font-size: 16px;
+  color: purple;
+  font-weight: 600;
 }

@@ -3,11 +3,8 @@ import styles from "./SearchSetShortDetails.module.css";
 const SearchSetShortDetails = ({ searchSet, index, onSearchSetClick }) => {
   function parseTime(str) {
     let date = Date(str);
-    // console.log(date);
     let endIndex = date.indexOf("GMT");
-    console.log(endIndex);
     let res = date.slice(0, endIndex);
-    // console.log(res);
     return res;
   }
   return (

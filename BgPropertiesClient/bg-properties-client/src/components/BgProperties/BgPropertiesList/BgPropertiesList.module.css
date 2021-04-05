@@ -1,0 +1,31 @@
+.bgPropertyListWrapper {
+  width: 100%;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.titleSection {
+  color: purple;
+  font-family: "Blippo", fantasy;
+  font-size: 25px;
+  text-align: center;
+  margin: 10px 0 30px 0;
+  letter-spacing: 1px;
+}
+
+.bgPropertiesCount{
+    color: green;
+    font-size: 32px;
+}
+
+.bgPropertyShortDetailsList {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}

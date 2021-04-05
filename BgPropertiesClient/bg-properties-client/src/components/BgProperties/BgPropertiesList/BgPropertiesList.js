@@ -4,8 +4,14 @@ import BgPropertyShortDetails from "../BgPropertyShortDetails";
 // import authService from "../../../services/authService";
 // import bgPropertyService from "../../../services/bgPropertyService";
 
-const BgPropertiesList = ({ resource, bgProperties, searchSetName, searchSetId }) => {
+import styles from "./BgPropertiesList.module.css";
 
+const BgPropertiesList = ({
+  resource,
+  bgProperties,
+  searchSetName,
+  searchSetId,
+}) => {
   // const userClaims = authService.getLocalStorageUserClaims();
   // var token = userClaims.token;
 
@@ -40,21 +46,31 @@ const BgPropertiesList = ({ resource, bgProperties, searchSetName, searchSetId }
   }
 
   return (
-    <>
+    <section className={styles.bgPropertyListWrapper}>
       <Link to="/">Go Home.</Link>
-      <h2>
-        All BgProperties for{" "}
-        <span style={{ color: "red" }}>{searchSetName}</span> -{" "}
-        <span style={{ color: "green" }}>{bgProperties.length}</span> items.
-      </h2>
-      <ol>
-        {bgProperties.map((x) => (
-          <li key={x.id} onClick={() => onBgPropertyClick(x.id)}>
-            {<BgPropertyShortDetails resource={resource} bgProperty={x} />}
-          </li>
-        ))}
-      </ol>
-    </>
+
+      {!!bgProperties?.length && (
+        <>
+          <h2 className={styles.titleSection}>
+            Налични обяви за имоти -
+            <span className={styles.bgPropertiesCount}> {bgProperties.length} </span>
+            items.
+          </h2>
+
+          <section className={styles.bgPropertyShortDetailsList}>
+            {bgProperties.map((x, index) => (
+              <BgPropertyShortDetails
+                key={x.id}
+                resource={resource}
+                index={index + 1}
+                bgProperty={x}
+                onBgPropertyClick={onBgPropertyClick}
+              />
+            ))}
+          </section>
+        </>
+      )}
+    </section>
   );
 };
 
