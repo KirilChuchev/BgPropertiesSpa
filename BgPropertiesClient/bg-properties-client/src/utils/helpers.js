@@ -3,8 +3,10 @@ export const extractSearchSetCriteriasByType = (searchCriterias, predicate) => {
 };
 
 export const parseTime = (str) => {
-    let date = Date(str);
-    let endIndex = date.indexOf("GMT");
-    let res = date.slice(0, endIndex);
-    return res;
+    let date = new Date(str).toUTCString();
+    return date;
+
+    // let endIndex = date.indexOf("GMT");
+    // let res = date.slice(0, endIndex);
+    // return res;
   }

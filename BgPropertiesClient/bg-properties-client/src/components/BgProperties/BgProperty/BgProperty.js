@@ -87,7 +87,9 @@ const BgProperty = () => {
             </section>
 
             <section className={styles.bgPropertyDetails}>
-              <span className={styles.bgPropertyDetailsLabel}>Created on:</span>
+              <span className={styles.bgPropertyDetailsLabel}>
+                Създадена на:
+              </span>
               <span className={styles.bgPropertyDetailsValue}>
                 {parseTime(bgProperty.createdOn) || "n/a"}
               </span>
@@ -95,7 +97,9 @@ const BgProperty = () => {
 
             <section className={styles.buildingInfo}>
               <section className={styles.bgPropertyDetails}>
-                <span className={styles.bgPropertyDetailsLabel}>Type:</span>
+                <span className={styles.bgPropertyDetailsLabel}>
+                  Вид на имота:
+                </span>
                 <span className={styles.bgPropertyDetailsValue}>
                   {bgProperty.propertyType || "n/a"}
                 </span>
@@ -103,7 +107,7 @@ const BgProperty = () => {
 
               <section className={styles.bgPropertyDetails}>
                 <span className={styles.bgPropertyDetailsLabel}>
-                  Building Type:
+                  Тип строителство:
                 </span>
                 <span className={styles.bgPropertyDetailsValue}>
                   {bgProperty.buildingType || "n/a"}
@@ -112,7 +116,7 @@ const BgProperty = () => {
 
               <section className={styles.bgPropertyDetails}>
                 <span className={styles.bgPropertyDetailsLabel}>
-                  Building Year:
+                  Година на строителство:
                 </span>
                 <span className={styles.bgPropertyDetailsValue}>
                   {bgProperty.buildingYear || "n/a"}
@@ -121,7 +125,9 @@ const BgProperty = () => {
             </section>
 
             <section className={styles.bgPropertyDetails}>
-              <span className={styles.bgPropertyDetailsLabel}>Location:</span>
+              <span className={styles.bgPropertyDetailsLabel}>
+                Местоположение:
+              </span>
               <span className={styles.bgPropertyDetailsValue}>
                 {bgProperty.location || "n/a"}
               </span>
@@ -129,7 +135,7 @@ const BgProperty = () => {
 
             <section className={styles.placementInfo}>
               <section className={styles.bgPropertyDetails}>
-                <span className={styles.bgPropertyDetailsLabel}>Area:</span>
+                <span className={styles.bgPropertyDetailsLabel}>Площ:</span>
                 <span className={styles.bgPropertyDetailsValue}>
                   {bgProperty.area || "n/a"}
                   {!!bgProperty.area && "м2"}
@@ -137,7 +143,7 @@ const BgProperty = () => {
               </section>
 
               <section className={styles.bgPropertyDetails}>
-                <span className={styles.bgPropertyDetailsLabel}>Floor:</span>
+                <span className={styles.bgPropertyDetailsLabel}>Етаж:</span>
                 <span className={styles.bgPropertyDetailsValue}>
                   {bgProperty.floor || "n/a"}
                 </span>
@@ -145,7 +151,7 @@ const BgProperty = () => {
 
               <section className={styles.bgPropertyDetails}>
                 <span className={styles.bgPropertyDetailsLabel}>
-                  Total Building Floors:
+                  Общ брой етажи в сградата:
                 </span>
                 <span className={styles.bgPropertyDetailsValue}>
                   {bgProperty.totalBuildingFloors || "n/a"}
@@ -155,7 +161,7 @@ const BgProperty = () => {
 
             <section className={styles.priceInfo}>
               <section className={styles.bgPropertyDetails}>
-                <span className={styles.bgPropertyDetailsLabel}>Price:</span>
+                <span className={styles.bgPropertyDetailsLabel}>Цена:</span>
                 <span className={styles.bgPropertyDetailsValue}>
                   {bgProperty.priceInEUR || "n/a"}
                   {!!bgProperty.priceInEUR && " EUR"}
@@ -164,7 +170,7 @@ const BgProperty = () => {
 
               <section className={styles.bgPropertyDetails}>
                 <span className={styles.bgPropertyDetailsLabel}>
-                  Price Per Square Meter:
+                  Цена на кв.м.
                 </span>
                 <span className={styles.bgPropertyDetailsValue}>
                   {bgProperty.pricePerSquareMeterInEUR || "n/a"}
@@ -175,9 +181,7 @@ const BgProperty = () => {
 
             <section className={styles.bgPropertyDetails}>
               <span className={styles.bgPropertyDetailsValue}>
-                <span className={styles.bgPropertyDetailsLabel}>
-                  Description:
-                </span>
+                <span className={styles.bgPropertyDetailsLabel}>Описание:</span>
                 {bgProperty.description || "n/a"}
               </span>
             </section>
