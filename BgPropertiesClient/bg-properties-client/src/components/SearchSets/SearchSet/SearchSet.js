@@ -31,8 +31,6 @@ const SearchSet = () => {
     return "Loading...";
   }
 
-  var a = searchSet.bgPropertiesCount === 0 ? styles.disable : null
-
   return (
     <>
       {searchSet && (
@@ -44,12 +42,11 @@ const SearchSet = () => {
             <article className={styles.headerLinksWrapper}>
               <Link
                 to={`/searchsets/${searchSetId}/bg-properties`}
-                className={(
-                  styles.headerLink
-                  
-                  // "disable":
-                  //   searchSet.bgPropertiesCount === 0,
-                )}
+                className={`${styles.headerLink} ${
+                  searchSet.bgPropertiesCount === 0
+                    ? styles.disableHeaderLink
+                    : null
+                }`}
               >
                 Виж наличните обяви
               </Link>
