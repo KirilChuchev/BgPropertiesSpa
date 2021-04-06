@@ -190,3 +190,11 @@
   cursor: pointer;
   background: rgb(201, 136, 32);
 }
+
+.disableStatisticsLink{
+    background: grey;
+  color: rgb(85, 79, 79);
+  box-shadow: 0px 0px 9px 2px grey;
+  border: 2px solid grey;
+  pointer-events: none;
+}

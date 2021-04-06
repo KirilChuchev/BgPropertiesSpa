@@ -125,7 +125,6 @@ const SearchSet = () => {
                         key={x.name + x.value}
                         className={styles.criteriaValue}
                       >
-                        {/* <strong>{x.name}: </strong> */}
                         {x.value}
                       </span>
                     ))}
@@ -279,19 +278,31 @@ const SearchSet = () => {
             <section className={styles.searchSetStatisticsContent}>
               <Link
                 to={`/statistics/searchsets/${searchSetId}/bg-properties/all-newly`}
-                className={styles.searchSetStatisticsLink}
+                className={`${styles.searchSetStatisticsLink} ${
+                  searchSet.bgPropertiesCount === 0
+                    ? styles.disableStatisticsLink
+                    : null
+                }`}
               >
                 Нови оферти
               </Link>
               <Link
                 to={`/searchsets/${searchSetId}/bg-properties/all-tracked`}
-                className={styles.searchSetStatisticsLink}
+                className={`${styles.searchSetStatisticsLink} ${
+                  searchSet.bgPropertiesCount === 0
+                    ? styles.disableStatisticsLink
+                    : null
+                }`}
               >
                 Маркирани оферти
               </Link>
               <Link
                 to={`/statistics/top-profitable/${searchSetId}`}
-                className={styles.searchSetStatisticsLink}
+                className={`${styles.searchSetStatisticsLink} ${
+                  searchSet.bgPropertiesCount === 0
+                    ? styles.disableStatisticsLink
+                    : null
+                }`}
               >
                 {/* Top profitable BgProperties */}
                 Най-изгодна оферта

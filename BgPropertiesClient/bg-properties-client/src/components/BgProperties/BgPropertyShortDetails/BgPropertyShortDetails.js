@@ -1,20 +1,22 @@
 import styles from "./BgPropertyShortDetails.module.css";
 
 const BgPropertyShortDetails = ({
-  resource,
   index,
   bgProperty,
   onBgPropertyClick,
 }) => {
-
-  let isNew = bgProperty.isNewly ? styles.newly : null;
-
   return (
     <article
-      className={`${styles.bgPropertyShortDetailsCard} ${isNew}`}
+      className={`${styles.bgPropertyShortDetailsCard} ${
+        bgProperty.isNewly ? styles.newly : null
+      }`}
       onClick={() => onBgPropertyClick(bgProperty.id)}
     >
-      <span className={styles.bgPropertyShortDetailNumber}>{index}</span>
+      <section className={styles.bgPropertyShortDetailCardInfo}>
+        <span className={styles.bgPropertyShortDetailNumber}>{index}</span>
+          {bgProperty.isNewly && <span className={styles.newSign}>NEW!</span>}
+          {bgProperty.isTracked && <span className={styles.trackedSign}>TRACKED</span>}
+      </section>
 
       <section className={styles.bgPropertyShortDetailsWrapper}>
         <section className={styles.bgPropertyShortDetail}>
@@ -75,11 +77,6 @@ const BgPropertyShortDetails = ({
             {!!bgProperty.price && " EUR"}
           </span>
         </section>
-
-        {resource !== "user-tracked" && (
-          <p>IsNewly: {bgProperty.isNewly ? "new" : "Not new"}</p>
-        )}
-        <p>IsTracked: {bgProperty.isTracked ? "Tracked" : "No"}</p>
       </section>
     </article>
   );
