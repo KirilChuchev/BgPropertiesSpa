@@ -1,38 +1,75 @@
+import { useState } from "react";
+import authService from "../../../services/authService";
+import bgPropertyService from "../../../services/bgPropertyService";
+
 import styles from "./BgPropertyShortDetails.module.css";
 
-const BgPropertyShortDetails = ({
-  index,
-  bgProperty,
-  onBgPropertyClick,
-}) => {
+const BgPropertyShortDetails = ({ index, bgProperty, onBgPropertyClick }) => {
+  const userClaims = authService.getLocalStorageUserClaims();
+  var token = userClaims.token;
+
+  const [bgPropertyState, setBgPropertyState] = useState({ ...bgProperty });
+
+  async function trackBgProperty(token, bgPropertyId) {
+    await bgPropertyService.trackOne(token, bgPropertyId);
+    setBgPropertyState({
+      ...bgPropertyState,
+      isTracked: !bgPropertyState.isTracked,
+    });
+
+    console.log(bgPropertyState);
+  }
+
   return (
     <article
       className={`${styles.bgPropertyShortDetailsCard} ${
-        bgProperty.isNewly ? styles.newly : null
+        bgPropertyState.isNewly ? styles.newly : null
       }`}
-      onClick={() => onBgPropertyClick(bgProperty.id)}
     >
-      <section className={styles.bgPropertyShortDetailCardInfo}>
-        <span className={styles.bgPropertyShortDetailNumber}>{index}</span>
-          {bgProperty.isNewly && <span className={styles.newSign}>NEW!</span>}
-          {bgProperty.isTracked && <span className={styles.trackedSign}>TRACKED</span>}
+      <section
+        className={`${
+          bgPropertyState.isTracked
+            ? styles.bgPropertyShortDetailCardInfoTracked
+            : styles.bgPropertyShortDetailCardInfo
+        }`}
+        onClick={() => trackBgProperty(token, bgPropertyState.id)}
+      >
+        {bgPropertyState.isTracked && (
+          <section className={styles.trackedSignSection}>
+            <span className={styles.bgPropertyShortDetailNumber}>{index}</span>
+            {bgProperty.isNewly && <span className={styles.newSign}>NEW!</span>}
+            <span className={styles.trackedSign}>TRACKED</span>
+            <span className={styles.trackedSignTooltip}>click to un-track</span>
+          </section>
+        )}
+        {!bgPropertyState.isTracked && (
+          <section className={styles.notTrackedSignSection}>
+            <span className={styles.bgPropertyShortDetailNumber}>{index}</span>
+            {bgProperty.isNewly && <span className={styles.newSign}>NEW!</span>}
+            <span className={styles.notTrackedSign}>NOT-TRACKED</span>
+            <span className={styles.trackedSignTooltip}>click to track</span>
+          </section>
+        )}
       </section>
 
-      <section className={styles.bgPropertyShortDetailsWrapper}>
+      <section
+        className={styles.bgPropertyShortDetailsWrapper}
+        onClick={() => onBgPropertyClick(bgPropertyState.id)}
+      >
         <section className={styles.bgPropertyShortDetail}>
           <span className={styles.bgPropertyShortDetailLabel}>
             Вид на имота:
           </span>
           <span className={styles.bgPropertyShortDetailValue}>
-            {bgProperty.propertyType}
+            {bgPropertyState.propertyType}
           </span>
         </section>
 
         <section className={styles.bgPropertyShortDetail}>
           <span className={styles.bgPropertyShortDetailLabel}>Площ:</span>
           <span className={styles.bgPropertyShortDetailValue}>
-            {bgProperty.area}
-            {!!bgProperty.area && " м2"}
+            {bgPropertyState.area}
+            {!!bgPropertyState.area && " м2"}
           </span>
         </section>
 
@@ -41,14 +78,14 @@ const BgPropertyShortDetails = ({
             Местоположение:
           </span>
           <span className={styles.bgPropertyShortDetailValue}>
-            {bgProperty.location}
+            {bgPropertyState.location}
           </span>
         </section>
 
         <section className={styles.bgPropertyShortDetail}>
           <span className={styles.bgPropertyShortDetailLabel}>Етаж:</span>
           <span className={styles.bgPropertyShortDetailValue}>
-            {bgProperty.floor}
+            {bgPropertyState.floor}
           </span>
         </section>
 
@@ -57,7 +94,7 @@ const BgPropertyShortDetails = ({
             Тип строителство:
           </span>
           <span className={styles.bgPropertyShortDetailValue}>
-            {bgProperty.buildingType}
+            {bgPropertyState.buildingType}
           </span>
         </section>
 
@@ -66,15 +103,15 @@ const BgPropertyShortDetails = ({
             Година на строителство:
           </span>
           <span className={styles.bgPropertyShortDetailValue}>
-            {bgProperty.buildingYear}
+            {bgPropertyState.buildingYear}
           </span>
         </section>
 
         <section className={styles.bgPropertyShortDetail}>
           <span className={styles.bgPropertyShortDetailLabel}>Цена:</span>
           <span className={styles.bgPropertyShortDetailValue}>
-            {bgProperty.price}
-            {!!bgProperty.price && " EUR"}
+            {bgPropertyState.priceInEUR}
+            {!!bgPropertyState.priceInEUR && " EUR"}
           </span>
         </section>
       </section>

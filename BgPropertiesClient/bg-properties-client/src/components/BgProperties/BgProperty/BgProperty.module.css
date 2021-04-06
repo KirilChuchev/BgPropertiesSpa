@@ -1,8 +1,7 @@
-.bgPropertyShortDetailsCard {
-  width: 30%;
-  height: 350px;
-  margin: 10px 0;
-  padding: 20px 10px 20px 5px;
+.bgPropertyWrapper {
+  width: 80%;
+  margin: 50px auto;
+  padding: 20px 20px 20px 5px;
   background: rgb(228, 228, 225);
   border-radius: 20px;
   box-shadow: 3px 1px 10px 1px grey;
@@ -12,51 +11,7 @@
   align-items: flex-start;
 }
 
-.bgPropertyShortDetailsCard:hover {
-  cursor: pointer;
-  background: white;
-}
-
-.bgPropertyShortDetailsWrapper {
-  width: 100%;
-  padding-left: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-}
-
-.bgPropertyShortDetail {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-self: center;
-  padding: 3px;
-}
-
-.bgPropertyShortDetail:nth-of-type(3) {
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.newly {
-  background: rgb(129, 192, 255);
-}
-
-.bgPropertyShortDetailCardInfo {
-  /* width: 60px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 10px;
-  box-shadow: 4px 3px 8px 0px grey; */
+.bgPropertyDetailsInfo {
   width: 70px;
   padding: 5px;
   display: flex;
@@ -68,10 +23,9 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 10px;
   box-shadow: 4px 3px 8px 0px grey;
-
 }
 
-.bgPropertyShortDetailCardInfoTracked{
+.bgPropertyDetailsInfoTracked {
     width: 70px;
     padding: 5px;
     display: flex;
@@ -84,20 +38,11 @@
     border-bottom-right-radius: 10px;
     box-shadow: 4px 3px 8px 0px grey;
     background: orange;
-}
+  }
 
-.bgPropertyShortDetailCardInfo:hover,
-.bgPropertyShortDetailCardInfoTracked:hover {
+.bgPropertyDetailsInfo:hover,
+.bgPropertyDetailsInfoTracked:hover {
   cursor: pointer;
-}
-
-.trackedSignSection,
-.notTrackedSignSection {
-    display: flex;
-  flex-direction: column;
-
-  position: relative;
-  /* display: inline-block; */
 }
 
 .trackedSign {
@@ -107,7 +52,8 @@
   font-weight: 600;
   font-size: 12px;
 
- 
+  position: relative;
+  display: inline-block;
 }
 
 .notTrackedSign {
@@ -150,42 +96,74 @@
   border-color: #555 transparent transparent transparent;
 }
 
-.trackedSignSection:hover .trackedSignTooltip {
+.trackedSign:hover .trackedSignTooltip {
   visibility: visible;
   opacity: 1;
 }
 
-.notTrackedSignSection:hover .trackedSignTooltip {
+.notTrackedSign:hover .trackedSignTooltip {
   visibility: visible;
   opacity: 1;
 }
 
-.bgPropertyShortDetailNumber {
-  border-radius: 5px 50px 5px;
-  background: purple;
-  padding: 8px;
-  margin: 0 10px;   
-  color: white;
-  text-align: center;
+.bgPropertyDetailsWrapper {
+  width: 100%;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
-.newSign {
-  color: blue;
+.buildingInfo,
+.placementInfo,
+.priceInfo {
+  width: 80%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-top: 1px solid grey;
+}
+
+.bgPropertyDetails {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-self: center;
   padding: 3px;
-  font-family: URW Chancery L, cursive;
-  font-weight: 600;
-  font-size: 12px;
+  margin: 5px 0;
 }
 
-.bgPropertyShortDetailLabel {
+.buildingInfo .bgPropertyDetails,
+.placementInfo .bgPropertyDetails,
+.priceInfo .bgPropertyDetails {
+  width: auto;
+  margin-right: 20px;
+}
+
+.bgPropertyDetailsLabel {
   margin-right: 5px;
   font-family: URW Chancery L, cursive;
-  color: rgb(83, 77, 77);
+  /* color: rgb(83, 77, 77); */
+  color: purple;
+  font-weight: 600;
   font-size: 16px;
 }
 
-.bgPropertyShortDetailValue {
+.bgPropertyDetailsValue {
   font-size: 16px;
-  color: purple;
+  /* color: purple; */
+  color: rgb(133, 131, 131);
   font-weight: 600;
+}
+
+.bgPropertyDetailsLabel:last-of-type {
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 5px;
+}
+
+.bgPropertyDetails:last-of-type .bgPropertyDetailsValue {
+  text-align: justify;
 }

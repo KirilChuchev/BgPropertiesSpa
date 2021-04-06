@@ -1,12 +1,9 @@
 import styles from "./SearchSetShortDetails.module.css";
 
+import { parseTime } from '../../../utils/helpers';
+
 const SearchSetShortDetails = ({ searchSet, index, onSearchSetClick }) => {
-  function parseTime(str) {
-    let date = Date(str);
-    let endIndex = date.indexOf("GMT");
-    let res = date.slice(0, endIndex);
-    return res;
-  }
+  
   return (
     <article
       className={styles.searchSetShortDetailsCard}
