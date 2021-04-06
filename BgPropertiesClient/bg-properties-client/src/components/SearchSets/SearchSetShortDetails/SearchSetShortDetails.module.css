@@ -11,12 +11,8 @@
   align-items: flex-start;
 }
 .searchSetShortDetailsCard:hover{
-    /* background: rgb(247, 235, 247) */
+    cursor: pointer;
     background: white;
-}
-
-.searchSetShortDetailsCard:hover {
-  cursor: pointer;
 }
 
 .searchSetShortDetailsWrapper{

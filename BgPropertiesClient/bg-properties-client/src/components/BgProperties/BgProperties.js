@@ -55,7 +55,6 @@ const BgProperties = () => {
   }
 
   useEffect(() => {
-    // TODO: дали е правилно да дърпам от базата само колекцията или модела с колекцията
     const bgPropertyServiceMap = {
       "bg-properties": (token, searchSetId) =>
         bgPropertyService.fetchAll(token, searchSetId),
@@ -83,7 +82,6 @@ const BgProperties = () => {
     <>
       {bgPropertiesModel && (
         <BgPropertiesList
-          resource={resource}
           bgProperties={bgPropertiesModel.bgProperties}
           searchSetName={bgPropertiesModel.searchSetName}
           searchSetId={searchSetId}

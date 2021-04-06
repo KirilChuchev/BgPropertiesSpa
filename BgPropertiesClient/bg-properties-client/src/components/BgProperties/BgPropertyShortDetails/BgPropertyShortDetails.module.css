@@ -1,0 +1,191 @@
+.bgPropertyShortDetailsCard {
+  width: 30%;
+  height: 350px;
+  margin: 10px 0;
+  padding: 20px 10px 20px 5px;
+  background: rgb(228, 228, 225);
+  border-radius: 20px;
+  box-shadow: 3px 1px 10px 1px grey;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.bgPropertyShortDetailsCard:hover {
+  cursor: pointer;
+  background: white;
+}
+
+.bgPropertyShortDetailsWrapper {
+  width: 100%;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.bgPropertyShortDetail {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-self: center;
+  padding: 3px;
+}
+
+.bgPropertyShortDetail:nth-of-type(3) {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.newly {
+  background: rgb(129, 192, 255);
+}
+
+.bgPropertyShortDetailCardInfo {
+  /* width: 60px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 4px 3px 8px 0px grey; */
+  width: 70px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 4px 3px 8px 0px grey;
+
+}
+
+.bgPropertyShortDetailCardInfoTracked{
+    width: 70px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 4px 3px 8px 0px grey;
+    background: orange;
+}
+
+.bgPropertyShortDetailCardInfo:hover,
+.bgPropertyShortDetailCardInfoTracked:hover {
+  cursor: pointer;
+}
+
+.trackedSignSection,
+.notTrackedSignSection {
+    display: flex;
+  flex-direction: column;
+
+  position: relative;
+  /* display: inline-block; */
+}
+
+.trackedSign {
+  color: white;
+  padding: 3px;
+  font-family: URW Chancery L, cursive;
+  font-weight: 600;
+  font-size: 12px;
+
+ 
+}
+
+.notTrackedSign {
+  color: grey;
+  padding: 3px;
+  font-family: URW Chancery L, cursive;
+  font-weight: 600;
+  font-size: 12px;
+
+  position: relative;
+  display: inline-block;
+}
+
+.trackedSignTooltip {
+  visibility: hidden;
+  width: 120px;
+  font-size: 12px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.trackedSignTooltip:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.trackedSignSection:hover .trackedSignTooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.notTrackedSignSection:hover .trackedSignTooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.bgPropertyShortDetailNumber {
+  border-radius: 5px 50px 5px;
+  background: purple;
+  padding: 8px;
+  margin: 0 10px;   
+  color: white;
+  text-align: center;
+}
+
+.newSign {
+  color: blue;
+  padding: 3px;
+  font-family: URW Chancery L, cursive;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.bgPropertyShortDetailLabel {
+  margin-right: 5px;
+  font-family: URW Chancery L, cursive;
+  color: rgb(83, 77, 77);
+  font-size: 16px;
+}
+
+.bgPropertyShortDetailValue {
+  font-size: 16px;
+  color: purple;
+  font-weight: 600;
+}

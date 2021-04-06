@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import BgPropertyShortDetails from "../BgPropertyShortDetails";
-// import authService from "../../../services/authService";
-// import bgPropertyService from "../../../services/bgPropertyService";
 
-const BgPropertiesList = ({ resource, bgProperties, searchSetName, searchSetId }) => {
+import styles from "./BgPropertiesList.module.css";
 
-  // const userClaims = authService.getLocalStorageUserClaims();
-  // var token = userClaims.token;
-
+const BgPropertiesList = ({ bgProperties, searchSetId }) => {
   const [isBgPropertyClicked, setIsBgPropertyClicked] = useState(false);
   const [bgPropertyId, setBgPropertyId] = useState("");
 
@@ -17,44 +13,42 @@ const BgPropertiesList = ({ resource, bgProperties, searchSetName, searchSetId }
     setBgPropertyId(id);
   }
 
-  // function onTrackClick(bgPropertyId) {
-  //   bgPropertyService.trackOne(token, bgPropertyId);
-  // }
-
   if (isBgPropertyClicked) {
-    // history.push(`/bg-properties/one/${bgPropertyIdClicked}/${searchSetId}`)
-    // return <></>;
-
     return (
       <Redirect
         to={`/searchsets/${searchSetId}/bg-properties/${bgPropertyId}`}
       />
-
-      // <Redirect
-      //   to={{
-      //     pathname: `/searchsets/${searchSetId}/bg-properties/${bgPropertyId}`,
-      //     staticContext: () => onTrackClick(),
-      //   }}
-      // />
     );
   }
 
   return (
-    <>
+    <section className={styles.bgPropertyListWrapper}>
       <Link to="/">Go Home.</Link>
-      <h2>
-        All BgProperties for{" "}
-        <span style={{ color: "red" }}>{searchSetName}</span> -{" "}
-        <span style={{ color: "green" }}>{bgProperties.length}</span> items.
-      </h2>
-      <ol>
-        {bgProperties.map((x) => (
-          <li key={x.id} onClick={() => onBgPropertyClick(x.id)}>
-            {<BgPropertyShortDetails resource={resource} bgProperty={x} />}
-          </li>
-        ))}
-      </ol>
-    </>
+
+      {!!bgProperties?.length && (
+        <>
+          <h2 className={styles.titleSection}>
+            Налични обяви за имоти -
+            <span className={styles.bgPropertiesCount}>
+              {" "}
+              {bgProperties.length}{" "}
+            </span>
+            items.
+          </h2>
+
+          <section className={styles.bgPropertyShortDetailsList}>
+            {bgProperties.map((x, index) => (
+              <BgPropertyShortDetails
+                key={x.id}
+                index={index + 1}
+                bgProperty={x}
+                onBgPropertyClick={onBgPropertyClick}
+              />
+            ))}
+          </section>
+        </>
+      )}
+    </section>
   );
 };
 
