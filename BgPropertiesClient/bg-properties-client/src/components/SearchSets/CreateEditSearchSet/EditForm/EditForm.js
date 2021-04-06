@@ -82,7 +82,6 @@ const EditForm = ({ searchSetId }) => {
       }
     }
 
-    console.log("Submitted searchSet", searchSet);
     // submitProps.setSubmitting(false);
     await searchSetService.edit(token, searchSetId, { ...searchSet });
     history.push(`/searchsets/${searchSetId}`);

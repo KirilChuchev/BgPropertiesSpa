@@ -33,7 +33,8 @@ function fetchAll(token, searchSetId) {
     },
   })
     .then(queryService.handleResponse)
-    .catch((error) => console.log(error));
+    // .catch((error) => console.log(error));
+    .catch((error) => Promise.reject(error));
 }
 
 function trackOne(token, bgPropertyId) {
@@ -75,7 +76,8 @@ function userTracked(token) {
     },
   })
   .then(queryService.handleResponse)
-  .catch((error) => console.log(error));
+  // .catch((error) => console.log(error));
+  .catch((error) => Promise.reject(error));
 }
 
 const bgPropertyService = {

@@ -1,0 +1,140 @@
+.sectionWrapper {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.headerLinksWrapper {
+    width: 80%;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+.headerLink {
+  font-family: URW Chancery L, cursive;
+  text-decoration: none;
+  padding: 10px;
+  border: 2px solid indigo;
+  border-radius: 20px;
+  box-shadow: 0px 0px 9px 2px indigo;
+}
+
+.disableHeaderLink {
+    background: grey;
+    color: rgb(85, 79, 79);
+    box-shadow: 0px 0px 9px 2px grey;
+    border: 2px solid grey;
+    pointer-events: none;
+  }
+  
+  .headerLink:hover {
+    cursor: pointer;
+    background: indigo;
+    color: white;
+  }
+
+.subTitle {
+  font-family: URW Chancery L, cursive;
+  color: indigo;
+  margin: 20px 0;
+  border-bottom: 1px solid indigo;
+}
+
+.detailsWrapper {
+  width: 80%;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.details {
+  width: 45%;
+  margin: 10px 0;
+  padding: 20px;
+  background: rgb(243, 243, 239);
+  border-radius: 20px;
+  box-shadow: 3px 1px 10px 1px grey;
+}
+
+.detail {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.detailLabel {
+  font-family: URW Chancery L, cursive;
+  color: rgb(83, 77, 77);
+  font-size: 14px;
+  margin: 5px 0;
+  margin-right: 5px;
+  /* border-bottom: 1px solid indigo; */
+}
+
+.detailValue {
+  font-size: 14px;
+  color: rgb(233, 89, 89);
+  font-weight: 600;
+}
+
+.statistics {
+  width: 80%;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+  padding: 20px;
+  background: rgb(243, 243, 239);
+  border-radius: 20px;
+  box-shadow: 3px 1px 10px 1px grey;
+}
+
+.statisticsContent {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.statisticsLink {
+  width: calc(100% / 3.5);
+  font-family: URW Chancery L, cursive;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background: rgb(202, 168, 114);
+  padding: 5px 10px;
+  border: 2px solid rgb(92, 62, 6);
+  border-radius: 5px;
+  box-shadow: 0px 0px 9px 2px rgb(92, 62, 6);
+}
+
+.statisticsLink:hover {
+  cursor: pointer;
+  background: rgb(201, 136, 32);
+}
+
+.disableStatisticsLink {
+  background: grey;
+  color: rgb(85, 79, 79);
+  box-shadow: 0px 0px 9px 2px grey;
+  border: 2px solid grey;
+  pointer-events: none;
+}
