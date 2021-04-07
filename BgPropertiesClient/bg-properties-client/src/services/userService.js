@@ -37,6 +37,7 @@ function login(userCredentials) {
   })
     .then(queryService.handleResponse)
     .then((userClaims) => {
+      console.log("claims", userClaims);
       authService.setLocalStorageUserClaims(userClaims);
       return userClaims;
     })

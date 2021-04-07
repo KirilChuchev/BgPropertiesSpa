@@ -21,7 +21,7 @@ const RegisterFormView = ({
       validationSchema={validationSchemaRegisterForm}
       validate={validateRegisterLoginForm}
       onSubmit={handleSubmit}
-      validateOnBlur={false}
+      // validateOnBlur={false}
     >
       {(formik) => {
         if (serverErrors) {
