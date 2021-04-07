@@ -56,7 +56,6 @@ const CreateForm = () => {
         searchSet[`${valueName}`] = (String)(values[valueName]);
       }
     }
-    console.log("Submitted searchSet", searchSet);
     await searchSetService.create(token, { ...searchSet });
     history.push("/searchsets");
     return null;

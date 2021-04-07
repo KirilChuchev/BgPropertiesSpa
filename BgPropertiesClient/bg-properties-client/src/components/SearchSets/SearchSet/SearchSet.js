@@ -48,13 +48,13 @@ const SearchSet = () => {
                     : null
                 }`}
               >
-                Виж наличните обяви
+                Вижте наличните обяви
               </Link>
               <Link
                 to={`/searchsets/edit/${searchSetId}`}
                 className={styles.headerLink}
               >
-                Редактирай Searchset-a
+                Редактирайте Searchset-a
               </Link>
             </article>
           </header>
@@ -100,15 +100,6 @@ const SearchSet = () => {
             <article className={styles.criteriasDetailsWrapper}>
               <h3 className={styles.subTitle}>Критерии на Вашият SearchSet:</h3>
               <section className={styles.criteriasDetailsContent}>
-                {/* {searchSet.searchCriterias
-                  ?.filter((x) => x.value !== "")
-                  ?.map((x) => (
-                    <p key={x.name + x.value} className={styles.criteria}>
-                      <strong>{x.name}: </strong>
-                      {x.value}
-                    </p>
-                  ))} */}
-
                 {!!extractSearchSetCriteriasByType(
                   searchSet.searchCriterias,
                   (x) => x.name.endsWith("PropType")

@@ -7,8 +7,6 @@ const SearchSetCreate = () => {
 
   let { searchSetId } = useParams();
 
-  console.log(searchSetId);
-
   if (searchSetId) {
     return <EditForm searchSetId={searchSetId} /> 
   } else {

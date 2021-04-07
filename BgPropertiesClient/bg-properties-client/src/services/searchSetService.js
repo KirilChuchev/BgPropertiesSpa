@@ -53,7 +53,8 @@ function fetchAll(token) {
     },
   })
     .then(queryService.handleResponse)
-    .catch((err) => console.log(err));
+    // .catch((err) => console.log(err));
+    .catch((error) => Promise.reject(error));
 }
 
 const searchSetService = {
