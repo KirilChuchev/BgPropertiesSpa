@@ -33,7 +33,8 @@ const Register = () => {
           path = "/register";
         }
         console.log(message);
-        let somethingWrong = message;
+        let somethingWrong =
+          message === "Something went wrong." ? message : null;
         setServerErrors((state) => ({ ...state, somethingWrong }));
         history.push(path);
         return null;

@@ -9,6 +9,7 @@ import {
 } from "../../../utils/formValidations";
 
 import styles from "./LoginFormView.module.css";
+import { Link } from "react-router-dom";
 
 const LoginFormView = ({ userInitialValues, handleSubmit, serverErrors }) => {
   return (
@@ -16,7 +17,7 @@ const LoginFormView = ({ userInitialValues, handleSubmit, serverErrors }) => {
       initialValues={userInitialValues}
       validate={validateRegisterLoginForm}
       validationSchema={validationSchemaLoginForm}
-      // validateOnBlur={false}
+      validateOnBlur={false}
       onSubmit={handleSubmit}
     >
       {(formik) => {
@@ -46,6 +47,10 @@ const LoginFormView = ({ userInitialValues, handleSubmit, serverErrors }) => {
                   {formik.errors.serverErrors.somethingWrong}
                 </span>
               )}
+              <span className={styles.newRegisterLogin}>
+                Нямате регистрация?{" "}
+                <Link to="/register">Регистрирайте се оттук.</Link>
+              </span>
             </Form>
           </section>
         );

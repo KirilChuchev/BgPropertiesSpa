@@ -92,3 +92,20 @@
   color: red;
   text-align:center;
 }
+
+.newRegisterLogin,
+.newRegisterLogin a{
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.newRegisterLogin{
+  color: grey;
+  font-weight: 600;
+}
+
+.newRegisterLogin a{
+  font-weight: 600;
+  font-family: URW Chancery L, cursive;
+  color: purple;
+}

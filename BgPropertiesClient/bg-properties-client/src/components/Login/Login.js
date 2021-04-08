@@ -6,7 +6,7 @@ import authService from "../../services/authService";
 import LoginFormView from "./LoginFormView";
 
 const Login = () => {
-  let history = useHistory();
+  const history = useHistory();
 
   let userInitialValues = {
     email: "",
@@ -21,26 +21,28 @@ const Login = () => {
       .then((userClaims) => {
         let currentUser = authService.getLocalStorageUserClaims();
         if (!currentUser || currentUser?.token === undefined) {
+          console.log("problem");
           history.push("/login");
           return null;
         }
         let path = currentUser.token === userClaims.token ? "/" : "/login";
         let message =
           path === "/" ? "Successfully login." : "Something went wrong.";
-
         console.log(message);
-        let somethingWrong = message;
-        setServerErrors(state => ({...state, somethingWrong}));
+        let somethingWrong =
+          message === "Something went wrong." ? message : null;
+        setServerErrors((state) => ({ ...state, somethingWrong }));
         history.push(path);
         return null;
       })
       .catch((err) => {
+        console.log(err);
         if (err.includes("Unauthorized") || err.includes("Forbidden")) {
           userService.logout();
         }
         console.log(err);
         let somethingWrong = err;
-        setServerErrors(state => ({...state, somethingWrong}));
+        setServerErrors((state) => ({ ...state, somethingWrong }));
         history.push("/login");
         return null;
       });

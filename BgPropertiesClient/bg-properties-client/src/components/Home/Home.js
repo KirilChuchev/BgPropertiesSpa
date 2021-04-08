@@ -16,13 +16,17 @@ const Home = () => {
   let history = useHistory();
 
   const [searchSets, setSearchSets] = useState([]);
-  const [newlyBgPropertiesModel, setNewlyBgPropertiesModel] = useState([]);
-  const [trackedBgPropertiesModel, setTrackedBgPropertiesModel] = useState([]);
+  const [newlyBgPropertiesModel, setNewlyBgPropertiesModel] = useState({});
+  const [trackedBgPropertiesModel, setTrackedBgPropertiesModel] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await searchSetService
+    const fetchData = () => {
+      if (!token) {
+        return null;
+      }
+
+      searchSetService
         .fetchAll(token)
         .then(setSearchSets)
         .catch((err) => {
@@ -33,7 +37,7 @@ const Home = () => {
           history.push("/login");
           return null;
         });
-      await statisticsService
+      statisticsService
         .fetchUserNewly(token)
         .then(setNewlyBgPropertiesModel)
         .catch((err) => {
@@ -44,7 +48,8 @@ const Home = () => {
           history.push("/login");
           return null;
         });
-      await bgPropertyService
+
+      bgPropertyService
         .userTracked(token)
         .then((trackedBgProperties) => {
           setTrackedBgPropertiesModel(trackedBgProperties);
@@ -75,7 +80,12 @@ const Home = () => {
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
             <p>Hello, {userClaims.username}</p>
-            <Link to="/" onClick={() => userService.logout()}>
+            <Link
+              to="/login"
+              onClick={() => {
+                userService.logout();
+              }}
+            >
               Logout
             </Link>
           </section>
@@ -118,25 +128,16 @@ const Home = () => {
                     Брой нови обяви на имоти:
                   </h4>
                   <span className={styles.detailValue}>
-                    {newlyBgPropertiesModel.bgProperties.length}
+                    {newlyBgPropertiesModel.bgProperties?.length}
                   </span>
                 </article>
 
                 <article className={styles.detail}>
                   <h4 className={styles.detailLabel}>
-                    Брой SearchSet-ове, които следите:
+                    Брой обяви, които следите:
                   </h4>
                   <span className={styles.detailValue}>
-                    {trackedBgPropertiesModel.bgProperties.length}
-                  </span>
-                </article>
-
-                <article className={styles.detail}>
-                  <h4 className={styles.detailLabel}>
-                    Вашето описание на SearchSet-a:
-                  </h4>
-                  <span className={styles.detailValue}>
-                    {/* {searchSet.description} */}
+                    {trackedBgPropertiesModel.bgProperties?.length}
                   </span>
                 </article>
               </section>

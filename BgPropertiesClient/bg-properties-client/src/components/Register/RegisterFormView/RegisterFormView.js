@@ -1,4 +1,5 @@
 import { Formik, Form } from "formik";
+import { Link } from "react-router-dom";
 
 import FormikControl from "../../Common/FormViewComponents/FormikControl";
 
@@ -29,7 +30,7 @@ const RegisterFormView = ({
         } else {
           formik.errors = { ...formik.errors };
         }
-        
+
         return (
           <section className={styles.formWrapper}>
             <Form className={styles.form}>
@@ -51,6 +52,10 @@ const RegisterFormView = ({
                   {formik.errors.serverErrors.somethingWrong}
                 </span>
               )}
+              <span className={styles.newRegisterLogin}>
+                Имате регистрация?{" "}
+                <Link to="/login">Влезте оттук.</Link>
+              </span>
             </Form>
           </section>
         );
