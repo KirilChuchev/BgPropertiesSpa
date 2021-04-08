@@ -44,21 +44,28 @@ const CreateForm = () => {
     floorFrom: "",
     floorTo: "",
     cityRegion: "",
-  }
+  };
 
-  async function handleSubmit(values) {
+  function handleSubmit(values) {
     alert("Моля потвърдете, че желаете създаването на нов SearchSet!");
+    
     var searchSet = {};
     for (const valueName of Object.keys(values)) {
       if (valueName.endsWith("PropType")) {
         searchSet[`${valueName}`] = values[valueName] === true ? "on" : "";
       } else {
-        searchSet[`${valueName}`] = (String)(values[valueName]);
+        searchSet[`${valueName}`] = String(values[valueName]);
       }
     }
-    await searchSetService.create(token, { ...searchSet });
-    history.push("/searchsets");
-    return null;
+    searchSetService
+      .create(token, { ...searchSet })
+      .then(() => {
+        history.push("/searchsets");
+        return null;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (

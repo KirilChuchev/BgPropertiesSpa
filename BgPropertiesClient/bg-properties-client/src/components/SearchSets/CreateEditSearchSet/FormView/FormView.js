@@ -27,8 +27,6 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
       onSubmit={handleSubmit}
     >
       {({ errors, values, touched, isSubmitting, setFieldValue }) => {
-        console.log("errors", errors);
-        console.log("values", values);
         return (
           <section className={styles.formWrapper}>
             <Form className={styles.form}>

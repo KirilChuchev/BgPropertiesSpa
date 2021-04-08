@@ -20,16 +20,25 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IAuthService authService;
+        private readonly IBgPropertyService bgPropertyService;
+        private readonly ISearchSetService searchSetService;
+        private readonly IStatisticService statisticService;
 
         public UserController(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            IAuthService authService
+            IAuthService authService,
+            IBgPropertyService bgPropertyService,
+            ISearchSetService searchSetService,
+            IStatisticService statisticService
             )
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.authService = authService;
+            this.bgPropertyService = bgPropertyService;
+            this.searchSetService = searchSetService;
+            this.statisticService = statisticService;
         }
 
         // POST: user/login
@@ -131,6 +140,38 @@
                 }
 
                 return Ok(new Response { Status = "Success", Message = "Admin created successfully!" });
+            }
+            catch (Exception ex)
+            {
+                var message = ExceptionMessageCreator.CreateMessage(ex);
+
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = message });
+            }
+        }
+
+        // GET: user/data-info
+        [HttpGet]
+        [Route("data-info")]
+        public async Task<IActionResult> GetDataInfo([FromHeader] string authorization)
+        {
+            try
+            {
+                var user = await this.authService.IdentifyUserByAuthorizationHeader(authorization);
+
+                var allTrackedBgPropertiesByUserModel = await this.bgPropertyService.GetAllTrackedBgPropertiesByUserAsync(user);
+                var allNewlyBgPropertiesByUserModel = await this.statisticService.GetAllNewBgPropertiesAsync(user);
+                var allSearchSetsByUserModels = await this.searchSetService.GetAllAsViewModel(user);
+
+                var userData = new
+                {
+                    allTrackedBgPropertiesByUser = allTrackedBgPropertiesByUserModel.BgProperties.Count,
+                    allNewlyBgPropertiesByUser = allNewlyBgPropertiesByUserModel.BgProperties.Count,
+                    allSearchSetsByUser = allSearchSetsByUserModels.Count,
+                };
+
+                return Ok(userData);
             }
             catch (Exception ex)
             {
