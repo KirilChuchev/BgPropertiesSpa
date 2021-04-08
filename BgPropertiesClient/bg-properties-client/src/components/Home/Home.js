@@ -3,9 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 
 import authService from "../../services/authService";
 import userService from "../../services/userService";
-import searchSetService from "../../services/searchSetService";
-import bgPropertyService from "../../services/bgPropertyService";
-import statisticsService from "../../services/statisticService";
 
 import styles from "./Home.module.css";
 
@@ -15,10 +12,10 @@ const Home = () => {
 
   let history = useHistory();
 
-  const [searchSets, setSearchSets] = useState([]);
-  const [newlyBgPropertiesModel, setNewlyBgPropertiesModel] = useState({});
-  const [trackedBgPropertiesModel, setTrackedBgPropertiesModel] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [userDataInfo, setUserDataInfo] = useState({});
+
+  console.log(userDataInfo);
 
   useEffect(() => {
     const fetchData = () => {
@@ -26,33 +23,10 @@ const Home = () => {
         return null;
       }
 
-      searchSetService
-        .fetchAll(token)
-        .then(setSearchSets)
-        .catch((err) => {
-          if (err.includes("Unauthorized") || err.includes("Forbidden")) {
-            userService.logout();
-          }
-          console.log(err);
-          history.push("/login");
-          return null;
-        });
-      statisticsService
-        .fetchUserNewly(token)
-        .then(setNewlyBgPropertiesModel)
-        .catch((err) => {
-          if (err.includes("Unauthorized") || err.includes("Forbidden")) {
-            userService.logout();
-          }
-          console.log(err);
-          history.push("/login");
-          return null;
-        });
-
-      bgPropertyService
-        .userTracked(token)
-        .then((trackedBgProperties) => {
-          setTrackedBgPropertiesModel(trackedBgProperties);
+      userService
+        .userDataInfo(token)
+        .then(setUserDataInfo)
+        .then(() => {
           setIsLoading(false);
         })
         .catch((err) => {
@@ -79,7 +53,7 @@ const Home = () => {
           <section className={styles.header}>
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
-            <p>Hello, {userClaims.username}</p>
+            <p>Здравейте, {userClaims.username}</p>
             <Link
               to="/login"
               onClick={() => {
@@ -105,7 +79,7 @@ const Home = () => {
             <Link
               to={`/searchsets`}
               className={`${styles.headerLink} ${
-                searchSets.length === 0 ? styles.disableStatisticsLink : null
+                userDataInfo.allSearchSetsByUser === 0 ? styles.disableStatisticsLink : null
               }`}
             >
               Вижте Вашите SearchSet-ве
@@ -119,7 +93,7 @@ const Home = () => {
                 <article className={styles.detail}>
                   <h4 className={styles.detailLabel}>Брой SearchSet-ове:</h4>
                   <span className={styles.detailValue}>
-                    {searchSets.length}
+                    {userDataInfo.allSearchSetsByUser}
                   </span>
                 </article>
 
@@ -128,7 +102,7 @@ const Home = () => {
                     Брой нови обяви на имоти:
                   </h4>
                   <span className={styles.detailValue}>
-                    {newlyBgPropertiesModel.bgProperties?.length}
+                    {userDataInfo.allNewlyBgPropertiesByUser}
                   </span>
                 </article>
 
@@ -137,7 +111,7 @@ const Home = () => {
                     Брой обяви, които следите:
                   </h4>
                   <span className={styles.detailValue}>
-                    {trackedBgPropertiesModel.bgProperties?.length}
+                    {userDataInfo.allTrackedBgPropertiesByUser}
                   </span>
                 </article>
               </section>
@@ -152,7 +126,7 @@ const Home = () => {
               <Link
                 to={`/statistics/searchsets/all/bg-properties/all-newly`}
                 className={`${styles.statisticsLink} ${
-                  newlyBgPropertiesModel.length === 0
+                  userDataInfo.allNewlyBgPropertiesByUser === 0
                     ? styles.disableStatisticsLink
                     : null
                 }`}
@@ -162,7 +136,7 @@ const Home = () => {
               <Link
                 to={`/searchsets/all/bg-properties/all-tracked`}
                 className={`${styles.statisticsLink} ${
-                  trackedBgPropertiesModel.length === 0
+                  userDataInfo.allTrackedBgPropertiesByUser === 0
                     ? styles.disableStatisticsLink
                     : null
                 }`}
