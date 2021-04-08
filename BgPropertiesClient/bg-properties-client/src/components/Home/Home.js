@@ -134,18 +134,11 @@ const Home = () => {
 
                 <article className={styles.detail}>
                   <h4 className={styles.detailLabel}>
-                    Брой SearchSet-ове, които следите:
+                    Брой обяви, които следите:
                   </h4>
                   <span className={styles.detailValue}>
                     {trackedBgPropertiesModel.bgProperties?.length}
                   </span>
-                </article>
-
-                <article className={styles.detail}>
-                  <h4 className={styles.detailLabel}>
-                    Вашето описание на SearchSet-a:
-                  </h4>
-                  <span className={styles.detailValue}></span>
                 </article>
               </section>
             </article>

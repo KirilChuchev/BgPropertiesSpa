@@ -1,16 +1,12 @@
 import { useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import userService from "../../services/userService";
 import authService from "../../services/authService";
 import LoginFormView from "./LoginFormView";
-import Home from "../Home";
 
-const Login = ({
-  history
-}) => {
-  console.log("in");
-  // const history = useHistory();
+const Login = () => {
+  const history = useHistory();
 
   let userInitialValues = {
     email: "",
@@ -20,7 +16,6 @@ const Login = ({
   const [serverErrors, setServerErrors] = useState({});
 
   function handleSubmit({ email, password }) {
-    console.log("here");
     userService
       .login({ email, password })
       .then((userClaims) => {
@@ -30,20 +25,15 @@ const Login = ({
           history.push("/login");
           return null;
         }
-        history.push("/");
+        let path = currentUser.token === userClaims.token ? "/" : "/login";
+        let message =
+          path === "/" ? "Successfully login." : "Something went wrong.";
+        console.log(message);
+        let somethingWrong =
+          message === "Something went wrong." ? message : null;
+        setServerErrors((state) => ({ ...state, somethingWrong }));
+        history.push(path);
         return null;
-        // let path = currentUser.token === userClaims.token ? "/" : "/login";
-        // let message =
-        //   path === "/" ? "Successfully login." : "Something went wrong.";
-        //   // return <Redirect to="/"/>;
-        //   console.log(message);
-        //   let somethingWrong = message;
-        //   setServerErrors(state => ({...state, somethingWrong}));
-        //   history.push(path);
-        //  console.log("push", path);
-        //  console.log(history);
-        // return null;
-        // return <Redirect to="/register"/>;
       })
       .catch((err) => {
         console.log(err);
@@ -52,9 +42,9 @@ const Login = ({
         }
         console.log(err);
         let somethingWrong = err;
-        setServerErrors(state => ({...state, somethingWrong}));
+        setServerErrors((state) => ({ ...state, somethingWrong }));
         history.push("/login");
-        // return null;
+        return null;
       });
   }
 

@@ -19,6 +19,7 @@ const App = () => {
       <Route
         path="/"
         exact
+        // component={() => <Home />}
         component={() => <IsAuthenticated Component={Home} />}
       />
       <Route
@@ -26,90 +27,72 @@ const App = () => {
         exact
         component={() => <IsAuthenticated Component={Home} />}
       />
-      {/* <Route path="/" exact component={IsAuthenticated(Home)} /> */}
-      {/* <Route path="/home" exact component={IsAuthenticated(Home)} /> */}
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
 
       <Route
-        // path="/searchsets/all" exact component={() => <SearchSets />}
         path="/searchsets"
         exact
-        // component={() => <SearchSets />}
         component={() => <IsAuthenticated Component={SearchSets} />}
       />
       <Route
         path={`/searchsets/create`}
         exact
-        // component={() => <CreateEditSearchSet />}
         component={() => <IsAuthenticated Component={CreateEditSearchSet} />}
       />
       <Route
         path={`/searchsets/edit/:searchSetId`}
         exact
-        // component={() => <CreateEditSearchSet />}
         component={() => <IsAuthenticated Component={CreateEditSearchSet} />}
       />
       <Route
         path={`/searchsets/:searchSetId`}
         exact
-        // component={() => <SearchSet />}
         component={() => <IsAuthenticated Component={SearchSet} />}
       />
 
       <Route
-        // path="/searchsets/all/bg-properties/all-tracked/" exact component={() => <BgProperties />}
         path="/searchsets/all/bg-properties/all-tracked"
         exact
-        // component={() => <BgProperties />}
         component={() => <IsAuthenticated Component={BgProperties} />}
       />
       <Route
         path="/searchsets/all/bg-properties/all-new"
         exact
-        // component={() => <BgProperties />}
         component={() => <IsAuthenticated Component={BgProperties} />}
       />
 
       <Route
-        // path="/searchsets/:searchSetId/bg-properties/all/" exact component={() => <BgProperties />}
         path="/searchsets/:searchSetId/bg-properties"
         exact
-        // component={() => <BgProperties />}
         component={() => <IsAuthenticated Component={BgProperties} />}
       />
 
       <Route
-        // path="/searchsets/:searchSetId/bg-properties/all-tracked/" exact component={() => <BgProperties />}
         path="/searchsets/:searchSetId/bg-properties/all-tracked"
         exact
-        // component={() => <BgProperties />}
         component={() => <IsAuthenticated Component={BgProperties} />}
       />
 
       <Route
         path="/searchsets/:searchSetId/bg-properties/:bgPropertyId"
         exact
-        // component={() => <BgProperty />}
         component={() => <IsAuthenticated Component={BgProperty} />}
       />
 
       <Route
         path="/statistics/top-profitable/:searchSetId"
         exact
-        // component={() => <BgProperties />}
         component={() => <IsAuthenticated Component={BgProperties} />}
       />
       <Route
         path="/statistics/searchsets/all/bg-properties/all-newly"
         exact
-        // component={() => <BgProperties />}
         component={() => <IsAuthenticated Component={BgProperties} />}
       />
       <Route
         path="/statistics/searchsets/:searchSetId/bg-properties/all-newly"
         exact
-        // component={() => <BgProperties />}
         component={() => <IsAuthenticated Component={BgProperties} />}
       />
     </Switch>
