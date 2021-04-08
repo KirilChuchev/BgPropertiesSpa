@@ -15,8 +15,6 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userDataInfo, setUserDataInfo] = useState({});
 
-  console.log(userDataInfo);
-
   useEffect(() => {
     const fetchData = () => {
       if (!token) {

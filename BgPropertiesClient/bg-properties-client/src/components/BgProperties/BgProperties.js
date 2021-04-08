@@ -28,7 +28,7 @@ const BgProperties = () => {
       !path.includes("/all-tracked") &&
       !path.includes("/all-newly")
     ) {
-      console.log("all bgproperties");
+      // console.log("all bgproperties");
       return "bg-properties";
     } else if (
       path.includes("/searchsets/") &&
@@ -41,15 +41,15 @@ const BgProperties = () => {
       path.includes("/bg-properties/all-newly") &&
       !path.includes("/all/")
     ) {
-      console.log("searchset-newly");
+      // console.log("searchset-newly");
       return "searchset-newly";
     } else if (path.includes("/searchsets/all/bg-properties/all-tracked")) {
-      console.log("tracked");
+      // console.log("tracked");
       return "user-tracked";
     } else if (
       path.includes("/statistics/searchsets/all/bg-properties/all-newly")
     ) {
-      console.log("user-newly");
+      // console.log("user-newly");
       return "user-newly";
     }
   }
