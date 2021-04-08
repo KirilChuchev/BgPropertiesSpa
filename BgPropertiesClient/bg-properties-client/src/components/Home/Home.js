@@ -77,12 +77,11 @@ const Home = () => {
         <section className={styles.sectionWrapper}>
           <article className={styles.headerLinksWrapper}>
             <Link
-              to={`/searchsets`}
-              className={`${styles.headerLink} ${
-                userDataInfo.allSearchSetsByUser === 0 ? styles.disableStatisticsLink : null
-              }`}
+              to={userDataInfo.allSearchSetsByUser !== 0 ? `/searchsets` : `/searchsets/create`}
+              className={`${styles.headerLink}`}
             >
-              Вижте Вашите SearchSet-ве
+              {userDataInfo.allSearchSetsByUser !== 0 ? `Вижте Вашите SearchSet-ве` : `Създайте Вашият първи SearchSet`}
+              
             </Link>
           </article>
 
