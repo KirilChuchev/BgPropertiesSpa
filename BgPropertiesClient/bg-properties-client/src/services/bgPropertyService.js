@@ -53,7 +53,6 @@ function trackOne(token, bgPropertyId) {
 }
 
 function searchSetTracked(token, searchSetId) {
-  console.log("here");
   return fetch(`/tracking/searchsets/${searchSetId}`, {
     headers: {
       Accept: "application/json, text/plain, */*",

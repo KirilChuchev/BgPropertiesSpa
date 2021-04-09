@@ -96,7 +96,7 @@ const Home = () => {
 
                 <article className={styles.detail}>
                   <h4 className={styles.detailLabel}>
-                    Брой нови обяви на имоти:
+                    Общ брой нови обяви на имоти:
                   </h4>
                   <span className={styles.detailValue}>
                     {userDataInfo.allNewlyBgPropertiesByUser}
@@ -105,7 +105,7 @@ const Home = () => {
 
                 <article className={styles.detail}>
                   <h4 className={styles.detailLabel}>
-                    Брой обяви, които следите:
+                    Общ брой маркирани обяви:
                   </h4>
                   <span className={styles.detailValue}>
                     {userDataInfo.allTrackedBgPropertiesByUser}
@@ -128,7 +128,7 @@ const Home = () => {
                     : null
                 }`}
               >
-                Нови оферти
+                Нови обяви
               </Link>
               <Link
                 to={`/searchsets/all/bg-properties/all-tracked`}
@@ -138,7 +138,7 @@ const Home = () => {
                     : null
                 }`}
               >
-                Маркирани оферти
+                Маркирани обяви
               </Link>
             </section>
           </article>

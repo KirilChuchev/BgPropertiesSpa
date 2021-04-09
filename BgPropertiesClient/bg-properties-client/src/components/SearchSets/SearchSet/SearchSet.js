@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
-import { Fragment as section, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import authService from "../../../services/authService";
 import searchSetService from "../../../services/searchSetService";
@@ -10,6 +10,8 @@ import { bgPropertyFloorConsts } from "../../../constants/bgPropertyConsts";
 import { extractSearchSetCriteriasByType } from "../../../utils/helpers";
 
 import styles from "./SearchSet.module.css";
+import bgPropertyService from "../../../services/bgPropertyService";
+import statisticService from "../../../services/statisticService";
 
 const SearchSet = () => {
   const userClaims = authService.getLocalStorageUserClaims();
@@ -18,13 +20,34 @@ const SearchSet = () => {
   let { searchSetId } = useParams();
 
   const [searchSet, setSearchSet] = useState({});
+  const [newlyBgPropertiesCount, setNewlyBgPropertiesCount] = useState(Number);
+  const [trackedBgPropertiesCount, setTrackedBgPropertiesCount] = useState(
+    Number
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    searchSetService.fetchOne(token, searchSetId).then((data) => {
-      setSearchSet(data);
-      setIsLoading(false);
-    });
+    async function executeFetches() {
+      await searchSetService.fetchOne(token, searchSetId).then((data) => {
+        setSearchSet(data);
+      });
+      await statisticService
+        .fetchSearchSetNewly(token, searchSetId)
+        .then((data) => {
+          setNewlyBgPropertiesCount(data.bgProperties.length);
+        })
+        .catch((err) => console.log(err));
+
+      await bgPropertyService
+        .searchSetTracked(token, searchSetId)
+        .then((data) => {
+          setTrackedBgPropertiesCount(data.bgProperties.length);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    }
+
+    executeFetches();
   }, [token, searchSetId]);
 
   if (isLoading) {
@@ -72,10 +95,28 @@ const SearchSet = () => {
 
                 <article className={styles.searchSetDetail}>
                   <h4 className={styles.searchSetDetailLabel}>
-                    Брой обяви на имоти:
+                    Общ брой обяви на имоти:
                   </h4>
                   <span className={styles.searchSetDetailValue}>
                     {searchSet.bgPropertiesCount}
+                  </span>
+                </article>
+
+                <article className={styles.searchSetDetail}>
+                  <h4 className={styles.searchSetDetailLabel}>
+                    Брой нови обяви на имоти:
+                  </h4>
+                  <span className={styles.searchSetDetailValue}>
+                    {newlyBgPropertiesCount}
+                  </span>
+                </article>
+
+                <article className={styles.searchSetDetail}>
+                  <h4 className={styles.searchSetDetailLabel}>
+                    Брой маркирани обяви на имоти:
+                  </h4>
+                  <span className={styles.searchSetDetailValue}>
+                    {trackedBgPropertiesCount}
                   </span>
                 </article>
 
@@ -270,22 +311,24 @@ const SearchSet = () => {
               <Link
                 to={`/statistics/searchsets/${searchSetId}/bg-properties/all-newly`}
                 className={`${styles.searchSetStatisticsLink} ${
-                  searchSet.bgPropertiesCount === 0
+                  // searchSet.bgPropertiesCount === 0
+                  newlyBgPropertiesCount === 0
                     ? styles.disableStatisticsLink
                     : null
                 }`}
               >
-                Нови оферти
+                Нови обяви
               </Link>
               <Link
                 to={`/searchsets/${searchSetId}/bg-properties/all-tracked`}
                 className={`${styles.searchSetStatisticsLink} ${
-                  searchSet.bgPropertiesCount === 0
+                  // searchSet.bgPropertiesCount === 0
+                  trackedBgPropertiesCount === 0
                     ? styles.disableStatisticsLink
                     : null
                 }`}
               >
-                Маркирани оферти
+                Маркирани обяви
               </Link>
               <Link
                 to={`/statistics/top-profitable/${searchSetId}`}
