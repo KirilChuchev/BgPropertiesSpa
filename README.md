@@ -10,6 +10,7 @@ This is a proffessional web application for searching, researching and tracking 
  
  # External Libraries:
  **Formik:** building, validation, submitting and error messaging of all application forms
+ **Yup:** schema and custom form validations builder library
 
 # Installation and Setup Instructions
 Clone down this repository. You will need node and npm installed globally on your machine.
