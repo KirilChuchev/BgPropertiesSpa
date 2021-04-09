@@ -47,11 +47,8 @@ const EditForm = ({ searchSetId }) => {
     cityRegion: "",
   });
 
-  console.log(searchSet);
-
   useEffect(() => {
     searchSetService.fetchOne(token, searchSetId).then((data) => {
-      console.log(data);
       let obj = {};
       data.searchCriterias.forEach((x) => {
         if (x.name.endsWith("PropType") && x.value) {
@@ -65,7 +62,6 @@ const EditForm = ({ searchSetId }) => {
       });
       obj["searchSetName"] = data.name;
       obj["description"] = data.description;
-      console.log(obj);
       setSearchSet((searchSet) => ({ ...searchSet, ...obj }));
     });
   }, [token, searchSetId]);
