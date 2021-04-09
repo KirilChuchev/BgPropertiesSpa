@@ -1,5 +1,6 @@
 import { Switch, Route } from "react-router-dom";
 import IsAuthenticated from "./hoc/IsAuthenticated";
+import IsGuest from "./hoc/IsGuest";
 import Home from "./components/Home";
 import SearchSet from "./components/SearchSets/SearchSet";
 import SearchSets from "./components/SearchSets";
@@ -27,8 +28,8 @@ const App = () => {
         exact
         component={() => <IsAuthenticated Component={Home} />}
       />
-      <Route path="/login" exact component={Login} />
-      <Route path="/register" exact component={Register} />
+      <Route path="/login" exact component={() => <IsGuest Component={Login} />} />
+      <Route path="/register" exact component={() => <IsGuest Component={Register} />} />
 
       <Route
         path="/searchsets"
