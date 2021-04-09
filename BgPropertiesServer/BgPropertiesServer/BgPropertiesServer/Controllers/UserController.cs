@@ -164,6 +164,9 @@
                 var allNewlyBgPropertiesByUserModel = await this.statisticService.GetAllNewBgPropertiesAsync(user);
                 var allSearchSetsByUserModels = await this.searchSetService.GetAllAsViewModel(user);
 
+                //var task = this.bgPropertyService.GetAllTrackedBgPropertiesByUserAsync(user);
+                //var result = task.ConfigureAwait(false);
+
                 var userData = new
                 {
                     allTrackedBgPropertiesByUser = allTrackedBgPropertiesByUserModel.BgProperties.Count,
