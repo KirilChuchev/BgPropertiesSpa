@@ -10,7 +10,11 @@ This is a proffessional web application for searching, researching and tracking 
  
  # External Libraries:
  **Formik:** building, validation, submitting and error messaging of all application forms  
- **Yup:** schema and custom form validations builder library
+ **Yup:** schema and custom form validations builder library  
+ 
+ # Testing Libraries:
+ **JEST** - JavaScript unit testing framework  
+ **Testing Library - React** - "@testing-library/react"
 
 # Installation and Setup Instructions
 Clone down this repository. You will need node and npm installed globally on your machine.
