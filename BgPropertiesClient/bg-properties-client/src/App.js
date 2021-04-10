@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import IsAuthenticated from "./hoc/IsAuthenticated";
 import IsGuest from "./hoc/IsGuest";
@@ -10,17 +11,27 @@ import CreateEditSearchSet from "./components/SearchSets/CreateEditSearchSet";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ThemeContext from "./contexts/ThemeContext";
+
+import localStorage from "./utils/browserLocaleStorage";
+
 import "./App.css";
-import { useState } from "react";
+
 // import logo from './logo.svg';
 
 const App = () => {
+  let theme = localStorage.loadState("theme");
+
+  if (!theme) {
+    localStorage.saveState("theme", "light");
+  }
+
   const [themeContext, setThemeContext] = useState({
-    theme: "light",
+    theme: theme || "light",
     changeTheme: onChangeThemeHandler,
   });
 
   function onChangeThemeHandler(theme) {
+    localStorage.saveState("theme", theme);
     setThemeContext({...themeContext, theme: theme});
   }
 

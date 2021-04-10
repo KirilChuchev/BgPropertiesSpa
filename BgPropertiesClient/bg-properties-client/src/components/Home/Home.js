@@ -94,6 +94,7 @@ const Home = () => {
             <Link
               to="/login"
               onClick={() => {
+                changeTheme("light")
                 userService.logout();
               }}
             >
