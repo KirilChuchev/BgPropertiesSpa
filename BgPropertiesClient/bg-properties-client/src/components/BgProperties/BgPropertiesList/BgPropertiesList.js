@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import BgPropertyShortDetails from "../BgPropertyShortDetails";
+
+import ThemeContext from "../../../contexts/ThemeContext";
+
+import { themeStyleSelector } from "../../../utils/themeStyleSelector";
 
 import styles from "./BgPropertiesList.module.css";
 
 const BgPropertiesList = ({ bgProperties, searchSetId }) => {
+  let { theme } = useContext(ThemeContext);
+
   const [isBgPropertyClicked, setIsBgPropertyClicked] = useState(false);
   const [bgPropertyId, setBgPropertyId] = useState("");
 
@@ -22,7 +28,13 @@ const BgPropertiesList = ({ bgProperties, searchSetId }) => {
   }
 
   return (
-    <section className={styles.bgPropertyListWrapper}>
+    <section
+      className={themeStyleSelector(
+        theme,
+        styles,
+        styles.lightThemeBgPropertyListWrapper
+      )}
+    >
       <Link to="/">Go Home.</Link>
 
       {!!bgProperties?.length && (

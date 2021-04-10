@@ -7,7 +7,7 @@ import {
   selectField,
 } from "./SelectFormElement.module.css";
 
-const SelectFormElement = ({ options, element, title, label, styles }) => {
+const SelectFormElement = ({ options, element, title, label, onClick, styles }) => {
   return (
     <article className={styles?.selectArticle || selectArticle}>
       <h4 className={styles.selectTitle}>{title}</h4>
@@ -26,7 +26,7 @@ const SelectFormElement = ({ options, element, title, label, styles }) => {
       >
         {options.map((option) => {
           return (
-            <option key={option.value} value={option.value}>
+            <option key={option.value} value={option.value} onClick={onClick}>
               {option.key}
             </option>
           );

@@ -1,6 +1,29 @@
+.lightThemeBgPropertySectionWrapper {
+  width: 100%;
+  padding: 30px;
+}
+
+.darkThemeBgPropertySectionWrapper {
+  width: 100%;
+  padding: 30px;
+  background-color: rgb(34, 30, 30);
+}
+
+.redThemeBgPropertySectionWrapper {
+  width: 100%;
+  padding: 30px;
+  background-color: rgb(223, 79, 79);
+}
+
+.blueThemeBgPropertySectionWrapper {
+  width: 100%;
+  padding: 30px;
+  background-color: rgb(107, 83, 243);
+}
+
 .bgPropertyWrapper {
   width: 80%;
-  margin: 50px auto;
+  margin: auto;
   padding: 20px 20px 20px 5px;
   background: rgb(228, 228, 225);
   border-radius: 20px;
@@ -26,19 +49,19 @@
 }
 
 .bgPropertyDetailsInfoTracked {
-    width: 70px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-right: 1px solid grey;
-    border-bottom: 1px solid grey;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 10px;
-    box-shadow: 4px 3px 8px 0px grey;
-    background: orange;
-  }
+  width: 70px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 4px 3px 8px 0px grey;
+  background: orange;
+}
 
 .bgPropertyDetailsInfo:hover,
 .bgPropertyDetailsInfoTracked:hover {

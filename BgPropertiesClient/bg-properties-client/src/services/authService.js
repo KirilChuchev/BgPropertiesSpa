@@ -1,10 +1,14 @@
+import browserLocaleStorage from "../utils/browserLocaleStorage";
+
 function getLocalStorageUserClaims() {
-  return JSON.parse(localStorage.getItem("currentUser"));
+  return browserLocaleStorage.loadState("currentUser");
+  // return JSON.parse(localStorage.getItem("currentUser"));
 }
 
 function setLocalStorageUserClaims(userData) {
   // store user details and jwt token in local storage to keep user logged in between page refreshes
-  localStorage.setItem("currentUser", JSON.stringify(userData));
+  browserLocaleStorage.saveState("currentUser", userData);
+  // localStorage.setItem("currentUser", JSON.stringify(userData));
 }
 
 const authService = {

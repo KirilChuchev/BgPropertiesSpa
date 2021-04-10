@@ -14,11 +14,12 @@ import { FloorOptionInputFormElementConsts } from "./FormViewConstants";
 import { PricePerSqrMInputFormElementConsts } from "./FormViewConstants";
 import { LocationOptionInputFormElementConsts } from "./FormViewConstants";
 
+import { themeStyleSelector } from "../../../../utils/themeStyleSelector";
 import { validateCreateEditSearchSetForm } from "../../../../utils/formValidations";
 
 import styles from "./FormView.module.css";
 
-const FormView = ({ form, searchSet, handleSubmit }) => {
+const FormView = ({ form, searchSet, theme, handleSubmit }) => {
   return (
     <Formik
       enableReinitialize
@@ -28,7 +29,7 @@ const FormView = ({ form, searchSet, handleSubmit }) => {
     >
       {({ errors, values, touched, isSubmitting, setFieldValue }) => {
         return (
-          <section className={styles.formWrapper}>
+          <section className={themeStyleSelector(theme, styles, styles.lightThemeFormWrapper)}>
             <Form className={styles.form}>
               <section className={styles.inputGroupWrapper}>
               <FormikControl

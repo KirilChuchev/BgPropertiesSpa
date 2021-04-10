@@ -1,9 +1,36 @@
-.formWrapper {
+.lightThemeFormWrapper {
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.darkThemeFormWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(34, 30, 30);
+}
+
+.redThemeFormWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(223, 79, 79);
+}
+
+.blueThemeFormWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(107, 83, 243);
 }
 
 .form {
@@ -61,7 +88,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .inputGroupContent {
@@ -69,7 +95,7 @@
   height: 100%;
   display: flex;
   justify-content: space-around;
-  align-items:flex-start;
+  align-items: flex-start;
 }
 
 .inputArticle {
@@ -241,8 +267,8 @@
   outline: none;
 }
 
-.selectField:hover{
-    cursor: pointer;
+.selectField:hover {
+  cursor: pointer;
 }
 
 /* TextArea */
@@ -263,7 +289,7 @@
 }
 
 .textAreaField {
-    padding: 5px;
+  padding: 5px;
 }
 
 /* Error */

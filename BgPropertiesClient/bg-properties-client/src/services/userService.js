@@ -47,7 +47,7 @@ function login(userCredentials) {
 
 function logout() {
   // remove user from local storage to log user out
-  localStorage.removeItem("currentUser");
+  localStorage.clear();
   console.log("Successfully logout.");
 }
 

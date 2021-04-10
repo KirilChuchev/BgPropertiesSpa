@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+
+import ThemeContext from "../../contexts/ThemeContext";
+import FormikControl from "../Common/FormViewComponents/FormikControl";
 
 import authService from "../../services/authService";
 import userService from "../../services/userService";
+import { themeStyleSelector } from "../../utils/themeStyleSelector";
 
 import styles from "./Home.module.css";
 
@@ -11,6 +15,8 @@ const Home = () => {
   var token = userClaims?.token ? userClaims.token : null;
 
   let history = useHistory();
+
+  const { theme, changeTheme } = useContext(ThemeContext);
 
   const [isLoading, setIsLoading] = useState(true);
   const [userDataInfo, setUserDataInfo] = useState({});
@@ -28,6 +34,7 @@ const Home = () => {
           setIsLoading(false);
         })
         .catch((err) => {
+          console.log(err);
           if (err.includes("Unauthorized") || err.includes("Forbidden")) {
             userService.logout();
           }
@@ -45,16 +52,49 @@ const Home = () => {
   }
 
   return (
-    <section className={styles.wrapper}>
+    // <section className={theme === "light" ? styles.sectionWrapper : styles.darkSectionWrapper}>
+    // className={themeStyleSelector(theme, styles, styles.sectionWrapper)}
+    <section>
       <article>
         {userClaims !== null && (
           <section className={styles.header}>
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
+
+            {/* <button onClick={() => changeTheme(theme === "light" ? "dark" : "light")}>{theme}</button> */}
+            {/* className={styles.selectGroupWrapper} */}
+            {/* <section >
+              <FormikControl
+                control={"select"}
+                element={themeStyleElementConsts}
+                options={themeStyleConsts}
+                // handleChange={handleChange}
+                title={"Изберете тема"}
+                styles={styles}
+              />
+              </section> */}
+
+            <article className={styles.selectArticle}>
+              <label htmlFor="themeStyle">Изберете тема</label>
+
+              <select
+                onChange={(event) => changeTheme(event.target.value)}
+                value={theme}
+                name="themeStyle"
+                id="themeStyle"
+              >
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+              </select>
+            </article>
+
             <p>Здравейте, {userClaims.username}</p>
             <Link
               to="/login"
               onClick={() => {
+                changeTheme("light")
                 userService.logout();
               }}
             >
@@ -72,14 +112,23 @@ const Home = () => {
       </article>
 
       {userClaims !== null && (
-        <section className={styles.sectionWrapper}>
+        <section className={themeStyleSelector(
+          theme,
+          styles,
+          styles.lightThemeSectionWrapper
+        )}>
           <article className={styles.headerLinksWrapper}>
             <Link
-              to={userDataInfo.allSearchSetsByUser !== 0 ? `/searchsets` : `/searchsets/create`}
+              to={
+                userDataInfo.allSearchSetsByUser !== 0
+                  ? `/searchsets`
+                  : `/searchsets/create`
+              }
               className={`${styles.headerLink}`}
             >
-              {userDataInfo.allSearchSetsByUser !== 0 ? `Вижте Вашите SearchSet-ве` : `Създайте Вашият първи SearchSet`}
-              
+              {userDataInfo.allSearchSetsByUser !== 0
+                ? `Вижте Вашите SearchSet-ове`
+                : `Създайте Вашият първи SearchSet`}
             </Link>
           </article>
 

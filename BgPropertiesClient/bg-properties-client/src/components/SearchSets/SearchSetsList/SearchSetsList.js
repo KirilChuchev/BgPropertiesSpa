@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 import SearchSetShortDetails from "../SearchSetShortDetails";
+import ThemeContext from "../../../contexts/ThemeContext";
+
+import { themeStyleSelector } from "../../../utils/themeStyleSelector";
 
 import styles from "./SearchSetsList.module.css";
 
 const SearchSetsList = ({ searchSets }) => {
+
+  let { theme } = useContext(ThemeContext);
+
   const [isClicked, setIsClicked] = useState(false);
   const [searchSetIdClicked, setSearchSetIdClicked] = useState(false);
 
@@ -19,10 +25,8 @@ const SearchSetsList = ({ searchSets }) => {
   }
 
   return (
-    <section className={styles.searchSetShortDetailsListWrapper}>
+    <section className={themeStyleSelector(theme, styles, styles.lightThemeSearchSetShortDetailsListWrapper)}>
       <Link to="/">Go Home.</Link>
-
-      {/* <h3>SearchSets for user: {username}</h3> */}
 
       {searchSets?.length > 0 && (
         <>

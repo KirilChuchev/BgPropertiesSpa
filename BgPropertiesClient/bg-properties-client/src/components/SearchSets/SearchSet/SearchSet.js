@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+import ThemeContext from "../../../contexts/ThemeContext";
 
 import authService from "../../../services/authService";
 import searchSetService from "../../../services/searchSetService";
 
 import { bgPropertyFloorConsts } from "../../../constants/bgPropertyConsts";
 
+import { themeStyleSelector } from "../../../utils/themeStyleSelector";
 import { extractSearchSetCriteriasByType } from "../../../utils/helpers";
 
 import styles from "./SearchSet.module.css";
@@ -16,6 +19,8 @@ import statisticService from "../../../services/statisticService";
 const SearchSet = () => {
   const userClaims = authService.getLocalStorageUserClaims();
   var token = userClaims.token;
+
+  let { theme } = useContext(ThemeContext);
 
   let { searchSetId } = useParams();
 
@@ -57,7 +62,7 @@ const SearchSet = () => {
   return (
     <>
       {searchSet && (
-        <section className={styles.searchSetSectionWrapper}>
+        <section className={themeStyleSelector(theme, styles, styles.lightThemeSearchSetSectionWrapper)}>
           <header className={styles.searchSetHeader}>
             <h2 className={styles.titleSection}>
               Информация за Вашият SearchSet:
