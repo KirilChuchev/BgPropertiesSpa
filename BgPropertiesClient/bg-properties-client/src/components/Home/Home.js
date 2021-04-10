@@ -32,6 +32,9 @@ const Home = () => {
         .then(setUserDataInfo)
         .then(() => {
           setIsLoading(false);
+          // if (Math.random() > 0.7) {
+          //   throw new Error("Something went wrong!")
+          // }
         })
         .catch((err) => {
           console.log(err);
