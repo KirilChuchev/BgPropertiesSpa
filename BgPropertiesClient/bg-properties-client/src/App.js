@@ -20,8 +20,6 @@ const App = () => {
     changeTheme: onChangeThemeHandler,
   });
 
-  console.log(themeContext);
-
   function onChangeThemeHandler(theme) {
     setThemeContext({...themeContext, theme: theme});
   }

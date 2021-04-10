@@ -6,9 +6,13 @@ import authService from "../../../../services/authService";
 import searchSetService from "../../../../services/searchSetService";
 
 import { FormHeadingsAndSubmitButton } from "../FormView/FormViewConstants";
+import { useContext } from "react";
+import ThemeContext from "../../../../contexts/ThemeContext";
 
 const CreateForm = () => {
   const token = authService.getLocalStorageUserClaims().token;
+
+  let { theme } = useContext(ThemeContext);
 
   const history = useHistory();
 
@@ -48,7 +52,7 @@ const CreateForm = () => {
 
   function handleSubmit(values) {
     alert("Моля потвърдете, че желаете създаването на нов SearchSet!");
-    
+
     var searchSet = {};
     for (const valueName of Object.keys(values)) {
       if (valueName.endsWith("PropType")) {
@@ -72,6 +76,7 @@ const CreateForm = () => {
     <FormView
       form={FormHeadingsAndSubmitButton.createForm}
       searchSet={searchSetInitialValues}
+      theme={theme}
       handleSubmit={handleSubmit}
     />
   );

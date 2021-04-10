@@ -205,8 +205,6 @@ export const validateCreateEditSearchSetForm = (values) => {
     )
     .map((x) => ({ key: x, value: values[x] }));
 
-  console.log("PropTypes", propTypesClicked);
-
   if (propTypesClicked.length === 0) {
     errors.checkboxes =
       "Трябва да изберете поне едно поле от посочените групи категории.";

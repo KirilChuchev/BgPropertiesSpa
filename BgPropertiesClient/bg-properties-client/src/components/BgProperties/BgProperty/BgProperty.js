@@ -1,15 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ThemeContext from "../../../contexts/ThemeContext";
 import authService from "../../../services/authService";
 import bgPropertyService from "../../../services/bgPropertyService";
 
 import { parseTime } from "../../../utils/helpers";
+import { themeStyleSelector } from "../../../utils/themeStyleSelector";
 
 import styles from "./BgProperty.module.css";
 
 const BgProperty = () => {
   const userClaims = authService.getLocalStorageUserClaims();
   var token = userClaims.token;
+
+  let { theme } = useContext(ThemeContext);
 
   let { bgPropertyId, searchSetId } = useParams();
 
@@ -40,9 +44,15 @@ const BgProperty = () => {
   }
 
   return (
-    <>
+    <section className={themeStyleSelector(
+      theme,
+      styles,
+      styles.lightThemeBgPropertySectionWrapper
+    )}>
       {bgPropertyModel && (
-        <article className={styles.bgPropertyWrapper}>
+        <article
+          className={styles.bgPropertyWrapper}
+        >
           <section
             className={
               bgProperty.isTracked
@@ -185,19 +195,10 @@ const BgProperty = () => {
                 {bgProperty.description || "n/a"}
               </span>
             </section>
-
-            {/* <p>
-              <strong>IsTracked: </strong>
-              {bgProperty.isTracked ? "Tracked" : "No"}
-            </p>
-            <p>
-              <strong>IsNewly: </strong>
-              {bgProperty.isNewly ? "New" : "Not new"}
-            </p> */}
           </section>
         </article>
       )}
-    </>
+    </section>
   );
 };
 

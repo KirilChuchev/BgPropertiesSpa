@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import FormView from "../FormView";
@@ -7,9 +7,12 @@ import authService from "../../../../services/authService";
 import searchSetService from "../../../../services/searchSetService";
 
 import { FormHeadingsAndSubmitButton } from "../FormView/FormViewConstants";
+import ThemeContext from "../../../../contexts/ThemeContext";
 
 const EditForm = ({ searchSetId }) => {
   const token = authService.getLocalStorageUserClaims().token;
+
+  let { theme } = useContext(ThemeContext);
 
   const history = useHistory();
 
@@ -66,7 +69,7 @@ const EditForm = ({ searchSetId }) => {
     });
   }, [token, searchSetId]);
 
-  async function handleSubmit(values) {
+  function handleSubmit(values) {
     alert("Моля потвърдете, че желаете да промените Вашият SearchSet!");
     var searchSet = {};
     for (const valueName of Object.keys(values)) {
@@ -74,12 +77,12 @@ const EditForm = ({ searchSetId }) => {
         searchSet[`${valueName}`] =
           values[valueName] === true || values[valueName] === "on" ? "on" : "";
       } else {
-        searchSet[`${valueName}`] = (String)(values[valueName]);
+        searchSet[`${valueName}`] = String(values[valueName]);
       }
     }
 
     // submitProps.setSubmitting(false);
-    await searchSetService.edit(token, searchSetId, { ...searchSet });
+    searchSetService.edit(token, searchSetId, { ...searchSet });
     history.push(`/searchsets/${searchSetId}`);
     return null;
   }
@@ -88,6 +91,7 @@ const EditForm = ({ searchSetId }) => {
     <FormView
       form={FormHeadingsAndSubmitButton.editForm}
       searchSet={searchSet}
+      theme={theme}
       handleSubmit={handleSubmit}
     />
   );

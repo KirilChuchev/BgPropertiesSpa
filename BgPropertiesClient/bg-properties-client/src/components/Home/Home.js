@@ -8,11 +8,6 @@ import authService from "../../services/authService";
 import userService from "../../services/userService";
 import { themeStyleSelector } from "../../utils/themeStyleSelector";
 
-import {
-  themeStyleConsts,
-  themeStyleElementConsts,
-} from "../../constants/themeStyleConsts";
-
 import styles from "./Home.module.css";
 
 const Home = () => {
@@ -22,7 +17,6 @@ const Home = () => {
   let history = useHistory();
 
   const { theme, changeTheme } = useContext(ThemeContext);
-  console.log(theme);
 
   const [isLoading, setIsLoading] = useState(true);
   const [userDataInfo, setUserDataInfo] = useState({});
@@ -60,7 +54,7 @@ const Home = () => {
   return (
     // <section className={theme === "light" ? styles.sectionWrapper : styles.darkSectionWrapper}>
     // className={themeStyleSelector(theme, styles, styles.sectionWrapper)}
-    <section className={themeStyleSelector(theme, styles, styles.sectionWrapper)}>
+    <section>
       <article>
         {userClaims !== null && (
           <section className={styles.header}>
@@ -80,15 +74,21 @@ const Home = () => {
               />
               </section> */}
 
-            <section>
-              <label for="themeStyle">Изберете тема</label>
+            <article className={styles.selectArticle}>
+              <label htmlFor="themeStyle">Изберете тема</label>
 
-              <select onChange={(event) => changeTheme(event.target.value)} value={theme} name="themeStyle" id="themeStyle">
+              <select
+                onChange={(event) => changeTheme(event.target.value)}
+                value={theme}
+                name="themeStyle"
+                id="themeStyle"
+              >
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
                 <option value="red">Red</option>
+                <option value="blue">Blue</option>
               </select>
-            </section>
+            </article>
 
             <p>Здравейте, {userClaims.username}</p>
             <Link
@@ -111,7 +111,11 @@ const Home = () => {
       </article>
 
       {userClaims !== null && (
-        <section className={styles.sectionWrapper}>
+        <section className={themeStyleSelector(
+          theme,
+          styles,
+          styles.lightThemeSectionWrapper
+        )}>
           <article className={styles.headerLinksWrapper}>
             <Link
               to={
@@ -122,7 +126,7 @@ const Home = () => {
               className={`${styles.headerLink}`}
             >
               {userDataInfo.allSearchSetsByUser !== 0
-                ? `Вижте Вашите SearchSet-ве`
+                ? `Вижте Вашите SearchSet-ове`
                 : `Създайте Вашият първи SearchSet`}
             </Link>
           </article>
