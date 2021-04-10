@@ -37,9 +37,9 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
-        if (err.includes("Unauthorized") || err.includes("Forbidden")) {
-          userService.logout();
-        }
+        // if (err.includes("Unauthorized") || err.includes("Forbidden")) {
+        //   userService.logout();
+        // }
         console.log(err);
         let somethingWrong = err;
         setServerErrors((state) => ({ ...state, somethingWrong }));

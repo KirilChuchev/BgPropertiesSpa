@@ -174,7 +174,7 @@
                     allSearchSetsByUser = allSearchSetsByUserModels.Count,
                 };
 
-                return Ok(userData);
+                return new JsonResult(userData);
             }
             catch (Exception ex)
             {
