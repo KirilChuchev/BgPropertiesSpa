@@ -32,6 +32,7 @@ const Home = () => {
         .then(setUserDataInfo)
         .then(() => {
           setIsLoading(false);
+
           // if (Math.random() > 0.7) {
           //   throw new Error("Something went wrong!")
           // }
@@ -93,11 +94,11 @@ const Home = () => {
               </select>
             </article>
 
-            <p>Здравейте, {userClaims.username}</p>
+            <p>Здравейте, {userClaims?.username}</p>
             <Link
               to="/login"
               onClick={() => {
-                changeTheme("light")
+                changeTheme("light");
                 userService.logout();
               }}
             >
@@ -115,11 +116,13 @@ const Home = () => {
       </article>
 
       {userClaims !== null && (
-        <section className={themeStyleSelector(
-          theme,
-          styles,
-          styles.lightThemeSectionWrapper
-        )}>
+        <section
+          className={themeStyleSelector(
+            theme,
+            styles,
+            styles.lightThemeSectionWrapper
+          )}
+        >
           <article className={styles.headerLinksWrapper}>
             <Link
               to={

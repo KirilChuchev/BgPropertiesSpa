@@ -30,11 +30,11 @@ describe("LoginFormView component", () => {
     expect(screen.getByLabelText("Email").textContent).toBe("my@email.com");
     expect(screen.getByLabelText("Password").textContent).toBe("Aa!123");
 
+    // fireEvent.click(document.querySelector("input.submitButton"));
     // await waitFor(() => document.querySelector("input[name='email']"));
     // await waitFor(() => document.querySelector("input[name='password']"));
 
     // await waitFor(() => document.querySelector("input.submitButton"));
-    // fireEvent.click(document.querySelector("input.submitButton"));
 
   });
 });
